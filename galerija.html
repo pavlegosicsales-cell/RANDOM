@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Galerija — Random Tattoo Studio</title>
+  <meta name="description" content="Cela galerija radova Random Tattoo Studija, Beograd. Realizam, fine line, blackwork.">
+
+  <link rel="icon" href="assets/logo.png">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#glavni">Preskoči na sadržaj</a>
+
+  <!-- ============ NAV ============ -->
+  <header class="nav">
+    <div class="wrap nav__inner">
+      <a class="nav__logo" href="index.html" aria-label="Random Tattoo Studio — početna">
+        <img src="assets/logo.png" alt="" width="32" height="32">
+        <span>Random</span>
+      </a>
+      <nav class="nav__links" aria-label="Glavna navigacija">
+        <a class="nav__link" href="index.html#artisti">Artisti</a>
+        <a class="nav__link" href="galerija.html">Galerija</a>
+        <a class="nav__link" href="index.html#proces">Proces</a>
+        <a class="nav__link" href="index.html#o-studiju">O studiju</a>
+        <a class="btn btn-primary nav__cta" href="index.html#kontakt">Zakaži termin</a>
+      </nav>
+      <button class="nav__toggle" aria-label="Otvori meni" aria-expanded="false" aria-controls="nav-overlay">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <div class="nav-overlay" id="nav-overlay">
+    <button class="nav-overlay__close" aria-label="Zatvori meni">&times;</button>
+    <a href="index.html#artisti">Artisti</a>
+    <a href="galerija.html">Galerija</a>
+    <a href="index.html#proces">Proces</a>
+    <a href="index.html#o-studiju">O studiju</a>
+    <a href="index.html#kontakt">Kontakt</a>
+  </div>
+
+  <main id="glavni">
+    <!-- ============ GALERIJA ============ -->
+    <section class="section wrap" id="galerija">
+      <div class="section-head">
+        <span class="label">Galerija</span>
+        <h1>Radovi</h1>
+        <p class="lead">Bez filtera, bez ulepšavanja. Ovako izgleda kad zaraste.</p>
+      </div>
+
+      <div class="filters" role="group" aria-label="Filter radova">
+        <button class="filter active" data-filter="all" aria-pressed="true">Svi</button>
+        <button class="filter" data-filter="realizam" aria-pressed="false">Realizam</button>
+        <button class="filter" data-filter="fine-line" aria-pressed="false">Fine line</button>
+        <button class="filter" data-filter="blackwork" aria-pressed="false">Blackwork</button>
+      </div>
+
+      <div class="gallery-full">
+        <div class="masonry" data-gallery></div>
+        <p class="gallery-empty" hidden>Nema radova u ovoj kategoriji</p>
+      </div>
+    </section>
+  </main>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="footer">
+    <div class="footer__brand" aria-hidden="true">Random</div>
+    <div class="wrap">
+      <p class="footer__copy">© 2026 Random Tattoo Studio · Beograd.</p>
+    </div>
+  </footer>
+
+  <div class="bottom-blur" aria-hidden="true"><div></div><div></div><div></div><div></div><div></div><div></div></div>
+
+  <!-- ============ LIGHTBOX ============ -->
+  <div class="lightbox" role="dialog" aria-modal="true" aria-label="Pregled rada">
+    <button class="lightbox__close" aria-label="Zatvori">&times;</button>
+    <button class="lightbox__nav lightbox__prev" aria-label="Prethodni">&#8592;</button>
+    <img class="lightbox__img" src="" alt="">
+    <button class="lightbox__nav lightbox__next" aria-label="Sledeći">&#8594;</button>
+  </div>
+
+  <script src="vendor/lenis.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

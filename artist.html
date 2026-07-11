@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Umetnik — Random Tattoo Studio</title>
+  <meta name="description" content="Radovi umetnika Random Tattoo Studija, Beograd.">
+
+  <link rel="icon" href="assets/logo.png">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#glavni">Preskoči na sadržaj</a>
+
+  <!-- ============ NAV ============ -->
+  <header class="nav">
+    <div class="wrap nav__inner">
+      <a class="nav__logo" href="index.html" aria-label="Random Tattoo Studio — početna">
+        <img src="assets/logo.png" alt="" width="32" height="32">
+        <span>Random</span>
+      </a>
+      <nav class="nav__links" aria-label="Glavna navigacija">
+        <a class="nav__link" href="index.html#artisti">Artisti</a>
+        <a class="nav__link" href="galerija.html">Galerija</a>
+        <a class="nav__link" href="index.html#proces">Proces</a>
+        <a class="nav__link" href="index.html#o-studiju">O studiju</a>
+        <a class="btn btn-primary nav__cta" href="index.html#kontakt">Zakaži termin</a>
+      </nav>
+      <button class="nav__toggle" aria-label="Otvori meni" aria-expanded="false" aria-controls="nav-overlay">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <div class="nav-overlay" id="nav-overlay">
+    <button class="nav-overlay__close" aria-label="Zatvori meni">&times;</button>
+    <a href="index.html#artisti">Artisti</a>
+    <a href="galerija.html">Galerija</a>
+    <a href="index.html#proces">Proces</a>
+    <a href="index.html#o-studiju">O studiju</a>
+    <a href="index.html#kontakt">Kontakt</a>
+  </div>
+
+  <main id="glavni" data-artist-page>
+
+    <!-- ============ ARTIST HERO ============ -->
+    <section class="artist-hero wrap">
+      <span class="label">Artista · Random Tattoo Studio</span>
+      <h1 class="display" data-a-name>Umetnik</h1>
+      <p class="artist-hero__meta" data-a-style></p>
+      <p class="lead artist-hero__lead" data-a-lead></p>
+      <p class="artist-hero__desc text-ash" data-a-desc></p>
+      <div class="artist-hero__actions">
+        <a class="btn btn-primary" href="index.html#kontakt">Zakaži termin</a>
+        <a class="btn btn-secondary" data-a-ig href="#" target="_blank" rel="noopener">Instagram</a>
+      </div>
+      <div class="artist-portrait">
+        <img data-a-portrait src="" alt="" width="1440" height="1800">
+      </div>
+    </section>
+
+    <!-- ============ RADOVI ============ -->
+    <section class="section wrap">
+      <div class="section-head">
+        <span class="label">Radovi</span>
+        <h2>Izbor radova</h2>
+      </div>
+      <div class="gallery-full">
+        <div class="masonry" data-gallery></div>
+      </div>
+      <div class="gallery-cta">
+        <a class="btn btn-secondary" href="index.html#artisti">← Svi umetnici</a>
+      </div>
+    </section>
+  </main>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="footer">
+    <div class="footer__brand" aria-hidden="true">Random</div>
+    <div class="wrap">
+      <p class="footer__copy">© 2026 Random Tattoo Studio · Beograd.</p>
+    </div>
+  </footer>
+
+  <div class="bottom-blur" aria-hidden="true"><div></div><div></div><div></div><div></div><div></div><div></div></div>
+
+  <!-- ============ LIGHTBOX ============ -->
+  <div class="lightbox" role="dialog" aria-modal="true" aria-label="Pregled rada">
+    <button class="lightbox__close" aria-label="Zatvori">&times;</button>
+    <button class="lightbox__nav lightbox__prev" aria-label="Prethodni">&#8592;</button>
+    <img class="lightbox__img" src="" alt="">
+    <button class="lightbox__nav lightbox__next" aria-label="Sledeći">&#8594;</button>
+  </div>
+
+  <script src="vendor/lenis.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
