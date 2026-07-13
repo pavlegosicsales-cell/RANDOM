@@ -876,7 +876,7 @@
   // Suptilna plazma (WebGL). Bez ljubičaste: near-black bg + toplo siva linija.
   function initProcShader() {
     var canvas = $('[data-proces-shader]');
-    if (!canvas || reduceMotion || isMobile) return;     // reduce/telefon → bez shadera
+    if (!canvas || reduceMotion) return;
     var gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
     if (!gl) return;                                      // no WebGL → crna traka
 
@@ -1017,7 +1017,7 @@
       '  col.g-=fbm(uv*1.003+vec2(0,T*.015)+n+.003);',
       '  col.b-=fbm(uv*1.006+vec2(0,T*.015)+n+.006);',
       '  col=mix(col,u_color,dot(col,vec3(.21,.71,.07)));',
-      '  col=mix(vec3(0.0),col,min(time*.1,1.));',   // floor → crna (stapa se sa soot na niskom opacity)
+      '  col=mix(vec3(0.0),col,min(time*1.6,1.));',   // brz fade-in (puna snaga ~0.6s)
       '  col=clamp(col,0.0,1.);',
       '  O=vec4(col,1.0);',
       '}'
@@ -1053,11 +1053,13 @@
     resize();
     window.addEventListener('resize', resize);
 
-    var visible = true;
+    var visible = false, started = false, start = performance.now();
     if ('IntersectionObserver' in window) {
-      new IntersectionObserver(function (es) { visible = es[0].isIntersecting; }, { threshold: 0 }).observe(canvas);
-    }
-    var start = performance.now();
+      new IntersectionObserver(function (es) {
+        visible = es[0].isIntersecting;
+        if (visible && !started) { started = true; start = performance.now(); }  // fade kreće kad sekcija uđe
+      }, { threshold: 0 }).observe(canvas);
+    } else { visible = true; }
     function frame() {
       if (visible) {
         var t = (performance.now() - start) / 1000 * 1.6;   // malo brže kretanje

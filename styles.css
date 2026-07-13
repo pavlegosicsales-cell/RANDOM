@@ -449,7 +449,7 @@ strong { font-weight: 700; }
 /* Suptilna animirana smoke pozadina (Ember dim), pinovana i diskretna */
 #artisti { position: relative; isolation: isolate; }
 .artisti-bgwrap { position: absolute; z-index: -1; top: 0; bottom: 0; left: calc(50% - 50vw); width: 100vw; pointer-events: none; }
-.artisti-bg { position: sticky; top: 0; display: block; width: 100%; height: 100vh; opacity: 0.28;
+.artisti-bg { position: sticky; top: 0; display: block; width: 100%; height: 100vh; opacity: 0.42;
   -webkit-mask-image: radial-gradient(92% 62% at 50% 50%, #000 0%, rgba(0,0,0,0.45) 55%, transparent 86%);
   mask-image: radial-gradient(92% 62% at 50% 50%, #000 0%, rgba(0,0,0,0.45) 55%, transparent 86%); }
 .artist-rows { display: flex; flex-direction: column; gap: var(--section-gap); margin-top: var(--sp-8); }
@@ -825,14 +825,19 @@ html.lenis, html.lenis body { height: auto; }
   .artist-row__media,
   .artist-row--reverse .artist-row__media { order: -1; margin: 0 0 var(--sp-4) 0; height: clamp(360px, 60vh, 560px); }
 
-  /* Proces: bez slike i bez shader pozadine (na telefonu je nevidljiva/ružna) */
+  /* Proces: bez slike; niti (shader) OSTAJU, vidljivije i veće, pinovano-centrirano */
   .process__media { display: none; }
-  .proces-bgwrap { display: none; }
+  .proces-bg { opacity: 0.6;
+    -webkit-mask-image: radial-gradient(130% 78% at 50% 50%, #000 0%, rgba(0,0,0,0.6) 55%, transparent 96%);
+    mask-image: radial-gradient(130% 78% at 50% 50%, #000 0%, rgba(0,0,0,0.6) 55%, transparent 96%); }
 
-  /* Recenzije: naslov prvi, slika blizu naslova, kartice blizu slike */
-  .reviews__intro { order: -1; }
-  .reviews__top { gap: var(--sp-3); margin-top: var(--sp-4); }
-  #recenzije .review-row { margin-top: var(--sp-4); }
+  /* Recenzije redosled: tekst → recenzije → slika → dugmad */
+  #recenzije { display: flex; flex-direction: column; gap: var(--sp-4); }
+  .reviews__top, .reviews__intro { display: contents; }
+  .reviews__intro > .label, .reviews__intro > h2, .reviews__intro > .lead { order: 1; }
+  #recenzije .review-row { order: 2; margin-top: 0; }
+  .reviews__media { order: 3; }
+  .reviews__intro > .btn-row { order: 4; margin-top: var(--sp-2) !important; }
 
   /* Glatka scroll-saturacija (JS postavlja filter) */
   .work img, .artist-row__media img, .reviews__media img, .scroller__item img, .artist-portrait img { transition: filter 0.18s linear; }
