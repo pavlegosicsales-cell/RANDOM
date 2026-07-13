@@ -7,7 +7,7 @@
 /* ---------- RESET ---------------------------------------- */
 *, *::before, *::after { box-sizing: border-box; }
 * { margin: 0; }
-html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; overflow-x: clip; }
+html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; scroll-padding-top: 90px; overflow-x: clip; }
 body { min-height: 100vh; overflow-x: clip; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
 img, picture, svg { display: block; max-width: 100%; }
 input, button, textarea, select { font: inherit; color: inherit; }
@@ -843,6 +843,29 @@ html.lenis, html.lenis body { height: auto; }
 
   /* Glatka scroll-saturacija (JS postavlja filter) */
   .work img, .artist-row__media img, .reviews__media img, .scroller__item img, .artist-portrait img { transition: filter 0.18s linear; }
+
+  /* ===== PERF: olakšavanje telefona ===== */
+  /* Artisti smoke — potpuno isključen */
+  .artisti-bgwrap { display: none; }
+  /* Reviews + forma ethereal — statična pozadina (bez skupog SVG displacement filtera) */
+  .reviews-bg__inner { filter: blur(9px) !important; }
+  .auth-card__ether-shape { filter: blur(7px) !important; }
+  /* Bez backdrop-filter blura (staklo) — skup na telefonu */
+  .nav.scrolled, .btn-secondary, .status, .label, .auth-card__inner, .auth-card__inner .field--auth input,
+  .auth-card__inner .field--auth textarea, .auth-card__inner .field--auth select {
+    -webkit-backdrop-filter: none !important; backdrop-filter: none !important;
+  }
+  /* Donji progresivni blur (6 backdrop slojeva) → jeftin gradijent */
+  .bottom-blur { height: 130px; }
+  .bottom-blur > div { display: none !important; }
+  .bottom-blur.show { background: linear-gradient(to top, var(--soot) 0%, rgba(14,11,10,0.7) 45%, transparent 100%); }
+  /* Footer: 1 slika umesto 5 (lakši paint) */
+  .footer__brand {
+    background-image: url('assets/footer-fill.png'), linear-gradient(var(--bone), var(--bone));
+    background-repeat: no-repeat, no-repeat;
+    background-position: center, center;
+    background-size: auto 100%, 100% 100%;
+  }
 }
 
 /* ---------- REDUCED MOTION ------------------------------- */

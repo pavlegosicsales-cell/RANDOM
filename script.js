@@ -856,7 +856,7 @@
 
   /* ---------- LENIS SMOOTH SCROLL ----------------------- */
   function initLenis() {
-    if (reduceMotion || typeof Lenis === 'undefined') return;
+    if (reduceMotion || isMobile || typeof Lenis === 'undefined') return;   // telefon → native skrol
     lenisInst = new Lenis({ duration: 1.05, smoothWheel: true });
     function raf(t) { lenisInst.raf(t); requestAnimationFrame(raf); }
     requestAnimationFrame(raf);
@@ -990,7 +990,7 @@
   // Suptilan animirani dim, tintovan u našu Ember boju. Diskretno (opacity + maska).
   function initArtistiShader() {
     var canvas = $('[data-artisti-shader]');
-    if (!canvas || reduceMotion) return;                 // reduce → čist soot
+    if (!canvas || reduceMotion || isMobile) return;     // reduce/telefon → čist soot (perf)
     var gl = canvas.getContext('webgl2');
     if (!gl) return;                                      // treba WebGL2 → fallback soot
 
@@ -1081,7 +1081,7 @@
   // Uvijanje mekog bloba: rotiramo hue turbulencije koja hrani displacement.
   function initReviewsShadow() {
     var hue = $('[data-ethereal-hue]');
-    if (!hue || reduceMotion) return;                    // reduce → statičan blob (CSS)
+    if (!hue || reduceMotion || isMobile) return;        // reduce/telefon → statična pozadina (perf)
     var bg = $('.reviews-bg');
     var visible = true;
     if (bg && 'IntersectionObserver' in window) {
@@ -1118,7 +1118,13 @@
         img.style.filter = 'grayscale(' + g.toFixed(3) + ') brightness(' + (0.9 + 0.1 * (1 - g)).toFixed(3) + ')';
       });
     }
-    function onScroll() { if (!ticking) { ticking = true; requestAnimationFrame(update); } }
+    var lastT = 0;
+    function onScroll() {
+      var now = performance.now();
+      if (now - lastT < 120) return;                     // throttle ~8fps (CSS tranzicija izgladi)
+      lastT = now;
+      if (!ticking) { ticking = true; requestAnimationFrame(update); }
+    }
     update();
     window.addEventListener('scroll', onScroll, { passive: true });
     window.addEventListener('resize', onScroll);
