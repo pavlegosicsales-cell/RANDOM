@@ -500,14 +500,17 @@ html.lenis, html.lenis body { height: auto; }
 
 /* ---------- ETHEREAL ZONA (Ovo ostaje zauvek + Recenzije + brojke) --------- */
 /* Ethereal shadow pozadina — meki blob (Ember) uvijan SVG displacement filterom */
-.ethereal-zone { position: relative; isolation: isolate; margin-top: var(--section-gap); padding-block: clamp(64px, 9vh, 104px); }
+/* Cela zona je iscepana clip-path-om (kao 20/44 .torn-top): nazubljeni Ember rub
+   seče DIREKTNO u susedne (soot) sekcije — nema zasebnog benda, nema crnog jaza. */
+.ethereal-zone {
+  position: relative; isolation: isolate;
+  margin-top: clamp(28px, 4vh, 60px);
+  padding-block: clamp(70px, 10vh, 120px);
+  clip-path: polygon(0% 39.7px, 2.27% 34.4px, 4.55% 22.2px, 6.82% 23px, 9.09% 24.4px, 11.36% 27.9px, 13.64% 22.6px, 15.91% 11.5px, 18.18% 10.4px, 20.45% 27.7px, 22.73% 20.1px, 25% 40.9px, 27.27% 23.1px, 29.55% 26.1px, 31.82% 21.6px, 34.09% 43.1px, 36.36% 24.1px, 38.64% 28.5px, 40.91% 35.3px, 43.18% 28.8px, 45.45% 58.8px, 47.73% 28.6px, 50% 33.7px, 52.27% 20.9px, 54.55% 6.7px, 56.82% 13.3px, 59.09% 29.4px, 61.36% 26.9px, 63.64% 28.5px, 65.91% 7px, 68.18% 29.3px, 70.45% 55.5px, 72.73% 26.1px, 75% 39.7px, 77.27% 7.2px, 79.55% 35.7px, 81.82% 12.3px, 84.09% 36.9px, 86.36% 41.6px, 88.64% 43.1px, 90.91% 33.4px, 93.18% 56.7px, 95.45% 28.5px, 97.73% 12.6px, 100% 9.5px, 100% calc(100% - 9.5px), 97.73% calc(100% - 12.6px), 95.45% calc(100% - 28.5px), 93.18% calc(100% - 56.7px), 90.91% calc(100% - 33.4px), 88.64% calc(100% - 43.1px), 86.36% calc(100% - 41.6px), 84.09% calc(100% - 36.9px), 81.82% calc(100% - 12.3px), 79.55% calc(100% - 35.7px), 77.27% calc(100% - 7.2px), 75% calc(100% - 39.7px), 72.73% calc(100% - 26.1px), 70.45% calc(100% - 55.5px), 68.18% calc(100% - 29.3px), 65.91% calc(100% - 7px), 63.64% calc(100% - 28.5px), 61.36% calc(100% - 26.9px), 59.09% calc(100% - 29.4px), 56.82% calc(100% - 13.3px), 54.55% calc(100% - 6.7px), 52.27% calc(100% - 20.9px), 50% calc(100% - 33.7px), 47.73% calc(100% - 28.6px), 45.45% calc(100% - 58.8px), 43.18% calc(100% - 28.8px), 40.91% calc(100% - 35.3px), 38.64% calc(100% - 28.5px), 36.36% calc(100% - 24.1px), 34.09% calc(100% - 43.1px), 31.82% calc(100% - 21.6px), 29.55% calc(100% - 26.1px), 27.27% calc(100% - 23.1px), 25% calc(100% - 40.9px), 22.73% calc(100% - 20.1px), 20.45% calc(100% - 27.7px), 18.18% calc(100% - 10.4px), 15.91% calc(100% - 11.5px), 13.64% calc(100% - 22.6px), 11.36% calc(100% - 27.9px), 9.09% calc(100% - 24.4px), 6.82% calc(100% - 23px), 4.55% calc(100% - 22.2px), 2.27% calc(100% - 34.4px), 0% calc(100% - 39.7px));
+}
 .ethereal-zone > .assemble-stage { margin-top: 0; }   /* zona vodi razmak na vrhu */
 .ethereal-zone > .section:last-child { margin-bottom: 0; }
-/* Iscepani (torn) divideri na vrhu i dnu — filovani soot-om (preuzeto sa 20/44) */
-.torn { position: absolute; left: calc(50% - 50vw); width: 100vw; height: 54px; z-index: 1; pointer-events: none; display: block; color: var(--soot); }
-.torn--top { top: 0; transform: scaleY(-1); }
-.torn--bottom { bottom: 0; }
-@media (min-width: 712px) { .torn { height: 92px; } }
+.ethereal-zone + .section { margin-top: clamp(28px, 4vh, 60px); }   /* mali razmak do FAQ (bez velikog crnog jaza) */
 .reviews-bg { position: absolute; z-index: -1; top: 0; bottom: 0; left: calc(50% - 50vw); width: 100vw; overflow: hidden; pointer-events: none; opacity: 0.85; }
 /* Jaka Ember baza preko cele zone + puno crveno uz same ivice — torn uvek seče u svetlo
    crveno (nema tamne trake / crnog jaza između torn-a i oblaka), bez obzira na hue oblaka */
