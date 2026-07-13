@@ -14,15 +14,18 @@
 <body>
   <a class="skip-link" href="#glavni">Preskoči na sadržaj</a>
 
+  <!-- Goo filter za ink kursor -->
+  <svg class="goo-defs" aria-hidden="true"><defs><filter id="goo"><feGaussianBlur in="SourceGraphic" stdDeviation="6" result="blur"/><feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 35 -15" result="goo"/><feComposite in="SourceGraphic" in2="goo" operator="atop"/></filter></defs></svg>
+  <div id="ink-cursor" class="ink-cursor" aria-hidden="true"></div>
+
   <!-- ============ NAV ============ -->
   <header class="nav">
-    <div class="wrap wrap-wide nav__inner">
+    <div class="wrap nav__inner">
       <div class="nav__brand">
         <a class="nav__logo" href="index.html" aria-label="Random Tattoo Studio — početna">
           <img src="assets/logo.png" alt="" width="30" height="30">
           <span>Random</span>
         </a>
-        <span class="nav__clock" id="clock" aria-hidden="true">Beograd</span>
       </div>
       <nav class="nav__links" aria-label="Glavna navigacija">
         <a class="nav__link" href="#galerija">Galerija</a>
@@ -51,21 +54,27 @@
   <main id="glavni">
 
     <!-- ============ HERO ============ -->
-    <section class="hero wrap">
-      <div class="hero__bg" style="background-image:url('assets/artists/lemson.jpg')" aria-hidden="true"></div>
-      <span class="status hero__status">
-        <span class="status__dot" aria-hidden="true"></span>
-        Primamo nove klijente
-      </span>
-      <h1 class="display hero__title">
-        <span>Tri umetnika.</span>
-        <span>Tri stila.</span>
-        <span>Jedan standard.</span>
-      </h1>
-      <p class="lead hero__lead">Realizam, fine line, blackwork. Kod nas ne biraš samo tetovažu — biraš čoveka koji će je uraditi.</p>
-      <div class="btn-row center">
-        <a class="btn btn-primary" href="#kontakt">Zakaži termin</a>
-        <a class="btn btn-secondary" href="#galerija">Pogledaj radove</a>
+    <section class="hero">
+      <div class="hero__bg" style="background-image:url('assets/random-hero.jpg')" aria-hidden="true"></div>
+      <div class="wrap hero__inner">
+        <span class="status hero__status">
+          <span class="status__dot" aria-hidden="true"></span>
+          Primamo nove klijente
+        </span>
+        <h1 class="display hero__title" data-blur>
+          <span>Tri umetnika.</span>
+          <span>Tri stila.</span>
+          <span>Jedan standard.</span>
+        </h1>
+        <p class="lead hero__lead" data-blur>Realizam, fine line, blackwork. Kod nas ne biraš samo tetovažu — biraš čoveka koji će je uraditi.</p>
+        <div class="btn-row center">
+          <a class="btn btn-primary" href="#kontakt">Zakaži termin</a>
+          <a class="btn btn-secondary" href="#galerija">Pogledaj radove</a>
+        </div>
+      </div>
+      <div class="hero__badge">
+        <div class="circular-text" data-circular-text="RANDOM * TATTOO * STUDIO * "></div>
+        <img class="hero__badge-mark" src="assets/logo.png" alt="" width="56" height="56" aria-hidden="true">
       </div>
       <div class="hero__scroll" aria-hidden="true"></div>
     </section>
@@ -96,6 +105,7 @@
 
     <!-- ============ ARTISTI ============ -->
     <section class="section" id="artisti">
+      <div class="artisti-bgwrap" aria-hidden="true"><canvas class="artisti-bg" data-artisti-shader></canvas></div>
       <div class="wrap section-head reveal">
         <span class="label">/ Artisti</span>
         <h2>Biraš čoveka, ne samo motiv</h2>
@@ -117,7 +127,7 @@
             <a class="artist-row__link" href="artist.html?id=lemson">Pogledaj radove →</a>
           </div>
           <div class="artist-row__media">
-            <img src="assets/artists/lemson.jpg" alt="Portret umetnika Mr Lemson" width="1440" height="1800" loading="lazy">
+            <img src="assets/artists/lemson.jpg" alt="Portret umetnika Mr Lemson" width="1440" height="1800" loading="lazy" style="object-position: 50% 12%;">
           </div>
         </article>
 
@@ -172,9 +182,10 @@
 
     <!-- ============ PROCES ============ -->
     <section class="section wrap" id="proces">
+      <div class="proces-bgwrap" aria-hidden="true"><canvas class="proces-bg" data-proces-shader></canvas></div>
       <div class="section-head reveal">
         <span class="label">/ Proces</span>
-        <h2>Kako to ide</h2>
+        <h2>Proces</h2>
         <p class="lead">Bez iznenađenja. Evo tačno šta te čeka od prve poruke do zarastanja.</p>
       </div>
       <div class="process__grid">
@@ -184,8 +195,8 @@
         <div class="steps">
           <article class="step reveal">
             <div class="step__top">
-              <span class="step__num">[ 01 ]</span>
-              <span class="step__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6"/><path d="M10 21h4"/><path d="M12 3a6 6 0 0 0-4 10.5c.55.55 1 1.4 1 2.5h6c0-1.1.45-1.95 1-2.5A6 6 0 0 0 12 3Z"/></svg></span>
+              <span class="step__num">01</span>
+              <span class="step__icon" aria-hidden="true"><svg viewBox="0 0 512 512" fill="currentColor"><path d="M281.31 21.217L239.997 127.13l76.01 103.673l97.135-7.532l-3.1-79.284l-78.2-12.468l-1.61 41.535l29.11 7.568l-.766-14.1l18.662-1.012l2.15 39.635l-68.41-17.788l3.004-77.61l68.65 10.946l-2.456-86.044l-98.863-13.43zM243.63 66.39l-73.702 39.917L195.885 243.7l141.306 80.704l154.447-80.037l-11.252-142.205l-79.617-.988l.642 22.512l26.705 4.257l4.403 112.57l-125.436 9.727l-88.227-120.338l24.774-63.51zm-93.107 88.706q-4.488-.025-9.054.06c-9.456.174-19.425.853-29.44 1.594c9.427 13.32 18.694 26.165 30.157 35.938c7.894 6.73 16.835 12.308 28.075 16.056l-10.1-53.453q-4.775-.166-9.64-.194zm25.57 84.51c-14.278 5.27-27.16 13.25-39.437 23.55c-17.875 14.995-34.273 35.22-50.625 58.47c56.9 2.6 100.16-6.41 147.316-35.01l-54.223-30.966l-3.03-16.045zm270.854 48.968l-50.64 26.244c27.874 20.83 54.865 27.206 90.162 28.557c-8.76-21.213-22.617-39.484-39.523-54.8zm-189.853 4.895c-14.566 9.75-28.84 17.8-43.156 24.342c.37 10.843 2.813 19.703 6.968 26.47c-29.49 37.69-61.714 72.017-96.78 102.843c-17.584-1.215-24.577-19.137-17.845-37.344c-22.758 18.074-30.427 42.166-20 68.376a716 716 0 0 1-20.78 15.344h45.344c25.65-20.11 49.915-41.82 72.844-65.094c29.485 9.192 54.05-1.51 69.625-27.97c-14.975 8.052-31.217 5.627-37.438-6.686a803 803 0 0 0 28.156-34.125c7.25 1.21 15.586.57 24.72-2.03c-8.863-17.974-13.326-39.19-11.656-64.126zm18.133 17.065c1.205 25.213 10.463 44.01 24.648 60.12c17.914 20.346 44.73 35.942 73.625 50.814c7.79-33.575 9.555-62.664-2.05-93.77l-34.692 17.978z"/></svg></span>
             </div>
             <h3 class="step__title">Reci šta hoćeš</h3>
             <p class="step__desc">Piši nam na Instagram ili svrati. Ne moraš da imaš gotovu ideju — dovoljno je da znaš otprilike šta te vuče. Zajedno ćemo iskristalisati.</p>
@@ -197,8 +208,8 @@
           </article>
           <article class="step reveal">
             <div class="step__top">
-              <span class="step__num">[ 02 ]</span>
-              <span class="step__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4.5" width="18" height="16" rx="1"/><path d="M3 9h18M8 3v3M16 3v3"/><path d="m8.5 14 2.2 2.2L15.5 12"/></svg></span>
+              <span class="step__num">02</span>
+              <span class="step__icon" aria-hidden="true"><svg viewBox="0 0 512 512" fill="currentColor"><path d="M496.938 14.063c-95.14 3.496-172.297 24.08-231.282 55.812l-29.47 49.28l-4.967-28.093c-10.535 7.402-20.314 15.222-29.314 23.407l-14.687 45.06l-5.032-25.155c-40.65 45.507-60.41 99.864-58.938 155.906c47.273-93.667 132.404-172.727 211.97-221.155l9.717 15.97c-75.312 45.838-156.387 121.202-202.187 208.25h12.156c19.78-12.02 39.16-26.858 58.406-43.44l-30.28 1.595l54.218-23.094c46.875-43.637 93.465-94.974 143.313-138.28l-24.47-5.19l56.5-21.03c26.853-20.485 54.8-37.844 84.344-49.843zM59.53 312.03v30.408H194V312.03zm20.376 49.095L47.25 389.813L24.97 474.78l14.53 15.876h177.22l14.56-15.875L209 389.814l-30.906-28.688H79.906z"/></svg></span>
             </div>
             <h3 class="step__title">Zakaži termin</h3>
             <p class="step__desc">Kad se složimo oko dizajna, rezervišemo ti datum. Kapara potvrđuje termin i odbija se od konačne cene.</p>
@@ -210,8 +221,8 @@
           </article>
           <article class="step reveal">
             <div class="step__top">
-              <span class="step__num">[ 03 ]</span>
-              <span class="step__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.2 2"/></svg></span>
+              <span class="step__num">03</span>
+              <span class="step__icon" aria-hidden="true"><svg viewBox="0 0 15 15" fill="currentColor"><path d="M8.55 2.03a3.006 3.006 0 0 1 4.19-.67c.23.17.28.48.11.7c-.16.23-.47.28-.69.11c-.9-.65-2.15-.45-2.8.45l5.26 3.82c.22.16.27.47.11.69c-.16.23-.47.28-.7.12l-.4-.3l-1.77 2.43l-.4-.3l-.59.81l.81.59c.22.16.27.48.11.7s-.47.27-.7.11L5.84 7.47l-.59.81l.4.29a.5.5 0 0 1 .11.7l-2.35 3.24c-.16.22-.47.27-.7.11l-.4-.3l-.59.81l-1.58 1.33l.77-1.91l.59-.81l-.41-.3a.506.506 0 0 1-.11-.7l2.36-3.23c.16-.23.47-.27.69-.11l.41.29l.59-.81l-1.62-1.17l-.3.4c-.16.22-.47.27-.69.11l-.81-.59a.48.48 0 0 1-.11-.69l1.17-1.62a.49.49 0 0 1 .7-.11l.81.58c.22.17.27.48.11.7L4 4.9l1.61 1.17l2.36-3.23l-.41-.3a.506.506 0 0 1-.11-.7c.16-.22.47-.27.7-.11zm.22 1.39L6.42 6.66l1.22.88l.58-.81l-.4-.29l1.76-2.43zm3.24 2.36l-.81-.59l-1.76 2.43l-.41-.3l-.58.81l1.61 1.18l.59-.81l-.4-.3z"/></svg></span>
             </div>
             <h3 class="step__title">Dan tetoviranja</h3>
             <p class="step__desc">Dođi naspavan i najeden. Ostalo je na nama. Radimo koliko treba, ne koliko je zakazano — ako nešto ne izgleda kako treba, ne ide dalje.</p>
@@ -229,7 +240,10 @@
     <section class="section wrap" id="o-studiju">
       <div class="section-head reveal">
         <span class="label">/ O studiju</span>
-        <h2>Nismo za svakoga i to je poenta</h2>
+        <h2 class="assemble-head" data-assemble>
+          <span class="assemble-line" data-assemble-text>Nismo za svakoga</span>
+          <span class="assemble-line" data-assemble-text>i to je poenta</span>
+        </h2>
       </div>
       <div class="about__body reveal">
         <p>Random je studio, ali radovi nisu „studijski". Svako od nas ima svoj rukopis i to namerno ne uniformišemo — nema smisla da svi radimo isto.</p>
@@ -237,6 +251,22 @@
         <p>Jedina stvar oko koje ne popuštamo: ako mislimo da ideja neće dobro stajati ili neće lepo zarasti — reći ćemo ti. Radije ćemo izgubiti termin nego staviti loš rad na tebe.</p>
       </div>
     </section>
+
+    <!-- ============ ETHEREAL ZONA (Ovo ostaje zauvek + Recenzije + brojke) ======= -->
+    <div class="ethereal-zone">
+      <div class="reviews-bg" aria-hidden="true">
+        <svg class="reviews-bg__svg" width="0" height="0"><defs>
+          <filter id="ethereal-shadow" x="-35%" y="-35%" width="170%" height="170%" color-interpolation-filters="sRGB">
+            <feTurbulence type="turbulence" baseFrequency="0.0006 0.0018" numOctaves="2" seed="0" result="noise"/>
+            <feColorMatrix in="noise" type="hueRotate" values="0" result="rot" data-ethereal-hue/>
+            <feDisplacementMap in="SourceGraphic" in2="rot" scale="90" xChannelSelector="R" yChannelSelector="G"/>
+          </filter>
+        </defs></svg>
+        <div class="reviews-bg__inner"><div class="reviews-bg__shape"></div></div>
+        <div class="reviews-bg__noise"></div>
+      </div>
+      <svg class="torn torn--top" viewBox="0 0 1000 100" preserveAspectRatio="none" aria-hidden="true"><path fill="currentColor" d="M0,100 L0,63.6 L0.0,63.6 L21.7,55.6 L43.5,37.3 L65.2,38.5 L87.0,40.7 L108.7,45.8 L130.4,37.9 L152.2,17.5 L173.9,15.7 L195.7,45.6 L217.4,34.2 L239.1,65.3 L260.9,38.7 L282.6,43.1 L304.3,36.5 L326.1,68.6 L347.8,40.2 L369.6,46.8 L391.3,56.9 L413.0,47.2 L434.8,87.8 L456.5,47 L478.3,54.6 L500.0,35.4 L521.7,9.3 L543.5,20.8 L565.2,48 L587.0,44.3 L608.7,46.8 L630.4,9.7 L652.2,47.9 L673.9,83.6 L695.7,43.1 L717.4,63.5 L739.1,10.2 L760.9,57.5 L782.6,19 L804.3,59.3 L826.1,66.4 L847.8,68.6 L869.6,54 L891.3,85.1 L913.0,46.8 L934.8,19.5 L956.5,14.1 L978.3,69.5 L1000.0,36.4 L1000,100 Z"/></svg>
+      <svg class="torn torn--bottom" viewBox="0 0 1000 100" preserveAspectRatio="none" aria-hidden="true"><path fill="currentColor" d="M0,100 L0,63.6 L0.0,63.6 L21.7,55.6 L43.5,37.3 L65.2,38.5 L87.0,40.7 L108.7,45.8 L130.4,37.9 L152.2,17.5 L173.9,15.7 L195.7,45.6 L217.4,34.2 L239.1,65.3 L260.9,38.7 L282.6,43.1 L304.3,36.5 L326.1,68.6 L347.8,40.2 L369.6,46.8 L391.3,56.9 L413.0,47.2 L434.8,87.8 L456.5,47 L478.3,54.6 L500.0,35.4 L521.7,9.3 L543.5,20.8 L565.2,48 L587.0,44.3 L608.7,46.8 L630.4,9.7 L652.2,47.9 L673.9,83.6 L695.7,43.1 L717.4,63.5 L739.1,10.2 L760.9,57.5 L782.6,19 L804.3,59.3 L826.1,66.4 L847.8,68.6 L869.6,54 L891.3,85.1 L913.0,46.8 L934.8,19.5 L956.5,14.1 L978.3,69.5 L1000.0,36.4 L1000,100 Z"/></svg>
 
     <!-- ============ STATEMENT (slova se sklapaju na skrol) ============ -->
     <section class="assemble-stage" data-assemble aria-label="Ovo ostaje zauvek">
@@ -302,6 +332,7 @@
         <div class="stat"><div class="stat__num" data-count="18" data-suffix="+">0</div><div class="stat__label">Bez izuzetaka</div></div>
       </div>
     </section>
+    </div><!-- /ethereal-zone -->
 
     <!-- ============ ČESTA PITANJA ============ -->
     <section class="section wrap" id="pitanja">
@@ -349,16 +380,6 @@
       </div>
     </section>
 
-    <!-- ============ INSTAGRAM ============ -->
-    <section class="section wrap wrap-wide" id="instagram">
-      <div class="section-head reveal">
-        <span class="label">/ Instagram</span>
-        <h2>Prati nas</h2>
-        <p class="lead">Najnoviji radovi sve tri stolice — svež mastilo, svaki dan.</p>
-      </div>
-      <div class="ig-grid reveal" data-ig></div>
-    </section>
-
     <!-- ============ KONTAKT ============ -->
     <section class="section wrap" id="kontakt">
       <div class="section-head reveal">
@@ -374,6 +395,7 @@
             <span class="dot dot--tl"></span><span class="dot dot--tr"></span><span class="dot dot--br"></span><span class="dot dot--bl"></span>
           </div>
           <div class="auth-card__inner">
+            <div class="auth-card__ether" aria-hidden="true"><div class="auth-card__ether-shape"></div></div>
             <div class="auth-card__head">
               <div class="auth-card__logo"><img src="assets/logo.png" alt="" width="24" height="24"></div>
               <h3 class="auth-card__title">Zakaži termin</h3>
@@ -474,7 +496,10 @@
           </ul>
         </div>
       </div>
-      <div class="footer__brand" aria-hidden="true">Random</div>
+      <div class="footer__wordmark">
+        <span class="footer__ghost" aria-hidden="true">Random</span>
+        <div class="footer__brand" aria-hidden="true">Random</div>
+      </div>
       <div class="footer__bottom">
         <span>© 2026 Random Tattoo Studio · Beograd</span>
         <a href="#glavni">Nazad na vrh ↑</a>

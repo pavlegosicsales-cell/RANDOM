@@ -115,6 +115,24 @@
     document.addEventListener('keydown', function (e) { if (e.key === 'Escape') shut(); });
   }
 
+  /* ---------- DONJI BLUR (samo tokom skrola) ------------- */
+  function initBottomBlur() {
+    var blur = $('.bottom-blur');
+    if (!blur) return;
+    var TOP = 80, BOTTOM = 40, ticking = false;
+    function update() {
+      ticking = false;
+      var y = window.scrollY || window.pageYOffset || 0;
+      var docH = document.documentElement.scrollHeight;
+      var atTop = y < TOP;                                   // hero u mirovanju
+      var atBottom = y + window.innerHeight >= docH - BOTTOM; // stiglo do footera
+      blur.classList.toggle('show', !atTop && !atBottom);
+    }
+    update();
+    window.addEventListener('scroll', function () { if (!ticking) { ticking = true; requestAnimationFrame(update); } }, { passive: true });
+    window.addEventListener('resize', update);
+  }
+
   /* ---------- SCROLL REVEAL ------------------------------ */
   function initReveal() {
     var els = $$('.reveal');
@@ -346,20 +364,6 @@
     }
   }
 
-  /* ---------- LIVE SAT (BEOGRAD) ------------------------- */
-  function initClock() {
-    var el = $('#clock');
-    if (!el) return;
-    function tick() {
-      var t = new Date().toLocaleTimeString('sr-RS', {
-        timeZone: 'Europe/Belgrade', hour: '2-digit', minute: '2-digit', hour12: false
-      });
-      el.textContent = 'Beograd ' + t;
-    }
-    tick();
-    window.setInterval(tick, 1000 * 30);
-  }
-
   /* ---------- MARQUEE (Ticker auto-scroll) -------------- */
   function makeMarquee(el, seconds) {
     if (reduceMotion || !el) return;
@@ -402,29 +406,7 @@
 
   /* ---------- RECENZIJE → marquee ----------------------- */
   function initReviewsMarquee() {
-    makeMarquee($('.review-row'), 55);
-  }
-
-  /* ---------- INSTAGRAM GRID ----------------------------- */
-  function initIG() {
-    var grid = $('[data-ig]');
-    if (!grid) return;
-    // 12 kvadrata, izmešani radovi
-    WORKS.slice(0, 12).forEach(function (it) {
-      var fig = document.createElement('figure');
-      fig.className = 'ig-item';
-      var img = document.createElement('img');
-      img.src = it.src; img.alt = it.alt; img.loading = 'lazy';
-      fig.appendChild(img);
-      grid.appendChild(fig);
-    });
-    grid.addEventListener('click', function (e) {
-      var fig = e.target.closest('.ig-item');
-      if (!fig) return;
-      var items = $$('.ig-item', grid);
-      var list = items.map(function (w) { var i = $('img', w); return { src: i.src, alt: i.alt }; });
-      openLb(list, items.indexOf(fig));
-    });
+    makeMarquee($('.review-row'), 36);
   }
 
   /* ---------- KRUŽNA 3D GALERIJA (pin-scroll rotacija) -- */
@@ -448,6 +430,10 @@
       nodes.push({ el: fig, img: img, angle: i * anglePer });
     });
     var bar = $('[data-hprogress]');
+    // Dugme + progress liniju premesti na <body> da budu iznad donjeg blura
+    var cta = $('.circular-cta'), prog = $('.circular-progress');
+    if (cta) { document.body.appendChild(cta); cta.classList.add('circular-cta--fixed'); }
+    if (prog) { document.body.appendChild(prog); prog.classList.add('circular-progress--fixed'); }
     var ticking = false;
     function update() {
       ticking = false;
@@ -458,6 +444,9 @@
       var rotation = progress * 360;
       ring.style.transform = 'rotateY(' + (-rotation) + 'deg)';   // radovi dolaze redom
       if (bar) bar.style.width = (progress * 100).toFixed(1) + '%';
+      var pinned = -top > 0 && -top < total;                      // vidljivi samo dok galerija drži ekran
+      if (cta) cta.classList.toggle('show', pinned);
+      if (prog) prog.classList.toggle('show', pinned);
       nodes.forEach(function (n) {
         var rel = (n.angle - rotation) % 360; if (rel < 0) rel += 360;
         var norm = rel > 180 ? 360 - rel : rel;          // 0 = ispred (u fokusu)
@@ -481,42 +470,57 @@
   }
 
   /* ---------- SCROLL-ASSEMBLE (slova se sklapaju) -------- */
+  // Radi na svim [data-assemble] stage-ovima; svaki može imati više
+  // [data-assemble-text] linija (svaka se sklapa oko svog centra).
   function initAssemble() {
-    var stage = $('[data-assemble]'), textEl = $('[data-assemble-text]');
-    if (!stage || !textEl) return;
-    var raw = textEl.textContent;
-    textEl.textContent = '';
-    var chars = raw.split('');
-    var center = (chars.length - 1) / 2;
-    var spans = [];
-    chars.forEach(function (ch, i) {
-      var s = document.createElement('span');
-      if (ch === ' ') { s.className = 'sp'; s.innerHTML = '&nbsp;'; }
-      else s.textContent = ch;
-      var d = i - center;
-      s._d = d;
-      textEl.appendChild(s);
-      spans.push(s);
-    });
-    if (reduceMotion) return;                 // ostaje složeno
-    var ticking = false;
-    function update() {
-      ticking = false;
-      var total = stage.offsetHeight - window.innerHeight;
-      var top = stage.getBoundingClientRect().top;
-      var scrolled = Math.min(Math.max(-top, 0), total);
-      var progress = total > 0 ? scrolled / total : 0;
-      var inv = 1 - Math.min(1, progress / 0.5);   // složeno do progress 0.5
-      spans.forEach(function (s) {
-        var x = (s._d * 50 * inv).toFixed(1);
-        var rot = (s._d * 50 * inv).toFixed(1);
-        s.style.transform = 'translateX(' + x + 'px) rotateX(' + rot + 'deg)';
+    var stages = $$('[data-assemble]');
+    if (!stages.length) return;
+    stages.forEach(function (stage) {
+      var texts = $$('[data-assemble-text]', stage);
+      if (!texts.length) return;
+      var lines = texts.map(function (textEl) {
+        var raw = textEl.textContent;
+        textEl.textContent = '';
+        var chars = raw.split('');
+        var center = (chars.length - 1) / 2;
+        var spans = [];
+        chars.forEach(function (ch, i) {
+          var s = document.createElement('span');
+          if (ch === ' ') { s.className = 'sp'; s.innerHTML = '&nbsp;'; }
+          else s.textContent = ch;
+          s._d = i - center;
+          textEl.appendChild(s);
+          spans.push(s);
+        });
+        return spans;
       });
-    }
-    function onScroll() { if (!ticking) { ticking = true; requestAnimationFrame(update); } }
-    update();
-    window.addEventListener('scroll', onScroll, { passive: true });
-    window.addEventListener('resize', onScroll);
+      if (reduceMotion) return;                 // ostaje složeno
+      // Naslovi (manji) = nežno slaganje bez preokretanja; veliki statement = jače
+      var soft = stage.classList.contains('assemble-head');
+      var AMT = soft ? 14 : 50;                 // horizontalni razmak po slovu
+      var ROT = soft ? 6 : 50;                  // rotacija po slovu
+      var ticking = false;
+      function update() {
+        ticking = false;
+        var rect = stage.getBoundingClientRect();
+        var vh = window.innerHeight;
+        // 0 = tek ulazi odozdo, 0.5 = centriran, 1 = izlazi na vrh
+        var progress = (vh - rect.top) / (vh + rect.height);
+        progress = Math.max(0, Math.min(1, progress));
+        var inv = 1 - Math.min(1, progress / 0.5);   // složeno kad dođe do centra, pa ostaje
+        lines.forEach(function (spans) {
+          spans.forEach(function (s) {
+            var x = (s._d * AMT * inv).toFixed(1);
+            var rot = (s._d * ROT * inv).toFixed(1);
+            s.style.transform = 'translateX(' + x + 'px) rotateX(' + rot + 'deg)';
+          });
+        });
+      }
+      function onScroll() { if (!ticking) { ticking = true; requestAnimationFrame(update); } }
+      update();
+      window.addEventListener('scroll', onScroll, { passive: true });
+      window.addEventListener('resize', onScroll);
+    });
   }
 
   /* ---------- COUNT-UP STATISTIKA (od 0) ---------------- */
@@ -542,6 +546,221 @@
       es.forEach(function (e) { if (e.isIntersecting) { run(e.target); io.unobserve(e.target); } });
     }, { threshold: 0.4 });
     nums.forEach(function (n) { io.observe(n); });
+  }
+
+  /* ---------- KRUŽNI ROTIRAJUĆI TEKST -------------------- */
+  function initCircularText() {
+    var el = $('[data-circular-text]');
+    if (!el) return;
+    var letters = Array.prototype.slice.call(el.getAttribute('data-circular-text'));
+    var N = letters.length;
+    letters.forEach(function (ch, i) {
+      var s = document.createElement('span');
+      s.textContent = ch;
+      var deg = (360 / N) * i;
+      var f = Math.PI / N, off = (f * i).toFixed(2);
+      var t = 'rotateZ(' + deg.toFixed(2) + 'deg) translate3d(' + off + 'px,' + off + 'px,0)';
+      s.style.transform = t; s.style.webkitTransform = t;
+      el.appendChild(s);
+    });
+
+    // Rotacija vođena iz JS-a — menjanje CSS animation-duration na :hover
+    // pravi skok (browser preračuna poziciju), pa umesto toga ovde
+    // glatko lerp-ujemo brzinu ka cilju: nikad ne preskače.
+    var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduce) return;
+
+    var angle = 0;
+    var baseSpeed = 360 / 22;   // deg/s (isto kao stara 22s animacija)
+    var hoverSpeed = 360 / 6;   // deg/s (isto kao stari 6s hover)
+    var speed = baseSpeed;
+    var target = baseSpeed;
+    var hot = el.parentNode || el; // ceo badge = veća hover zona
+    hot.addEventListener('mouseenter', function () { target = hoverSpeed; });
+    hot.addEventListener('mouseleave', function () { target = baseSpeed; });
+
+    var last = null;
+    function frame(now) {
+      if (last === null) last = now;
+      var dt = (now - last) / 1000;
+      last = now;
+      speed += (target - speed) * Math.min(1, dt * 6); // glatko ubrzanje/usporenje
+      angle = (angle + speed * dt) % 360;
+      var t = 'rotate(' + angle.toFixed(3) + 'deg)';
+      el.style.transform = t; el.style.webkitTransform = t;
+      requestAnimationFrame(frame);
+    }
+    requestAnimationFrame(frame);
+  }
+
+  /* ---------- SCROLL REVEAL (reči izranjaju na skrol) --- */
+  function initScrollReveal() {
+    var els = $$('.about__body p, .artist-row__desc, .step__desc, .step__list li, .section-head .lead, .reviews__intro .lead');
+    if (!els.length) return;
+    var items = [];
+    els.forEach(function (el) {
+      var parts = el.textContent.split(/(\s+)/);
+      el.textContent = '';
+      var words = [];
+      parts.forEach(function (w) {
+        if (w.trim() === '') { el.appendChild(document.createTextNode(w)); return; }
+        var s = document.createElement('span'); s.className = 'reveal-word'; s.textContent = w;
+        el.appendChild(s); words.push(s);
+      });
+      items.push({ el: el, words: words });
+    });
+    var baseOpacity = 0.1, blurStrength = 8, baseRotation = 4, spread = 0.55;
+    if (reduceMotion) {
+      items.forEach(function (it) { it.el.style.transform = 'none'; it.words.forEach(function (w) { w.style.opacity = '1'; w.style.filter = 'none'; }); });
+      return;
+    }
+    var ticking = false;
+    function update() {
+      ticking = false;
+      var vh = window.innerHeight;
+      items.forEach(function (it) {
+        var r = it.el.getBoundingClientRect();
+        // napredak zavisi od visine elementa: dugački (O studiju) ostaju isti,
+        // kratki (bullet/lead) se završe ranije, na sredini ekrana
+        var p = (vh - r.top) / (vh * 0.62 + r.height); p = Math.max(0, Math.min(1, p));
+        it.el.style.transform = 'rotate(' + (baseRotation * (1 - p)).toFixed(2) + 'deg)';
+        var N = it.words.length;
+        it.words.forEach(function (w, i) {
+          var wp = (p - (i / N) * spread) / (1 - spread); wp = Math.max(0, Math.min(1, wp));
+          w.style.opacity = (baseOpacity + (1 - baseOpacity) * wp).toFixed(3);
+          w.style.filter = 'blur(' + (blurStrength * (1 - wp)).toFixed(2) + 'px)';
+        });
+      });
+    }
+    function onScroll() { if (!ticking) { ticking = true; requestAnimationFrame(update); } }
+    update();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+  }
+
+  /* ---------- BLUR APPEAR (hero) ------------------------ */
+  function initBlurReveal() {
+    var els = $$('[data-blur]');
+    if (!els.length) return;
+    var gi = 0, all = [];
+    els.forEach(function (el) {
+      var targets = el.children.length ? Array.prototype.slice.call(el.children) : [el];
+      targets.forEach(function (t) {
+        var parts = t.textContent.split(/(\s+)/);
+        t.textContent = '';
+        parts.forEach(function (w) {
+          if (w.trim() === '') { t.appendChild(document.createTextNode(w)); return; }
+          var s = document.createElement('span');
+          s.className = 'blur-word';
+          s.textContent = w;
+          s.style.setProperty('--bw', (10 + Math.floor(Math.random() * 8)) + 'px');
+          s.style.setProperty('--sc', (0.9 + Math.sin(gi * 0.2) * 0.05).toFixed(3));
+          s.style.setProperty('--bd', (2.0 + Math.cos(gi * 0.3) * 0.3).toFixed(2) + 's');
+          s.style.setProperty('--dl', (gi * 0.09).toFixed(2) + 's');
+          t.appendChild(s);
+          all.push(s); gi++;
+        });
+      });
+    });
+    if (reduceMotion) { all.forEach(function (s) { s.classList.add('in'); }); return; }
+    requestAnimationFrame(function () {
+      requestAnimationFrame(function () { all.forEach(function (s) { s.classList.add('in'); }); });
+    });
+  }
+
+  /* ---------- INK / GOO KURSOR -------------------------- */
+  function initInkCursor() {
+    var cursor = document.getElementById('ink-cursor');
+    if (!cursor || reduceMotion) return;
+    if (!window.matchMedia('(min-width: 1024px) and (pointer: fine)').matches) return;
+    var amount = 20, width = 26, sineDots = Math.floor(amount * 0.3), idleTimeout = 150;
+    var mouse = { x: window.innerWidth / 2 - width / 2, y: window.innerHeight / 2 - width / 2 };
+    var dots = [], idle = false, timeoutID;
+    for (var i = 0; i < amount; i++) {
+      var scale = 1 - 0.05 * i;
+      var el = document.createElement('span');
+      cursor.appendChild(el);
+      dots.push({ index: i, x: mouse.x, y: mouse.y, el: el, scale: scale, range: width / 2 - width / 2 * scale + 2, angleX: 0, angleY: 0, anglespeed: 0.05, lockX: 0, lockY: 0 });
+    }
+    function lock(d) { d.lockX = d.x; d.lockY = d.y; d.angleX = Math.PI * 2 * Math.random(); d.angleY = Math.PI * 2 * Math.random(); }
+    function goInactive() { idle = true; dots.forEach(lock); }
+    function resetIdle() { clearTimeout(timeoutID); idle = false; timeoutID = setTimeout(goInactive, idleTimeout); }
+    window.addEventListener('mousemove', function (e) { mouse.x = e.clientX - width / 2; mouse.y = e.clientY - width / 2; resetIdle(); });
+    function draw(d) {
+      if (!idle || d.index <= sineDots) {
+        d.el.style.transform = 'translate(' + d.x + 'px,' + d.y + 'px) scale(' + d.scale + ')';
+      } else {
+        d.angleX += d.anglespeed; d.angleY += d.anglespeed;
+        d.x = d.lockX + Math.sin(d.angleX) * d.range;
+        d.y = d.lockY + Math.sin(d.angleY) * d.range;
+        d.el.style.transform = 'translate(' + d.x + 'px,' + d.y + 'px) scale(' + d.scale + ')';
+      }
+    }
+    function render() {
+      var x = mouse.x, y = mouse.y;
+      dots.forEach(function (d, i) {
+        var next = dots[i + 1] || dots[0];
+        d.x = x; d.y = y; draw(d);
+        if (!idle || i <= sineDots) { x += (next.x - d.x) * 0.35; y += (next.y - d.y) * 0.35; }
+      });
+      requestAnimationFrame(render);
+    }
+    resetIdle();
+    render();
+  }
+
+  /* ---------- FRAME DUGMAD + scramble (otkucavanje) ----- */
+  function initButtons() {
+    var CORNERS = [['tl', 'M8 16v-8h8'], ['tr', 'M16 16v-8h-8'], ['br', 'M16 8v8h-8'], ['bl', 'M8 8v8h8']];
+    function cornerSVG(d) { return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="' + d + '"/></svg>'; }
+    var SC = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    $$('.btn').forEach(function (btn) {
+      if (btn.hasAttribute('data-fb')) return;
+      btn.setAttribute('data-fb', '1');
+      var isSubmit = btn.classList.contains('auth-card__submit');
+      var text = btn.textContent.replace(/[→←↑↓]/g, '').trim();
+      btn.textContent = '';
+      var label = document.createElement('span');
+      label.className = 'btn__label';
+      label.textContent = text;
+      btn.appendChild(label);
+      // strelica (sekundarno)
+      if (btn.classList.contains('btn-secondary')) {
+        var arrow = document.createElement('span');
+        arrow.className = 'btn__arrow'; arrow.setAttribute('aria-hidden', 'true');
+        arrow.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
+        btn.appendChild(arrow);
+      }
+      // ugaoni markeri (ne na submit — ima overflow hidden zbog shimmer-a)
+      if (!isSubmit) {
+        CORNERS.forEach(function (c) {
+          var s = document.createElement('span');
+          s.className = 'btn__corner btn__corner--' + c[0];
+          s.setAttribute('aria-hidden', 'true');
+          s.innerHTML = cornerSVG(c[1]);
+          btn.appendChild(s);
+        });
+      }
+      // scramble na hover — primarno/light dugme
+      if (!reduceMotion && (btn.classList.contains('btn-primary') || btn.classList.contains('btn-light')) && !isSubmit) {
+        var original = text;
+        btn.addEventListener('mouseenter', function () {
+          if (!label.style.minWidth) label.style.minWidth = label.offsetWidth + 'px';
+          var frame = 0;
+          clearInterval(label._t);
+          label._t = setInterval(function () {
+            var out = '';
+            for (var i = 0; i < original.length; i++) {
+              var ch = original[i];
+              out += (ch === ' ') ? ' ' : (i <= frame ? original[i] : SC[Math.floor(Math.random() * 26)]);
+            }
+            label.textContent = out;
+            frame += 0.5;
+            if (frame >= original.length) { label.textContent = original; clearInterval(label._t); }
+          }, 35);
+        });
+      }
+    });
   }
 
   /* ---------- 3D TILT (glass kontakt kartica) ----------- */
@@ -583,22 +802,255 @@
     });
   }
 
+  /* ---------- PROCES SHADER POZADINA -------------------- */
+  // Suptilna plazma (WebGL). Bez ljubičaste: near-black bg + toplo siva linija.
+  function initProcShader() {
+    var canvas = $('[data-proces-shader]');
+    if (!canvas || reduceMotion) return;                 // reduce → ostaje crna traka
+    var gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+    if (!gl) return;                                      // no WebGL → crna traka
+
+    var vs = 'attribute vec4 aVertexPosition;void main(){gl_Position=aVertexPosition;}';
+    var fs = [
+      'precision highp float;',
+      'uniform vec2 iResolution; uniform float iTime;',
+      'const float overallSpeed=0.2;',
+      'const float gridSmoothWidth=0.015;',
+      'const float scale=5.0;',
+      // toplo-siva linija umesto ljubičaste
+      'const vec4 lineColor=vec4(0.42,0.38,0.35,1.0);',
+      'const float minLineWidth=0.006; const float maxLineWidth=0.08;',
+      'const float lineSpeed=1.0*overallSpeed; const float lineAmplitude=1.0; const float lineFrequency=0.2;',
+      'const float warpSpeed=0.2*overallSpeed; const float warpFrequency=0.5; const float warpAmplitude=1.0;',
+      'const float offsetFrequency=0.5; const float offsetSpeed=1.33*overallSpeed;',
+      'const float minOffsetSpread=0.6; const float maxOffsetSpread=2.0;',
+      'const int linesPerGroup=9;',
+      '#define drawCircle(pos,radius,coord) smoothstep(radius+gridSmoothWidth,radius,length(coord-(pos)))',
+      '#define drawSmoothLine(pos,halfWidth,t) smoothstep(halfWidth,0.0,abs(pos-(t)))',
+      '#define drawCrispLine(pos,halfWidth,t) smoothstep(halfWidth+gridSmoothWidth,halfWidth,abs(pos-(t)))',
+      'float random(float t){return (cos(t)+cos(t*1.3+1.3)+cos(t*1.4+1.4))/3.0;}',
+      'float getPlasmaY(float x,float horizontalFade,float offset){return random(x*lineFrequency+iTime*lineSpeed)*horizontalFade*lineAmplitude+offset;}',
+      'void main(){',
+      '  vec2 fragCoord=gl_FragCoord.xy; vec4 fragColor;',
+      '  vec2 uv=fragCoord.xy/iResolution.xy;',
+      '  vec2 space=(fragCoord-iResolution.xy/2.0)/iResolution.x*2.0*scale;',
+      '  float horizontalFade=1.0-(cos(uv.x*6.28)*0.5+0.5);',
+      '  float verticalFade=1.0-(cos(uv.y*6.28)*0.5+0.5);',
+      '  space.y+=random(space.x*warpFrequency+iTime*warpSpeed)*warpAmplitude*(0.5+horizontalFade);',
+      '  space.x+=random(space.y*warpFrequency+iTime*warpSpeed+2.0)*warpAmplitude*horizontalFade;',
+      '  vec4 lines=vec4(0.0);',
+      // čista crna pozadina — da se canvas stopi sa #000 trakom (bez pomeranja boje na scroll)
+      '  vec4 bgColor1=vec4(0.0,0.0,0.0,1.0);',
+      '  vec4 bgColor2=vec4(0.0,0.0,0.0,1.0);',
+      '  for(int l=0;l<linesPerGroup;l++){',
+      '    float normalizedLineIndex=float(l)/float(linesPerGroup);',
+      '    float offsetTime=iTime*offsetSpeed;',
+      '    float offsetPosition=float(l)+space.x*offsetFrequency;',
+      '    float rand=random(offsetPosition+offsetTime)*0.5+0.5;',
+      '    float halfWidth=mix(minLineWidth,maxLineWidth,rand*horizontalFade)/2.0;',
+      '    float offset=random(offsetPosition+offsetTime*(1.0+normalizedLineIndex))*mix(minOffsetSpread,maxOffsetSpread,horizontalFade);',
+      '    float linePosition=getPlasmaY(space.x,horizontalFade,offset);',
+      '    float line=drawSmoothLine(linePosition,halfWidth,space.y)/2.0+drawCrispLine(linePosition,halfWidth*0.15,space.y);',
+      '    float circleX=mod(float(l)+iTime*lineSpeed,25.0)-12.0;',
+      '    vec2 circlePosition=vec2(circleX,getPlasmaY(circleX,horizontalFade,offset));',
+      '    float circle=drawCircle(circlePosition,0.01,space)*4.0;',
+      '    line=line+circle;',
+      '    lines+=line*lineColor*rand;',
+      '  }',
+      '  fragColor=mix(bgColor1,bgColor2,uv.x);',
+      '  fragColor*=verticalFade;',
+      '  fragColor.a=1.0;',
+      '  fragColor+=lines;',
+      '  gl_FragColor=fragColor;',
+      '}'
+    ].join('\n');
+
+    function compile(type, src) {
+      var s = gl.createShader(type); gl.shaderSource(s, src); gl.compileShader(s);
+      if (!gl.getShaderParameter(s, gl.COMPILE_STATUS)) { gl.deleteShader(s); return null; }
+      return s;
+    }
+    var vsh = compile(gl.VERTEX_SHADER, vs), fsh = compile(gl.FRAGMENT_SHADER, fs);
+    if (!vsh || !fsh) return;
+    var prog = gl.createProgram();
+    gl.attachShader(prog, vsh); gl.attachShader(prog, fsh); gl.linkProgram(prog);
+    if (!gl.getProgramParameter(prog, gl.LINK_STATUS)) return;
+
+    var buf = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1, 1,-1, -1,1, 1,1]), gl.STATIC_DRAW);
+    var aPos = gl.getAttribLocation(prog, 'aVertexPosition');
+    var uRes = gl.getUniformLocation(prog, 'iResolution');
+    var uTime = gl.getUniformLocation(prog, 'iTime');
+
+    function resize() {
+      var dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+      var w = canvas.clientWidth || canvas.offsetWidth || 1;
+      var h = canvas.clientHeight || canvas.offsetHeight || 1;
+      canvas.width = Math.max(1, Math.floor(w * dpr));
+      canvas.height = Math.max(1, Math.floor(h * dpr));
+      gl.viewport(0, 0, canvas.width, canvas.height);
+    }
+    resize();
+    window.addEventListener('resize', resize);
+
+    var visible = true;
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(function (es) { visible = es[0].isIntersecting; }, { threshold: 0 }).observe(canvas);
+    }
+    var start = performance.now();
+    function frame() {
+      if (visible) {
+        var t = (performance.now() - start) / 1000;
+        gl.clearColor(0, 0, 0, 1); gl.clear(gl.COLOR_BUFFER_BIT);
+        gl.useProgram(prog);
+        gl.uniform2f(uRes, canvas.width, canvas.height);
+        gl.uniform1f(uTime, t);
+        gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+        gl.vertexAttribPointer(aPos, 2, gl.FLOAT, false, 0, 0);
+        gl.enableVertexAttribArray(aPos);
+        gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+      }
+      requestAnimationFrame(frame);
+    }
+    requestAnimationFrame(frame);
+  }
+
+  /* ---------- ARTISTI SMOKE POZADINA (WebGL2) ----------- */
+  // Suptilan animirani dim, tintovan u našu Ember boju. Diskretno (opacity + maska).
+  function initArtistiShader() {
+    var canvas = $('[data-artisti-shader]');
+    if (!canvas || reduceMotion) return;                 // reduce → čist soot
+    var gl = canvas.getContext('webgl2');
+    if (!gl) return;                                      // treba WebGL2 → fallback soot
+
+    var vs = '#version 300 es\nprecision highp float;\nin vec4 position;\nvoid main(){gl_Position=position;}';
+    var fs = [
+      '#version 300 es',
+      'precision highp float;',
+      'out vec4 O;',
+      'uniform float time; uniform vec2 resolution; uniform vec3 u_color;',
+      '#define FC gl_FragCoord.xy',
+      '#define R resolution',
+      '#define T (time+660.)',
+      'float rnd(vec2 p){p=fract(p*vec2(12.9898,78.233));p+=dot(p,p+34.56);return fract(p.x*p.y);}',
+      'float noise(vec2 p){vec2 i=floor(p),f=fract(p),u=f*f*(3.-2.*f);return mix(mix(rnd(i),rnd(i+vec2(1,0)),u.x),mix(rnd(i+vec2(0,1)),rnd(i+1.),u.x),u.y);}',
+      'float fbm(vec2 p){float t=.0,a=1.;for(int i=0;i<5;i++){t+=a*noise(p);p*=mat2(1,-1.2,.2,1.2)*2.;a*=.5;}return t;}',
+      'void main(){',
+      '  vec2 uv=(FC-.5*R)/R.y;',
+      '  vec3 col=vec3(1);',
+      '  uv.x+=.25;',
+      '  uv*=vec2(2,1);',
+      '  float n=fbm(uv*.28-vec2(T*.01,0));',
+      '  n=noise(uv*3.+n*2.);',
+      '  col.r-=fbm(uv+vec2(0,T*.015)+n);',
+      '  col.g-=fbm(uv*1.003+vec2(0,T*.015)+n+.003);',
+      '  col.b-=fbm(uv*1.006+vec2(0,T*.015)+n+.006);',
+      '  col=mix(col,u_color,dot(col,vec3(.21,.71,.07)));',
+      '  col=mix(vec3(0.0),col,min(time*.1,1.));',   // floor → crna (stapa se sa soot na niskom opacity)
+      '  col=clamp(col,0.0,1.);',
+      '  O=vec4(col,1.0);',
+      '}'
+    ].join('\n');
+
+    function compile(type, src) {
+      var s = gl.createShader(type); gl.shaderSource(s, src); gl.compileShader(s);
+      if (!gl.getShaderParameter(s, gl.COMPILE_STATUS)) { gl.deleteShader(s); return null; }
+      return s;
+    }
+    var vsh = compile(gl.VERTEX_SHADER, vs), fsh = compile(gl.FRAGMENT_SHADER, fs);
+    if (!vsh || !fsh) return;
+    var prog = gl.createProgram();
+    gl.attachShader(prog, vsh); gl.attachShader(prog, fsh); gl.linkProgram(prog);
+    if (!gl.getProgramParameter(prog, gl.LINK_STATUS)) return;
+
+    var buf = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,1, -1,-1, 1,1, 1,-1]), gl.STATIC_DRAW);
+    var aPos = gl.getAttribLocation(prog, 'position');
+    var uRes = gl.getUniformLocation(prog, 'resolution');
+    var uTime = gl.getUniformLocation(prog, 'time');
+    var uColor = gl.getUniformLocation(prog, 'u_color');
+    var color = [0.75, 0.22, 0.17];   // Ember (--ember #C0392B)
+
+    function resize() {
+      var dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+      var w = canvas.clientWidth || 1, h = canvas.clientHeight || 1;
+      canvas.width = Math.max(1, Math.floor(w * dpr));
+      canvas.height = Math.max(1, Math.floor(h * dpr));
+      gl.viewport(0, 0, canvas.width, canvas.height);
+    }
+    resize();
+    window.addEventListener('resize', resize);
+
+    var visible = true;
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(function (es) { visible = es[0].isIntersecting; }, { threshold: 0 }).observe(canvas);
+    }
+    var start = performance.now();
+    function frame() {
+      if (visible) {
+        var t = (performance.now() - start) / 1000 * 1.6;   // malo brže kretanje
+        gl.clearColor(0, 0, 0, 1); gl.clear(gl.COLOR_BUFFER_BIT);
+        gl.useProgram(prog);
+        gl.uniform2f(uRes, canvas.width, canvas.height);
+        gl.uniform1f(uTime, t);
+        gl.uniform3fv(uColor, color);
+        gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+        gl.vertexAttribPointer(aPos, 2, gl.FLOAT, false, 0, 0);
+        gl.enableVertexAttribArray(aPos);
+        gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+      }
+      requestAnimationFrame(frame);
+    }
+    requestAnimationFrame(frame);
+  }
+
+  /* ---------- RECENZIJE ETHEREAL SHADOW ----------------- */
+  // Uvijanje mekog bloba: rotiramo hue turbulencije koja hrani displacement.
+  function initReviewsShadow() {
+    var hue = $('[data-ethereal-hue]');
+    if (!hue || reduceMotion) return;                    // reduce → statičan blob (CSS)
+    var bg = $('.reviews-bg');
+    var visible = true;
+    if (bg && 'IntersectionObserver' in window) {
+      new IntersectionObserver(function (es) { visible = es[0].isIntersecting; }, { threshold: 0 }).observe(bg);
+    }
+    var start = performance.now(), LOOP = 12000, last = 0, FT = 1000 / 30;  // ~30fps, spor loop
+    function frame(now) {
+      if (visible && now - last >= FT) {
+        last = now;
+        var v = ((now - start) % LOOP) / LOOP * 360;
+        hue.setAttribute('values', v.toFixed(1));
+      }
+      requestAnimationFrame(frame);
+    }
+    requestAnimationFrame(frame);
+  }
+
   /* ---------- INIT --------------------------------------- */
   document.addEventListener('DOMContentLoaded', function () {
     ensureLightbox();
     initNav();
-    initClock();
     initGallery();
     initCircular();
     initScroller();
     initReviewsMarquee();
-    initIG();
     initArtistPage();
     initAccordion();
     initForm();
+    initButtons();
+    initBlurReveal();
+    initInkCursor();
     initTilt();
     initAssemble();
+    initScrollReveal();
+    initCircularText();
     initCount();
+    initBottomBlur();
+    initProcShader();
+    initArtistiShader();
+    initReviewsShadow();
     initLenis();
     initReveal(); // poslednji — nakon što je DOM napunjen galerijom
   });
