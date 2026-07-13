@@ -831,13 +831,15 @@ html.lenis, html.lenis body { height: auto; }
     -webkit-mask-image: radial-gradient(130% 78% at 50% 50%, #000 0%, rgba(0,0,0,0.6) 55%, transparent 96%);
     mask-image: radial-gradient(130% 78% at 50% 50%, #000 0%, rgba(0,0,0,0.6) 55%, transparent 96%); }
 
-  /* Recenzije redosled: tekst → recenzije → slika → dugmad */
-  #recenzije { display: flex; flex-direction: column; gap: var(--sp-4); }
+  /* Recenzije redosled: tekst → recenzije → slika → dugmad; pill ne stretch, tešnji razmaci */
+  #recenzije { display: flex; flex-direction: column; gap: 0; align-items: flex-start; }
   .reviews__top, .reviews__intro { display: contents; }
-  .reviews__intro > .label, .reviews__intro > h2, .reviews__intro > .lead { order: 1; }
-  #recenzije .review-row { order: 2; margin-top: 0; }
-  .reviews__media { order: 3; }
-  .reviews__intro > .btn-row { order: 4; margin-top: var(--sp-2) !important; }
+  .reviews__intro > .label { order: 1; margin: 0 0 var(--sp-3) 0; }
+  .reviews__intro > h2 { order: 1; margin: 0; }
+  .reviews__intro > .lead { order: 1; margin: var(--sp-2) 0 0 0; }
+  #recenzije .review-row { order: 2; width: 100%; margin-top: var(--sp-5); }
+  .reviews__media { order: 3; width: 100%; margin-top: var(--sp-4); }
+  .reviews__intro > .btn-row { order: 4; margin: var(--sp-4) 0 0 0 !important; }
 
   /* Glatka scroll-saturacija (JS postavlja filter) */
   .work img, .artist-row__media img, .reviews__media img, .scroller__item img, .artist-portrait img { transition: filter 0.18s linear; }
