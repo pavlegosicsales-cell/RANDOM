@@ -88,6 +88,7 @@
   var WORKS = interleave([worksFor('lemson'), worksFor('anja'), worksFor('enco')]);
 
   var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var isMobile = window.matchMedia('(max-width: 711px)').matches;
   var $ = function (s, c) { return (c || document).querySelector(s); };
   var $$ = function (s, c) { return Array.prototype.slice.call((c || document).querySelectorAll(s)); };
 
@@ -95,24 +96,93 @@
   function lenisStop() { if (lenisInst) lenisInst.stop(); }
   function lenisStart() { if (lenisInst) lenisInst.start(); }
 
-  /* ---------- NAV ---------------------------------------- */
+  /* ---------- NAV (scroll pozadina) ---------------------- */
   function initNav() {
     var nav = $('.nav');
-    if (nav) {
-      var onScroll = function () { nav.classList.toggle('scrolled', window.scrollY > 80); };
-      onScroll();
-      window.addEventListener('scroll', onScroll, { passive: true });
+    if (!nav) return;
+    var onScroll = function () { nav.classList.toggle('scrolled', window.scrollY > 80); };
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+  }
+
+  /* ---------- STAGGERED MOBILNI MENI (gsap) -------------- */
+  function initStaggeredMenu() {
+    var wrap = $('.sm'), toggle = $('.nav__toggle');
+    if (!wrap || !toggle) return;
+    var panel = $('.sm-panel', wrap);
+    var preLayers = $$('.sm-prelayer', wrap);
+    var position = wrap.getAttribute('data-position') || 'right';
+    var offscreen = position === 'left' ? -100 : 100;
+    var isOpen = false, busy = false, openTl = null, closeTween = null;
+
+    if (typeof gsap === 'undefined') {
+      // Fallback bez gsap-a: obično otvaranje/zatvaranje
+      toggle.addEventListener('click', function () {
+        isOpen = !isOpen;
+        wrap.classList.toggle('open', isOpen);
+        toggle.classList.toggle('is-open', isOpen);
+        document.body.classList.toggle('no-scroll', isOpen);
+        if (isOpen) lenisStop(); else lenisStart();
+      });
+      return;
     }
-    var toggle = $('.nav__toggle'),
-        overlay = $('.nav-overlay'),
-        close = $('.nav-overlay__close');
-    if (!toggle || !overlay) return;
-    var open = function () { overlay.classList.add('open'); toggle.setAttribute('aria-expanded', 'true'); document.body.classList.add('no-scroll'); lenisStop(); };
-    var shut = function () { overlay.classList.remove('open'); toggle.setAttribute('aria-expanded', 'false'); document.body.classList.remove('no-scroll'); lenisStart(); };
-    toggle.addEventListener('click', open);
-    if (close) close.addEventListener('click', shut);
-    $$('a', overlay).forEach(function (a) { a.addEventListener('click', shut); });
-    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') shut(); });
+
+    gsap.set([panel].concat(preLayers), { xPercent: offscreen, opacity: 1 });
+
+    function buildOpen() {
+      if (openTl) openTl.kill();
+      if (closeTween) { closeTween.kill(); closeTween = null; }
+      var labels = $$('.sm-label', panel);
+      var numItems = $$('.sm-list[data-numbering] .sm-item', panel);
+      var socialsTitle = $('.sm-socials-title', panel);
+      var socialLinks = $$('.sm-socials-link', panel);
+      if (labels.length) gsap.set(labels, { yPercent: 140, rotate: 10 });
+      if (numItems.length) gsap.set(numItems, { '--sm-num-opacity': 0 });
+      if (socialsTitle) gsap.set(socialsTitle, { opacity: 0 });
+      if (socialLinks.length) gsap.set(socialLinks, { y: 25, opacity: 0 });
+
+      var tl = gsap.timeline({ paused: true });
+      preLayers.forEach(function (el, i) {
+        tl.fromTo(el, { xPercent: offscreen }, { xPercent: 0, duration: 0.5, ease: 'power4.out' }, i * 0.07);
+      });
+      var lastTime = preLayers.length ? (preLayers.length - 1) * 0.07 : 0;
+      var panelInsert = lastTime + (preLayers.length ? 0.08 : 0);
+      var panelDur = 0.65;
+      tl.fromTo(panel, { xPercent: offscreen }, { xPercent: 0, duration: panelDur, ease: 'power4.out' }, panelInsert);
+      if (labels.length) {
+        var itemsStart = panelInsert + panelDur * 0.15;
+        tl.to(labels, { yPercent: 0, rotate: 0, duration: 1, ease: 'power4.out', stagger: { each: 0.1, from: 'start' } }, itemsStart);
+        if (numItems.length) tl.to(numItems, { duration: 0.6, ease: 'power2.out', '--sm-num-opacity': 1, stagger: { each: 0.08, from: 'start' } }, itemsStart + 0.1);
+      }
+      var socialsStart = panelInsert + panelDur * 0.4;
+      if (socialsTitle) tl.to(socialsTitle, { opacity: 1, duration: 0.5, ease: 'power2.out' }, socialsStart);
+      if (socialLinks.length) tl.to(socialLinks, { y: 0, opacity: 1, duration: 0.55, ease: 'power3.out', stagger: { each: 0.08, from: 'start' } }, socialsStart + 0.04);
+      openTl = tl;
+      return tl;
+    }
+    function playOpen() {
+      if (busy) return; busy = true;
+      var tl = buildOpen();
+      tl.eventCallback('onComplete', function () { busy = false; });
+      tl.play(0);
+    }
+    function playClose() {
+      if (openTl) { openTl.kill(); openTl = null; }
+      var all = preLayers.concat([panel]);
+      if (closeTween) closeTween.kill();
+      closeTween = gsap.to(all, { xPercent: offscreen, duration: 0.32, ease: 'power3.in', overwrite: 'auto', onComplete: function () { busy = false; } });
+    }
+    function toggleMenu() {
+      isOpen = !isOpen;
+      wrap.classList.toggle('open', isOpen);
+      toggle.classList.toggle('is-open', isOpen);
+      toggle.setAttribute('aria-expanded', String(isOpen));
+      document.body.classList.toggle('no-scroll', isOpen);
+      if (isOpen) { lenisStop(); playOpen(); } else { lenisStart(); playClose(); }
+    }
+    toggle.addEventListener('click', toggleMenu);
+    $$('.sm-item', panel).forEach(function (a) { a.addEventListener('click', function () { if (isOpen) toggleMenu(); }); });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && isOpen) toggleMenu(); });
   }
 
   /* ---------- DONJI BLUR (samo tokom skrola) ------------- */
@@ -155,7 +225,7 @@
           io.unobserve(entry.target);
         }
       });
-    }, { threshold: 0.15, rootMargin: '0px 0px -80px 0px' });
+    }, { threshold: isMobile ? 0.02 : 0.15, rootMargin: isMobile ? '0px 0px 12% 0px' : '0px 0px -80px 0px' });
     els.forEach(function (el) { io.observe(el); });
   }
 
@@ -505,7 +575,7 @@
         var rect = stage.getBoundingClientRect();
         var vh = window.innerHeight;
         // 0 = tek ulazi odozdo, 0.5 = centriran, 1 = izlazi na vrh
-        var progress = (vh - rect.top) / (vh + rect.height);
+        var progress = ((isMobile ? vh * 1.12 : vh) - rect.top) / (vh + rect.height);
         progress = Math.max(0, Math.min(1, progress));
         var inv = 1 - Math.min(1, progress / 0.5);   // složeno kad dođe do centra, pa ostaje
         lines.forEach(function (spans) {
@@ -622,7 +692,7 @@
         var r = it.el.getBoundingClientRect();
         // napredak zavisi od visine elementa: dugački (O studiju) ostaju isti,
         // kratki (bullet/lead) se završe ranije, na sredini ekrana
-        var p = (vh - r.top) / (vh * 0.62 + r.height); p = Math.max(0, Math.min(1, p));
+        var p = ((isMobile ? vh * 1.12 : vh) - r.top) / ((isMobile ? vh * 0.5 : vh * 0.62) + r.height); p = Math.max(0, Math.min(1, p));
         it.el.style.transform = 'rotate(' + (baseRotation * (1 - p)).toFixed(2) + 'deg)';
         var N = it.words.length;
         it.words.forEach(function (w, i) {
@@ -806,7 +876,7 @@
   // Suptilna plazma (WebGL). Bez ljubičaste: near-black bg + toplo siva linija.
   function initProcShader() {
     var canvas = $('[data-proces-shader]');
-    if (!canvas || reduceMotion) return;                 // reduce → ostaje crna traka
+    if (!canvas || reduceMotion || isMobile) return;     // reduce/telefon → bez shadera
     var gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
     if (!gl) return;                                      // no WebGL → crna traka
 
@@ -1028,10 +1098,36 @@
     requestAnimationFrame(frame);
   }
 
+  /* ---------- SCROLL SATURACIJA (telefon) --------------- */
+  // Bez hovera na telefonu — slike dobijaju boju kad dođu u sredinu ekrana.
+  function initScrollSaturation() {
+    if (reduceMotion || !isMobile) return;
+    var imgs = $$('[data-gallery] img, .artist-row__media img, .reviews__media img, .scroller__item img, .artist-portrait img');
+    if (!imgs.length) return;
+    var ticking = false;
+    function update() {
+      ticking = false;
+      var vh = window.innerHeight, center = vh / 2;
+      imgs.forEach(function (img) {
+        var r = img.getBoundingClientRect();
+        if (r.bottom < -80 || r.top > vh + 80) return;         // van ekrana
+        var imgCenter = r.top + r.height / 2;
+        var d = Math.abs(imgCenter - center) / (vh * 0.62);    // 0 u centru, 1 na ivici
+        var g = Math.max(0, Math.min(1, d));
+        img.style.filter = 'grayscale(' + g.toFixed(3) + ') brightness(' + (0.9 + 0.1 * (1 - g)).toFixed(3) + ')';
+      });
+    }
+    function onScroll() { if (!ticking) { ticking = true; requestAnimationFrame(update); } }
+    update();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+  }
+
   /* ---------- INIT --------------------------------------- */
   document.addEventListener('DOMContentLoaded', function () {
     ensureLightbox();
     initNav();
+    initStaggeredMenu();
     initGallery();
     initCircular();
     initScroller();
@@ -1048,6 +1144,7 @@
     initCircularText();
     initCount();
     initBottomBlur();
+    initScrollSaturation();
     initProcShader();
     initArtistiShader();
     initReviewsShadow();

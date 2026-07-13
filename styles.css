@@ -269,19 +269,43 @@ strong { font-weight: 700; }
 .nav__toggle { display: flex; flex-direction: column; justify-content: center; gap: 5px; width: 40px; height: 40px; padding: 8px; }
 .nav__toggle span { display: block; height: 2px; width: 100%; background: var(--bone); transition: transform var(--dur-base) var(--ease), opacity var(--dur-fast) var(--ease); }
 
-.nav-overlay {
-  position: fixed; inset: 0; z-index: var(--z-overlay);
-  background: var(--soot);
-  display: flex; flex-direction: column; justify-content: center; align-items: center;
-  gap: var(--sp-4); padding: var(--margin);
-  transform: translateY(-100%); transition: transform var(--dur-base) var(--ease); visibility: hidden;
+/* Hamburger → X kad je meni otvoren */
+.nav__toggle.is-open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.nav__toggle.is-open span:nth-child(2) { opacity: 0; }
+.nav__toggle.is-open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+/* ---------- STAGGERED MOBILNI MENI ---------------------- */
+.sm { position: fixed; inset: 0; z-index: 95; pointer-events: none; visibility: hidden; }
+.sm.open { visibility: visible; pointer-events: auto; }
+.sm-prelayers { position: absolute; inset: 0; pointer-events: none; }
+.sm-prelayer { position: absolute; inset: 0; will-change: transform; }
+.sm-panel {
+  position: absolute; inset: 0; background: var(--soot);
+  display: flex; flex-direction: column;
+  padding: 104px var(--margin) 40px; overflow-y: auto; will-change: transform;
 }
-.nav-overlay.open { transform: translateY(0); visibility: visible; }
-.nav-overlay a { font-family: var(--font-display); font-weight: 900; font-size: var(--fs-h2); text-transform: uppercase; color: var(--bone); opacity: 0; transform: translateY(16px); }
-.nav-overlay.open a { animation: overlayIn var(--dur-base) var(--ease) forwards; }
-.nav-overlay.open a:nth-child(2){animation-delay:60ms}.nav-overlay.open a:nth-child(3){animation-delay:120ms}.nav-overlay.open a:nth-child(4){animation-delay:180ms}.nav-overlay.open a:nth-child(5){animation-delay:240ms}.nav-overlay.open a:nth-child(6){animation-delay:300ms}.nav-overlay.open a:nth-child(7){animation-delay:360ms}.nav-overlay.open a:nth-child(8){animation-delay:420ms}
-.nav-overlay__close { position: absolute; top: var(--sp-3); right: var(--margin); width: 40px; height: 40px; font-size: 28px; color: var(--bone); line-height: 1; }
-@keyframes overlayIn { to { opacity: 1; transform: translateY(0); } }
+.sm-list { list-style: none; margin: auto 0; padding: 0; display: flex; flex-direction: column; gap: 4px; }
+.sm-itemWrap { position: relative; overflow: hidden; line-height: 1; }
+.sm-item {
+  position: relative; display: inline-block; text-decoration: none;
+  color: var(--bone); font-family: var(--font-display); font-weight: 900;
+  text-transform: uppercase; font-size: clamp(42px, 13vw, 68px); line-height: 1.02;
+  letter-spacing: -0.03em; padding-right: 1.5em; transition: color var(--dur-fast) var(--ease);
+}
+.sm-item:hover, .sm-item:active { color: var(--ember); }
+.sm-label { display: inline-block; will-change: transform; transform-origin: 50% 100%; }
+.sm-list[data-numbering] { counter-reset: smItem; }
+.sm-list[data-numbering] .sm-item::after {
+  counter-increment: smItem; content: counter(smItem, decimal-leading-zero);
+  position: absolute; top: 0.25em; right: 0.2em;
+  font-family: var(--font-mono); font-size: 14px; font-weight: 400;
+  color: var(--ember); opacity: var(--sm-num-opacity, 0);
+}
+.sm-socials { padding-top: var(--sp-5); display: flex; flex-direction: column; gap: var(--sp-3); }
+.sm-socials-title { margin: 0; font-family: var(--font-mono); font-size: var(--fs-label); text-transform: uppercase; letter-spacing: 0.16em; color: var(--ember); }
+.sm-socials-list { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: var(--sp-3); }
+.sm-socials-link { font-family: var(--font-mono); font-size: var(--fs-small); color: var(--bone); text-decoration: none; transition: color var(--dur-fast) var(--ease); }
+.sm-socials-link:hover { color: var(--ember); }
 
 /* ---------- SCROLL REVEAL -------------------------------- */
 .reveal { opacity: 0; transform: translateY(24px); transition: opacity var(--dur-slow) var(--ease), transform var(--dur-slow) var(--ease); }
@@ -789,6 +813,29 @@ html.lenis, html.lenis body { height: auto; }
 @media (min-width: 1200px) {
   :root { --margin: 40px; }
   .masonry { column-count: 3; }              /* galerija = 3 kolone, kao Taylor */
+}
+
+/* ---------- TELEFON (mobile) ---------------------------- */
+@media (max-width: 711px) {
+  /* Hero: svaka fraza u svom redu (Tri umetnika. / Tri stila. / Jedan standard.) */
+  .hero__title { font-size: clamp(30px, 9.2vw, 54px); }
+  .hero__title > span { white-space: nowrap; }
+
+  /* Artisti: prvo slika, pa ime i tekst */
+  .artist-row__media,
+  .artist-row--reverse .artist-row__media { order: -1; margin: 0 0 var(--sp-4) 0; height: clamp(360px, 60vh, 560px); }
+
+  /* Proces: bez slike i bez shader pozadine (na telefonu je nevidljiva/ružna) */
+  .process__media { display: none; }
+  .proces-bgwrap { display: none; }
+
+  /* Recenzije: naslov prvi, slika blizu naslova, kartice blizu slike */
+  .reviews__intro { order: -1; }
+  .reviews__top { gap: var(--sp-3); margin-top: var(--sp-4); }
+  #recenzije .review-row { margin-top: var(--sp-4); }
+
+  /* Glatka scroll-saturacija (JS postavlja filter) */
+  .work img, .artist-row__media img, .reviews__media img, .scroller__item img, .artist-portrait img { transition: filter 0.18s linear; }
 }
 
 /* ---------- REDUCED MOTION ------------------------------- */

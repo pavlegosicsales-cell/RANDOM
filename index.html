@@ -40,15 +40,31 @@
     </div>
   </header>
 
-  <div class="nav-overlay" id="nav-overlay">
-    <button class="nav-overlay__close" aria-label="Zatvori meni">&times;</button>
-    <a href="#galerija">Galerija</a>
-    <a href="#artisti">Artisti</a>
-    <a href="#proces">Proces</a>
-    <a href="#o-studiju">O studiju</a>
-    <a href="#recenzije">Recenzije</a>
-    <a href="#pitanja">Pitanja</a>
-    <a href="#kontakt">Kontakt</a>
+  <!-- ============ STAGGERED MOBILNI MENI ============ -->
+  <div class="sm" id="nav-overlay" data-position="right" aria-hidden="true">
+    <div class="sm-prelayers" aria-hidden="true">
+      <div class="sm-prelayer" style="background:var(--clay)"></div>
+      <div class="sm-prelayer" style="background:var(--ember)"></div>
+    </div>
+    <aside class="sm-panel" aria-label="Meni">
+      <ul class="sm-list" data-numbering role="list">
+        <li class="sm-itemWrap"><a class="sm-item" href="#galerija"><span class="sm-label">Galerija</span></a></li>
+        <li class="sm-itemWrap"><a class="sm-item" href="#artisti"><span class="sm-label">Artisti</span></a></li>
+        <li class="sm-itemWrap"><a class="sm-item" href="#proces"><span class="sm-label">Proces</span></a></li>
+        <li class="sm-itemWrap"><a class="sm-item" href="#o-studiju"><span class="sm-label">O studiju</span></a></li>
+        <li class="sm-itemWrap"><a class="sm-item" href="#recenzije"><span class="sm-label">Recenzije</span></a></li>
+        <li class="sm-itemWrap"><a class="sm-item" href="#pitanja"><span class="sm-label">Pitanja</span></a></li>
+        <li class="sm-itemWrap"><a class="sm-item" href="#kontakt"><span class="sm-label">Kontakt</span></a></li>
+      </ul>
+      <div class="sm-socials" aria-label="Instagram">
+        <h3 class="sm-socials-title">Instagram</h3>
+        <ul class="sm-socials-list" role="list">
+          <li><a class="sm-socials-link" href="https://instagram.com/mr_lemson" target="_blank" rel="noopener">@mr_lemson</a></li>
+          <li><a class="sm-socials-link" href="https://instagram.com/alex.anja.tattoo" target="_blank" rel="noopener">@alex.anja</a></li>
+          <li><a class="sm-socials-link" href="https://instagram.com/enco_enco.tattoo" target="_blank" rel="noopener">@enco_enco</a></li>
+        </ul>
+      </div>
+    </aside>
   </div>
 
   <main id="glavni">
@@ -108,7 +124,7 @@
       <div class="artisti-bgwrap" aria-hidden="true"><canvas class="artisti-bg" data-artisti-shader></canvas></div>
       <div class="wrap section-head reveal">
         <span class="label">/ Artisti</span>
-        <h2>Biraš čoveka, ne samo motiv</h2>
+        <h2>Biraš čoveka<br>ne samo motiv</h2>
         <p class="lead">Svako od nas radi svoje. Ne pokušavamo da budemo sve za svakoga — zato svaki rad izgleda kao da je rađen baš za tebe.</p>
       </div>
       <div class="artist-rows">
@@ -269,7 +285,10 @@
     <!-- ============ STATEMENT (slova se sklapaju na skrol) ============ -->
     <section class="assemble-stage" data-assemble aria-label="Ovo ostaje zauvek">
       <div class="assemble-sticky">
-        <h2 class="assemble-text" data-assemble-text>Ovo ostaje zauvek</h2>
+        <h2 class="assemble-text">
+          <span class="assemble-line" data-assemble-text>Ovo ostaje</span>
+          <span class="assemble-line" data-assemble-text>zauvek</span>
+        </h2>
       </div>
     </section>
 
@@ -517,6 +536,7 @@
   </div>
 
   <script src="vendor/lenis.min.js"></script>
+  <script src="vendor/gsap.min.js"></script>
   <script src="script.js"></script>
 </body>
 </html>
