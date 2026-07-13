@@ -509,12 +509,13 @@ html.lenis, html.lenis body { height: auto; }
 .torn--bottom { bottom: 0; }
 @media (min-width: 712px) { .torn { height: 92px; } }
 .reviews-bg { position: absolute; z-index: -1; top: 0; bottom: 0; left: calc(50% - 50vw); width: 100vw; overflow: hidden; pointer-events: none; opacity: 0.85; }
-/* Ember trake uz gornju/donju ivicu — da torn divider seče u Ember, ne u soot (nema crnog jaza) */
+/* Ember baza preko cele zone + jače uz ivice — torn uvek seče u Ember, nikad u soot (nema crnog jaza) */
 .reviews-bg::before {
   content: ""; position: absolute; left: 0; right: 0; top: 0; bottom: 0; z-index: 0;
   background:
-    linear-gradient(to bottom, rgba(192,57,43,0.34), transparent 210px),
-    linear-gradient(to top, rgba(192,57,43,0.34), transparent 210px);
+    linear-gradient(to bottom, rgba(192,57,43,0.30), transparent 280px),
+    linear-gradient(to top, rgba(192,57,43,0.30), transparent 280px),
+    rgba(192,57,43,0.12);
 }
 .reviews-bg__svg { position: absolute; width: 0; height: 0; }
 /* Original: puna boja maskirana „oblak" maskom + displacement undulacija */
