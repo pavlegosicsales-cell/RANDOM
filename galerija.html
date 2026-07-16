@@ -86,6 +86,80 @@
         <a class="btn gallery-more" data-gallery-more href="javascript:void(0)" role="button">Prikaži još radova</a>
       </div>
     </section>
+
+    <!-- ============ KONTAKT (forma levo, konsultacije desno) ============ -->
+    <section class="section wrap" id="kontakt">
+      <div class="section-head reveal">
+        <span class="label">/ Kontakt</span>
+        <h2>Zakaži svoj termin</h2>
+        <p class="lead">Piši nam ideju ili zakaži besplatnu konsultaciju — javljamo se u roku od 24h.</p>
+      </div>
+      <div class="gallery-contact">
+        <div class="auth-wrap reveal">
+          <form id="kontakt-forma" class="auth-card" novalidate>
+            <div class="auth-card__beams" aria-hidden="true">
+              <span class="beam beam--t"></span><span class="beam beam--r"></span><span class="beam beam--b"></span><span class="beam beam--l"></span>
+              <span class="dot dot--tl"></span><span class="dot dot--tr"></span><span class="dot dot--br"></span><span class="dot dot--bl"></span>
+            </div>
+            <div class="auth-card__inner">
+              <div class="auth-card__ether" aria-hidden="true"><div class="auth-card__ether-shape"></div></div>
+              <div class="auth-card__head">
+                <div class="auth-card__logo"><img src="assets/logo.png" alt="" width="24" height="24"></div>
+                <h3 class="auth-card__title">Piši Nam</h3>
+                <p class="auth-card__sub">Piši nam ideju — javljamo se u roku od 24h.</p>
+              </div>
+
+              <div class="auth-row2">
+                <div class="field field--auth">
+                  <label class="sr-only" for="ime">Ime</label>
+                  <span class="field__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6.2 8-6.2S20 17 20 21"/></svg></span>
+                  <input type="text" id="ime" name="ime" placeholder="Ime" data-required autocomplete="name">
+                  <span class="field__error" aria-live="polite"></span>
+                </div>
+                <div class="field field--auth">
+                  <label class="sr-only" for="kontakt-info">Email adresa</label>
+                  <span class="field__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7.5 9 6 9-6"/></svg></span>
+                  <input type="email" id="kontakt-info" name="email" placeholder="Email adresa" data-required autocomplete="email">
+                  <span class="field__error" aria-live="polite"></span>
+                </div>
+              </div>
+
+              <div class="field field--auth">
+                <label class="sr-only" for="umetnik">Kod koga bi?</label>
+                <span class="field__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.2"/><path d="M2.5 20c0-3.3 3-5.2 6.5-5.2s6.5 1.9 6.5 5.2"/><path d="M16.5 5.3a3 3 0 0 1 0 5.6"/><path d="M21.5 20c0-2.4-1.3-4-3.2-4.7"/></svg></span>
+                <select id="umetnik" name="umetnik">
+                  <option value="svejedno">Kod koga bi? — svejedno</option>
+                  <option value="lemson">Lemson</option>
+                  <option value="anja">Anja</option>
+                  <option value="enco">Enco</option>
+                </select>
+              </div>
+
+              <div class="field field--auth">
+                <label class="sr-only" for="ideja">Ispričaj nam ideju</label>
+                <span class="field__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H8l-4 4V5a2 2 0 0 1 2-2h13a2 2 0 0 1 2 2z"/></svg></span>
+                <textarea id="ideja" name="ideja" placeholder="Ispričaj nam ideju" data-required></textarea>
+                <span class="field__error" aria-live="polite"></span>
+              </div>
+
+              <button type="submit" class="btn btn-primary auth-card__submit">Pošalji Svoju Ideju</button>
+            </div>
+          </form>
+        </div>
+
+        <aside class="consult reveal">
+          <span class="label">/ Konsultacija</span>
+          <h3 class="consult__title">Zakaži besplatnu konsultaciju</h3>
+          <p class="consult__text">Nisi siguran odakle da počneš? Naš tim ti pravi besplatnu skicu. Izabraćemo umetnika koji je pravi za tvoju ideju — spreman da izvede i najsmelije zamisli.</p>
+          <ul class="consult__list">
+            <li>Besplatno, bez obaveza</li>
+            <li>Predlog umetnika i stila</li>
+            <li>Okvirna procena cene i termina</li>
+          </ul>
+          <a class="btn btn-primary consult__cta" href="#kontakt-forma">Zakaži konsultaciju</a>
+        </aside>
+      </div>
+    </section>
   </main>
 
   <!-- ============ FOOTER ============ -->

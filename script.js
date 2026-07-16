@@ -867,8 +867,8 @@
       label.className = 'btn__label';
       label.textContent = text;
       btn.appendChild(label);
-      // strelica (sekundarno)
-      if (btn.classList.contains('btn-secondary')) {
+      // strelica (sekundarno) — osim galerija hero dugmeta (bez strelice, sa scramble-om)
+      if (btn.classList.contains('btn-secondary') && !btn.classList.contains('gallery-hero__cta')) {
         var arrow = document.createElement('span');
         arrow.className = 'btn__arrow'; arrow.setAttribute('aria-hidden', 'true');
         arrow.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
@@ -885,7 +885,7 @@
         });
       }
       // scramble na hover — primarno/light dugme
-      if (!reduceMotion && (btn.classList.contains('btn-primary') || btn.classList.contains('btn-light') || btn.classList.contains('gallery-more')) && !isSubmit) {
+      if (!reduceMotion && (btn.classList.contains('btn-primary') || btn.classList.contains('btn-light') || btn.classList.contains('gallery-more') || btn.classList.contains('gallery-hero__cta')) && !isSubmit) {
         var original = text;
         btn.addEventListener('mouseenter', function () {
           if (!label.style.minWidth) label.style.minWidth = label.offsetWidth + 'px';
