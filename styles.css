@@ -409,7 +409,7 @@ strong { font-weight: 700; }
 .filter.active { color: var(--ember); border-bottom-color: var(--ember); }
 
 /* ---------- GALERIJA HERO (Hype stil) ------------------- */
-.gallery-hero { position: relative; min-height: 88vh; display: flex; flex-direction: column; justify-content: center; padding: calc(88px + var(--sp-6)) 0 var(--sp-6); }
+.gallery-hero { position: relative; min-height: 100vh; min-height: 100dvh; display: flex; flex-direction: column; justify-content: center; padding: calc(88px + var(--sp-6)) 0 var(--sp-6); }
 .gallery-hero__inner { display: flex; flex-direction: column; align-items: center; text-align: center; gap: var(--sp-3); }
 .gallery-hero__title { display: flex; flex-direction: column; align-items: center; line-height: 0.9; }
 .gallery-hero__title span { display: block; white-space: nowrap; }
@@ -952,7 +952,7 @@ html.lenis, html.lenis body { height: auto; }
   .hero__title > span { white-space: nowrap; }
 
   /* Galerija: 2 kolone, ime umetnika uvek vidljivo (nema hover na telefonu) */
-  .gallery-hero { min-height: 74vh; }
+  .gallery-hero { min-height: 100svh; }
   .tile { flex: 0 0 50%; max-width: 50%; }
   .tile::before { opacity: 1; height: 34%; }
   .master-name-overlay { opacity: 1; bottom: 12px; }
