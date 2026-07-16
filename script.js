@@ -885,7 +885,7 @@
         });
       }
       // scramble na hover — primarno/light dugme
-      if (!reduceMotion && (btn.classList.contains('btn-primary') || btn.classList.contains('btn-light')) && !isSubmit) {
+      if (!reduceMotion && (btn.classList.contains('btn-primary') || btn.classList.contains('btn-light') || btn.classList.contains('gallery-more')) && !isSubmit) {
         var original = text;
         btn.addEventListener('mouseenter', function () {
           if (!label.style.minWidth) label.style.minWidth = label.offsetWidth + 'px';
