@@ -61,24 +61,29 @@
   </div>
 
   <main id="glavni">
-    <!-- ============ GALERIJA ============ -->
-    <section class="section wrap page-top" id="galerija">
-      <div class="section-head">
-        <span class="label">Galerija</span>
-        <h1>Radovi</h1>
-        <p class="lead">Bez filtera, bez ulepšavanja. Ovako izgleda kad zaraste.</p>
+    <!-- ============ GALERIJA HERO ============ -->
+    <section class="gallery-hero">
+      <div class="wrap gallery-hero__inner">
+        <span class="label">/ Galerija</span>
+        <h1 class="display gallery-hero__title" data-blur>
+          <span>Naši</span>
+          <span>radovi</span>
+        </h1>
+        <p class="lead gallery-hero__lead" data-blur>Bez filtera, bez ulepšavanja. Ovako izgleda kad zaraste.</p>
+        <a class="btn btn-primary gallery-hero__cta" href="#portfolio">Pogledaj radove</a>
       </div>
-
-      <div class="filters" role="group" aria-label="Filter radova">
-        <button class="filter active" data-filter="all" aria-pressed="true">Svi</button>
-        <button class="filter" data-filter="realizam" aria-pressed="false">Realizam</button>
-        <button class="filter" data-filter="fine-line" aria-pressed="false">Fine line</button>
-        <button class="filter" data-filter="blackwork" aria-pressed="false">Blackwork</button>
+      <div class="gallery-hero__bottom">
+        <span>Beograd, Srbija</span>
+        <a class="gallery-hero__down" href="#portfolio">Skroluj dole ↓</a>
       </div>
+    </section>
 
-      <div class="gallery-full">
-        <div class="masonry" data-gallery></div>
-        <p class="gallery-empty" hidden>Nema radova u ovoj kategoriji</p>
+    <!-- ============ GALERIJA GRID (edge-to-edge) ============ -->
+    <section id="portfolio" class="portfolio-section">
+      <ul class="gallery-list" data-gallery-hype></ul>
+      <p class="gallery-empty" hidden>Nema radova u ovoj kategoriji</p>
+      <div class="gallery-more-wrap">
+        <a class="btn btn-secondary gallery-more" data-gallery-more href="javascript:void(0)" role="button">Prikaži još radova</a>
       </div>
     </section>
   </main>

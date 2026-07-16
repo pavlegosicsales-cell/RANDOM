@@ -408,6 +408,34 @@ strong { font-weight: 700; }
 .filter:hover { color: var(--bone); }
 .filter.active { color: var(--ember); border-bottom-color: var(--ember); }
 
+/* ---------- GALERIJA HERO (Hype stil) ------------------- */
+.gallery-hero { position: relative; min-height: 88vh; display: flex; flex-direction: column; justify-content: center; padding: calc(88px + var(--sp-6)) 0 var(--sp-6); }
+.gallery-hero__inner { display: flex; flex-direction: column; align-items: center; text-align: center; gap: var(--sp-3); }
+.gallery-hero__title { display: flex; flex-direction: column; align-items: center; line-height: 0.9; }
+.gallery-hero__title span { display: block; white-space: nowrap; }
+.gallery-hero__lead { max-width: 46ch; margin-inline: auto; }
+.gallery-hero__cta { margin-top: var(--sp-3); }
+.gallery-hero__bottom { position: absolute; left: 0; right: 0; bottom: var(--sp-4); display: flex; justify-content: space-between; padding: 0 var(--margin); font-family: var(--font-mono); font-size: var(--fs-small); color: var(--ash); }
+.gallery-hero__down { color: var(--ash); transition: color var(--dur-fast) var(--ease); }
+.gallery-hero__down:hover { color: var(--bone); }
+
+/* ---------- GALERIJA GRID (edge-to-edge, Hype stil) ----- */
+.portfolio-section { padding-bottom: var(--sp-8); }
+.gallery-list { display: flex; flex-wrap: wrap; list-style: none; margin: 0; padding: 0; }
+.tile { position: relative; flex: 0 0 33.3333%; max-width: 33.3333%; aspect-ratio: 1 / 1.2; overflow: hidden; background: var(--clay); cursor: pointer; }
+.tile img { width: 100%; height: 100%; object-fit: cover; transform: scale(1); transform-origin: center; transition: transform 0.5s ease-out, opacity var(--dur-slow) var(--ease); }
+/* reveal na skrol: startuje nevidljivo, .visible je pali */
+.tile img.img_view_animation { opacity: 0; }
+.tile img.visible { opacity: 1; }
+/* donji gradijent na hover */
+.tile::before { content: ""; position: absolute; left: 0; bottom: 0; width: 100%; height: 30%; z-index: 2; opacity: 0; pointer-events: none; transition: opacity var(--dur-base) var(--ease); background: linear-gradient(180deg, rgba(14,11,10,0) 0%, rgba(14,11,10,0.82) 100%); }
+.tile:hover::before { opacity: 1; }
+/* ime umetnika izranja odozdo */
+.master-name-overlay { position: absolute; left: 0; bottom: 8px; width: 100%; z-index: 3; text-align: center; pointer-events: none; color: var(--bone); font-family: var(--font-mono); font-size: var(--fs-small); letter-spacing: 0.14em; text-transform: uppercase; opacity: 0; transition: opacity var(--dur-base) var(--ease), bottom var(--dur-base) var(--ease); }
+.tile:hover .master-name-overlay { opacity: 1; bottom: 18px; }
+.gallery-more-wrap { text-align: center; margin-top: var(--sp-6); padding: 0 var(--margin); }
+.gallery-more { min-width: min(680px, 90vw); }
+
 /* ---------- CIRCULAR 3D GALERIJA (desktop, pin-scroll) -- */
 .circular-stage { display: none; }
 .circular-sticky { position: sticky; top: 0; height: 100vh; display: grid; place-items: center; overflow: hidden; perspective: 2200px; }
@@ -922,6 +950,13 @@ html.lenis, html.lenis body { height: auto; }
   /* Hero: svaka fraza u svom redu (Tri umetnika. / Tri stila. / Jedan standard.) */
   .hero__title { font-size: clamp(30px, 9.2vw, 54px); }
   .hero__title > span { white-space: nowrap; }
+
+  /* Galerija: 2 kolone, ime umetnika uvek vidljivo (nema hover na telefonu) */
+  .gallery-hero { min-height: 74vh; }
+  .tile { flex: 0 0 50%; max-width: 50%; }
+  .tile::before { opacity: 1; height: 34%; }
+  .master-name-overlay { opacity: 1; bottom: 12px; }
+  .gallery-more { min-width: 100%; }
 
   /* Artisti: prvo slika, pa ime i tekst */
   .artist-row__media,

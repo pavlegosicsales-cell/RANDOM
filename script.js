@@ -281,6 +281,74 @@
     });
   }
 
+  /* ---------- HYPE GALERIJA (galerija.html) -------------- */
+  // Edge-to-edge grid, isti format, kursor-zoom, ime umetnika izranja, "Prikaži još"
+  function initHypeGallery() {
+    var grid = $('[data-gallery-hype]');
+    if (!grid) return;
+    var section = grid.closest('section') || document;
+    var moreBtn = $('[data-gallery-more]', section);
+    var NAMES = { 'realizam': 'Lemson', 'fine-line': 'Anja', 'blackwork': 'Enco' };
+    var pool = WORKS.slice();
+    var shown = 0, INIT = 12, STEP = 6;
+
+    // reveal na skrol
+    var io = ('IntersectionObserver' in window) ? new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (en.isIntersecting) { en.target.classList.add('visible'); io.unobserve(en.target); }
+      });
+    }, { rootMargin: '0px 0px -8% 0px' }) : null;
+
+    function makeTile(item) {
+      var li = document.createElement('li');
+      li.className = 'tile';
+      li.setAttribute('data-cat', item.cat);
+      var img = document.createElement('img');
+      img.src = item.src; img.alt = item.alt;
+      img.width = item.w; img.height = item.h;
+      img.loading = 'lazy';
+      img.className = 'img_view_animation';
+      if (reduceMotion || !io) { img.classList.add('visible'); }
+      else { io.observe(img); img.addEventListener('load', function () { img.classList.add('visible'); }); }
+      var name = document.createElement('div');
+      name.className = 'master-name-overlay';
+      name.textContent = 'Artista — ' + (NAMES[item.cat] || 'Random');
+      li.appendChild(img);
+      li.appendChild(name);
+      return li;
+    }
+
+    function renderMore(count) {
+      pool.slice(shown, shown + count).forEach(function (it) { grid.appendChild(makeTile(it)); });
+      shown = Math.min(shown + count, pool.length);
+      if (moreBtn) moreBtn.parentNode.style.display = shown >= pool.length ? 'none' : '';
+    }
+
+    // kursor-zoom (desktop): zumira tačno gde je miš
+    if (!isMobile && !reduceMotion) {
+      grid.addEventListener('mousemove', function (e) {
+        var img = e.target.closest('.img_view_animation'); if (!img) return;
+        var r = img.getBoundingClientRect();
+        img.style.transformOrigin = ((e.clientX - r.left) / r.width * 100).toFixed(2) + '% ' + ((e.clientY - r.top) / r.height * 100).toFixed(2) + '%';
+      });
+      grid.addEventListener('mouseover', function (e) { var img = e.target.closest('.img_view_animation'); if (img) img.style.transform = 'scale(1.3)'; });
+      grid.addEventListener('mouseout', function (e) { var img = e.target.closest('.img_view_animation'); if (img) img.style.transform = 'scale(1)'; });
+    }
+
+    // klik → lightbox (kroz sve učitane pločice)
+    if (lb) {
+      grid.addEventListener('click', function (e) {
+        var li = e.target.closest('.tile'); if (!li) return;
+        var tiles = $$('.tile', grid);
+        var list = tiles.map(function (t) { var i = $('img', t); return { src: i.src, alt: i.alt }; });
+        openLb(list, tiles.indexOf(li));
+      });
+    }
+
+    renderMore(INIT);
+    if (moreBtn) moreBtn.addEventListener('click', function () { renderMore(STEP); });
+  }
+
   /* ---------- LIGHTBOX ----------------------------------- */
   var lb, lbImg, lbList = [], lbIndex = 0, lbLastFocus = null;
   function ensureLightbox() {
@@ -1169,6 +1237,7 @@
     initNav();
     initStaggeredMenu();
     initGallery();
+    initHypeGallery();
     initCircular();
     initScroller();
     initReviewsMarquee();
