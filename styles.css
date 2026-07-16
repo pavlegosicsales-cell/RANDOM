@@ -122,6 +122,9 @@ strong { font-weight: 700; }
 .section { margin-top: var(--section-gap); }
 .section:first-of-type { margin-top: 0; }
 
+/* Podstranice bez heroja: prva sekcija mora da prodje ispod fiksnog nava (88px) */
+.page-top { padding-top: calc(88px + var(--sp-7)); }
+
 /* Centrirani section head (Taylor Tharp) */
 .section-head { max-width: 760px; margin-inline: auto; text-align: center; }
 .section-head h1, .section-head h2 { margin-top: 0; }
