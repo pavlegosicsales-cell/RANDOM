@@ -441,6 +441,21 @@ strong { font-weight: 700; }
 /* Veliko dugme preko cele sekcije: providno bez blura → belo sa crnim tekstom + scramble na hover */
 .gallery-more { width: 100%; padding: clamp(24px, 3vw, 44px); font-size: clamp(14px, 1.3vw, 18px); letter-spacing: 0.14em; background: transparent; backdrop-filter: none; -webkit-backdrop-filter: none; color: var(--bone); border-color: rgba(244, 238, 231, 0.38); }
 .gallery-more:hover { background: var(--bone); color: var(--soot); border-color: var(--bone); }
+/* Mekši prelaz boja (0.7s) — bez naglog glitcha */
+.gallery-more { transition: background 0.7s var(--ease), border-color 0.7s var(--ease), color 0.7s var(--ease); }
+.gallery-more .btn__label { transition: color 0.7s var(--ease); }
+/* Veliki L-borderi u uglovima: duga horizontalna ruka (srazmerna dugmetu), deblji */
+.gallery-more .btn__corner { width: clamp(44px, 7vw, 120px); height: 34px; border: 0 solid currentColor; transition: transform var(--dur-base) var(--ease), color 0.7s var(--ease), border-color 0.7s var(--ease); }
+.gallery-more .btn__corner svg { display: none; }
+.gallery-more .btn__corner--tl { border-top-width: 3px; border-left-width: 3px; }
+.gallery-more .btn__corner--tr { border-top-width: 3px; border-right-width: 3px; }
+.gallery-more .btn__corner--br { border-bottom-width: 3px; border-right-width: 3px; }
+.gallery-more .btn__corner--bl { border-bottom-width: 3px; border-left-width: 3px; }
+
+/* Pocetna hero dugmad: veca + meksi prelaz boja (ease 0.7s) */
+.hero .btn { padding: clamp(18px, 1.9vw, 26px) clamp(30px, 3.4vw, 52px); font-size: clamp(14px, 1.05vw, 17px); letter-spacing: 0.1em; transition: background 0.7s var(--ease), border-color 0.7s var(--ease), color 0.7s var(--ease); }
+.hero .btn__label, .hero .btn__arrow { transition: color 0.7s var(--ease); }
+.hero .btn__corner { transition: transform var(--dur-base) var(--ease), color 0.7s var(--ease); }
 
 /* ---------- CIRCULAR 3D GALERIJA (desktop, pin-scroll) -- */
 .circular-stage { display: none; }
