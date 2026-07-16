@@ -265,6 +265,18 @@ strong { font-weight: 700; }
 .nav__link { font-size: var(--fs-small); font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--bone); transition: color var(--dur-fast) var(--ease); }
 .nav__link:hover { color: var(--ash); }
 .nav__cta { display: none; white-space: nowrap; }
+/* Nav CTA — ista ethereal pozadina kao kontakt forma (tamna baza + Ember oblak) */
+.nav__cta { position: relative; overflow: hidden; background: rgba(22,15,13,0.92); }
+.nav__cta::before {
+  content: ""; position: absolute; inset: -40%; z-index: 0; pointer-events: none;
+  background-color: var(--ember);
+  -webkit-mask: url('assets/ethereal-mask.png') center / 200% auto no-repeat;
+  mask: url('assets/ethereal-mask.png') center / 200% auto no-repeat;
+  filter: url(#ethereal-shadow) blur(3px);
+  opacity: 0.8;
+}
+.nav__cta:hover { background: rgba(30,18,15,0.95); }
+.nav__cta > * { position: relative; z-index: 1; }
 /* Uske širine (tablet): zbijeniji nav da duži CTA ne lomi red */
 @media (min-width: 712px) and (max-width: 1040px) {
   .nav__inner { gap: var(--sp-2); }
@@ -437,7 +449,7 @@ strong { font-weight: 700; }
 .assemble-text span { display: inline-block; will-change: transform; }
 .assemble-text .sp { width: 0.28em; }
 /* Assemble na naslovu (o studiju) — dva reda, isti appear efekat */
-.assemble-head { perspective: 700px; font-size: clamp(30px, 4.8vw, 66px); }
+.assemble-head { perspective: 700px; font-size: clamp(20px, 6.4vw, 58px); }   /* jedan red — string je ~13em širok, mora da stane (nowrap) */
 .assemble-line { display: block; white-space: nowrap; }   /* svaki red ostaje ceo (bez preloma između slova) */
 [data-assemble-text] span { display: inline-block; will-change: transform; }
 [data-assemble-text] .sp { width: 0.28em; }

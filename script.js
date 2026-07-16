@@ -12,35 +12,35 @@
     lemson: {
       name: 'Mr Lemson',
       cat: 'realizam',
-      style: 'REALIZAM · BLACK & GREY',
+      style: 'REALIZAM · APSTRAKTNE BOJE',
       ig: '@mr_lemson',
       igUrl: 'https://instagram.com/mr_lemson',
       portrait: 'assets/artists/lemson.jpg',
       count: 11,
-      lead: 'Portreti, životinje, sve što traži da izgleda kao fotografija. Radi velike projekte — sleeve, grudi, leđa.',
-      desc: 'Ako ti treba nešto što ljudi moraju dvaput da pogledaju da shvate da je tetovaža, to je njegov teren.'
+      lead: 'Lemson radi u dva sveta koja mali broj umetnika može da premosti — hiperprecizna preciznost crno-belog realizma i slobodna, izražajna energija apstraktnih boja.',
+      desc: 'Bez obzira na stil, svaki komad nosi isti kvalitet: izgleda živo.'
     },
     anja: {
       name: 'Alex Anja',
       cat: 'fine-line',
-      style: 'FINE LINE · ORNAMENTAL',
+      style: 'FINA LINIJA · LINEWORK',
       ig: '@alex.anja.tattoo',
       igUrl: 'https://instagram.com/alex.anja.tattoo',
       portrait: 'assets/artists/anja.jpg',
       count: 7,
-      lead: 'Tanke linije, floral, delikatne kompozicije.',
-      desc: 'Ono što izgleda jednostavno a najteže je za izvesti — jer nema gde da se sakrije greška.'
+      lead: 'Anjin rad je tih i precizan — i upravo zbog toga je toliko moćan. Njene tetovaže fine linije su elegantne, promišljene i napravljene da lepo stare.',
+      desc: 'Savršeno za one koji žele nešto rafinirano i duboko lično.'
     },
     enco: {
       name: 'Enco Enco',
       cat: 'blackwork',
-      style: 'BLACKWORK · ILUSTRATIVNO',
+      style: 'GRAFITI · URBANI STIL',
       ig: '@enco_enco.tattoo',
       igUrl: 'https://instagram.com/enco_enco.tattoo',
       portrait: 'assets/artists/enco.jpg',
       count: 11,
-      lead: 'Grafički pristup, jak kontrast, autorski pečat.',
-      desc: 'Ako hoćeš nešto što niko drugi nema — dođi sa idejom, ne sa slikom sa Pinteresta.'
+      lead: 'Enco prenosi ulične zidove na tvoju kožu. Ukorenjen u grafiti kulturu, njegov rad je smeo, izražajan i pun karaktera.',
+      desc: 'Ako želiš nešto što privlači pažnju, Enco je tvoj umetnik.'
     }
   };
 
@@ -567,8 +567,9 @@
       if (reduceMotion) return;                 // ostaje složeno
       // Naslovi (manji) = nežno slaganje bez preokretanja; veliki statement = jače
       var soft = stage.classList.contains('assemble-head');
-      var AMT = soft ? 14 : 50;                 // horizontalni razmak po slovu
-      var ROT = soft ? 6 : 50;                  // rotacija po slovu
+      // Na telefonu naslov skoro puni širinu → bez horizontalnog razmicanja (inače curi van ekrana)
+      var AMT = soft ? (isMobile ? 0 : 14) : 50;   // horizontalni razmak po slovu
+      var ROT = soft ? 6 : 50;                     // rotacija po slovu
       var ticking = false;
       function update() {
         ticking = false;
