@@ -818,8 +818,10 @@ html.lenis, html.lenis body { height: auto; }
 .footer__slogan {
   margin: 0 0 var(--sp-6);
   font-family: var(--font-display); font-weight: 900;
-  font-size: clamp(24px, 3.4vw, 46px); line-height: 1.12; letter-spacing: -0.02em;
-  color: var(--bone); max-width: 24ch;
+  text-transform: uppercase; text-align: center; white-space: nowrap;
+  /* Fluidno: mora da stane u jedan red — tekst je ~44em pri ovoj tezini */
+  font-size: clamp(6px, 1.9vw, 30px); line-height: 1.2; letter-spacing: -0.01em;
+  color: var(--bone);
 }
 .footer__bottom { display: flex; flex-wrap: wrap; justify-content: space-between; gap: var(--sp-2); margin-top: var(--sp-4); font-family: var(--font-mono); font-size: var(--fs-small); color: var(--ash); }
 .footer__bottom a { color: var(--ash); }
