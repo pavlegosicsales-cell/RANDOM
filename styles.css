@@ -264,7 +264,16 @@ strong { font-weight: 700; }
 .nav__links { display: none; }
 .nav__link { font-size: var(--fs-small); font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--bone); transition: color var(--dur-fast) var(--ease); }
 .nav__link:hover { color: var(--ash); }
-.nav__cta { display: none; }
+.nav__cta { display: none; white-space: nowrap; }
+/* Uske širine (tablet): zbijeniji nav da duži CTA ne lomi red */
+@media (min-width: 712px) and (max-width: 1040px) {
+  .nav__inner { gap: var(--sp-2); }
+  .nav__links { gap: var(--sp-3) !important; }
+  .nav__link { font-size: 12px; }
+  .nav__cta { padding: 12px var(--sp-3); font-size: 12px; letter-spacing: 0.04em; }
+  .nav__logo img { height: 36px; }
+  .nav__logo span { font-size: 18px; }
+}
 
 .nav__toggle { display: flex; flex-direction: column; justify-content: center; gap: 5px; width: 40px; height: 40px; padding: 8px; }
 .nav__toggle span { display: block; height: 2px; width: 100%; background: var(--bone); transition: transform var(--dur-base) var(--ease), opacity var(--dur-fast) var(--ease); }
@@ -701,6 +710,16 @@ html.lenis, html.lenis body { height: auto; }
 .footer__col a { transition: color var(--dur-fast) var(--ease); }
 .footer__col a:hover { color: var(--ash); }
 .footer__col li + li { margin-top: var(--sp-1); }
+/* Studio Instagram — ikonica */
+.footer__socials { display: flex; gap: var(--sp-2); }
+.footer__socials li + li { margin-top: 0; }
+.social-icon {
+  display: inline-grid; place-items: center; width: 44px; height: 44px;
+  border: 1px solid var(--clay-border); color: var(--bone);
+  transition: color var(--dur-fast) var(--ease), border-color var(--dur-fast) var(--ease);
+}
+.social-icon:hover { color: var(--ember); border-color: var(--ember); }
+.social-icon svg { width: 20px; height: 20px; display: block; }
 /* Wordmark blok: ogroman ghost RANDOM iza + manji sa slikom, iste donje ivice */
 .footer__wordmark { position: relative; margin-top: var(--sp-7); display: flex; justify-content: center; }
 /* Ogroman RANDOM koji se skoro stapa sa pozadinom (iza svega), deli donju ivicu */
