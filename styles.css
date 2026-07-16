@@ -411,20 +411,37 @@ strong { font-weight: 700; }
 .filter.active { color: var(--ember); border-bottom-color: var(--ember); }
 
 /* ---------- GALERIJA HERO (Hype stil) ------------------- */
-.gallery-hero { position: relative; overflow: hidden; min-height: 100vh; min-height: 100dvh; display: flex; flex-direction: column; justify-content: center; padding: calc(88px + var(--sp-6)) 0 var(--sp-6); }
-.gallery-hero__bg { position: absolute; inset: 0; z-index: -2; background-size: cover; background-position: center; filter: brightness(0.55) contrast(1.06) saturate(0.96); }
-.gallery-hero::before { content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none; background: linear-gradient(to bottom, rgba(14,11,10,0.82) 0%, rgba(14,11,10,0.5) 38%, rgba(14,11,10,0.72) 74%, var(--soot) 100%), radial-gradient(110% 80% at 50% 46%, rgba(14,11,10,0.18) 0%, transparent 32%, rgba(14,11,10,0.78) 100%); }
+/* Scroll-cover: pozadinska slika je fiksirana za viewport (background-attachment: fixed) —
+   ne pomera se, a sekcija sa radovima se skroluje preko nje i prekriva je odozdo (kao Hype). */
+.gallery-hero {
+  position: relative; isolation: isolate; overflow: hidden;
+  min-height: 100vh; min-height: 100dvh;
+  display: flex; flex-direction: column; justify-content: center;
+  padding: calc(88px + var(--sp-6)) 0 var(--sp-6);
+  background-image:
+    linear-gradient(to bottom, rgba(14,11,10,0.68) 0%, rgba(14,11,10,0.40) 40%, rgba(14,11,10,0.66) 82%, var(--soot) 100%),
+    url('assets/hero-galerija.jpg');
+  background-repeat: no-repeat, no-repeat;
+  background-position: center, center;
+  background-size: cover, cover;
+  background-attachment: fixed, fixed;
+}
+/* Invert efekat na naslov — bela slova invertuju pozadinu iza sebe (kao Hype "masterpiece gallery") */
+.gallery-hero__title { mix-blend-mode: exclusion; color: #fff; }
 .gallery-hero__inner { display: flex; flex-direction: column; align-items: center; text-align: center; gap: var(--sp-3); }
 .gallery-hero__title { display: flex; flex-direction: column; align-items: center; line-height: 0.9; }
 .gallery-hero__title span { display: block; white-space: nowrap; }
 .gallery-hero__lead { max-width: 46ch; margin-inline: auto; }
-.gallery-hero__cta { margin-top: var(--sp-4); padding: clamp(18px, 2vw, 26px) clamp(34px, 4.2vw, 60px); font-size: clamp(14px, 1.15vw, 17px); letter-spacing: 0.1em; }
+/* Hero dugme: blurovano staklo pocetno -> Ember na hover (kao Hype .app), meksi 0.7s */
+.gallery-hero__cta { margin-top: var(--sp-4); padding: clamp(18px, 2vw, 26px) clamp(34px, 4.2vw, 60px); font-size: clamp(14px, 1.15vw, 17px); letter-spacing: 0.1em; backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); transition: background 0.7s var(--ease), border-color 0.7s var(--ease), color 0.7s var(--ease); }
+.gallery-hero__cta .btn__label, .gallery-hero__cta .btn__arrow { transition: color 0.7s var(--ease); }
 .gallery-hero__bottom { position: absolute; left: 0; right: 0; bottom: var(--sp-4); display: flex; justify-content: space-between; padding: 0 var(--margin); font-family: var(--font-mono); font-size: var(--fs-small); color: var(--ash); }
 .gallery-hero__down { color: var(--ash); transition: color var(--dur-fast) var(--ease); }
 .gallery-hero__down:hover { color: var(--bone); }
 
 /* ---------- GALERIJA GRID (edge-to-edge, Hype stil) ----- */
-.portfolio-section { padding-bottom: var(--sp-8); }
+/* z-index + neprozirna pozadina: radovi klize PREKO fiksirane hero slike i prekrivaju je */
+.portfolio-section { position: relative; z-index: 1; background: var(--soot); padding-bottom: var(--sp-8); }
 .gallery-list { display: flex; flex-wrap: wrap; list-style: none; margin: 0; padding: 0; }
 .tile { position: relative; flex: 0 0 33.3333%; max-width: 33.3333%; aspect-ratio: 1 / 1.2; overflow: hidden; background: var(--clay); cursor: pointer; }
 .tile img { width: 100%; height: 100%; object-fit: cover; transform: scale(1); transform-origin: center; transition: transform 0.5s ease-out, opacity var(--dur-slow) var(--ease); }
@@ -445,12 +462,12 @@ strong { font-weight: 700; }
 .gallery-more { transition: background 0.7s var(--ease), border-color 0.7s var(--ease), color 0.7s var(--ease); }
 .gallery-more .btn__label { transition: color 0.7s var(--ease); }
 /* Veliki L-borderi u uglovima: duga horizontalna ruka (srazmerna dugmetu), deblji */
-.gallery-more .btn__corner { width: clamp(44px, 7vw, 120px); height: 34px; border: 0 solid currentColor; transition: transform var(--dur-base) var(--ease), color 0.7s var(--ease), border-color 0.7s var(--ease); }
+.gallery-more .btn__corner { width: clamp(21px, 2vw, 30px); height: clamp(21px, 2vw, 30px); border: 0 solid currentColor; transition: transform var(--dur-base) var(--ease), color 0.7s var(--ease), border-color 0.7s var(--ease); }
 .gallery-more .btn__corner svg { display: none; }
-.gallery-more .btn__corner--tl { border-top-width: 3px; border-left-width: 3px; }
-.gallery-more .btn__corner--tr { border-top-width: 3px; border-right-width: 3px; }
-.gallery-more .btn__corner--br { border-bottom-width: 3px; border-right-width: 3px; }
-.gallery-more .btn__corner--bl { border-bottom-width: 3px; border-left-width: 3px; }
+.gallery-more .btn__corner--tl { border-top-width: 2px; border-left-width: 2px; }
+.gallery-more .btn__corner--tr { border-top-width: 2px; border-right-width: 2px; }
+.gallery-more .btn__corner--br { border-bottom-width: 2px; border-right-width: 2px; }
+.gallery-more .btn__corner--bl { border-bottom-width: 2px; border-left-width: 2px; }
 
 /* Pocetna hero dugmad: veca + meksi prelaz boja (ease 0.7s) */
 .hero .btn { padding: clamp(18px, 1.9vw, 26px) clamp(30px, 3.4vw, 52px); font-size: clamp(14px, 1.05vw, 17px); letter-spacing: 0.1em; transition: background 0.7s var(--ease), border-color 0.7s var(--ease), color 0.7s var(--ease); }
@@ -973,7 +990,7 @@ html.lenis, html.lenis body { height: auto; }
   .hero__title > span { white-space: nowrap; }
 
   /* Galerija: 2 kolone, ime umetnika uvek vidljivo (nema hover na telefonu) */
-  .gallery-hero { min-height: 100svh; }
+  .gallery-hero { min-height: 100svh; background-attachment: scroll, scroll; }  /* fixed nepouzdan na telefonu */
   .tile { flex: 0 0 50%; max-width: 50%; }
   .tile::before { opacity: 1; height: 34%; }
   .master-name-overlay { opacity: 1; bottom: 12px; }
