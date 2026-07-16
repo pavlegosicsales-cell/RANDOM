@@ -816,11 +816,12 @@ html.lenis, html.lenis body { height: auto; }
   filter: grayscale(1) contrast(1.03);
 }
 .footer__slogan {
-  margin: 0 0 var(--sp-6);
+  margin: 0 auto var(--sp-6);
+  max-width: none;   /* gazi globalno p { max-width: 62ch } — inace se p skupi na sirinu teksta i centriranje se ne vidi */
   font-family: var(--font-display); font-weight: 900;
   text-transform: uppercase; text-align: center; white-space: nowrap;
   /* Fluidno: mora da stane u jedan red — tekst je ~44em pri ovoj tezini */
-  font-size: clamp(6px, 1.9vw, 30px); line-height: 1.2; letter-spacing: -0.01em;
+  font-size: clamp(14px, 1.9vw, 30px); line-height: 1.2; letter-spacing: -0.01em;
   color: var(--bone);
 }
 .footer__bottom { display: flex; flex-wrap: wrap; justify-content: space-between; gap: var(--sp-2); margin-top: var(--sp-4); font-family: var(--font-mono); font-size: var(--fs-small); color: var(--ash); }
@@ -908,6 +909,13 @@ html.lenis, html.lenis body { height: auto; }
 
 /* ---------- TELEFON (mobile) ---------------------------- */
 @media (max-width: 711px) {
+  /* Footer slogan: jedan red bi trazio ~7px font — prelama se u vise redova, ostaje verzal i centriran */
+  .footer__slogan {
+    white-space: normal; text-wrap: balance;
+    font-size: clamp(17px, 5.4vw, 24px); line-height: 1.25;
+    max-width: 18ch; margin-bottom: var(--sp-5);
+  }
+
   /* Hero: svaka fraza u svom redu (Tri umetnika. / Tri stila. / Jedan standard.) */
   .hero__title { font-size: clamp(30px, 9.2vw, 54px); }
   .hero__title > span { white-space: nowrap; }
