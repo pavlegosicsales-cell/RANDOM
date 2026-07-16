@@ -265,19 +265,6 @@ strong { font-weight: 700; }
 .nav__link { font-size: var(--fs-small); font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--bone); transition: color var(--dur-fast) var(--ease); }
 .nav__link:hover { color: var(--ash); }
 .nav__cta { display: none; white-space: nowrap; }
-/* Nav CTA — ethereal tekstura kao kontakt forma, ali Ember baza (da se ne stapa sa nav-om).
-   BEZ overflow:hidden i bez diranja .btn__corner pozicije (inače coškovi ispadnu iz uglova). */
-.nav__cta { position: relative; background: var(--ember); }
-.nav__cta::before {
-  content: ""; position: absolute; inset: 0; z-index: 0; pointer-events: none;
-  background-color: rgba(74, 17, 11, 0.9);
-  -webkit-mask: url('assets/ethereal-mask.png') center / 220% auto no-repeat;
-  mask: url('assets/ethereal-mask.png') center / 220% auto no-repeat;
-  filter: url(#ethereal-shadow);
-}
-.nav__cta:hover { background: var(--ember-hover); }
-.nav__cta .btn__label, .nav__cta .btn__arrow { position: relative; z-index: 1; }
-.nav__cta .btn__corner { z-index: 2; }
 /* Uske širine (tablet): zbijeniji nav da duži CTA ne lomi red */
 @media (min-width: 712px) and (max-width: 1040px) {
   .nav__inner { gap: var(--sp-2); }
