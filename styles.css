@@ -529,7 +529,7 @@ html.lenis, html.lenis body { height: auto; }
 
 /* ---------- O STUDIJU ------------------------------------ */
 /* Isti razmak gore (do „/ O studiju" pill-a) i dole (od kraja teksta do sledeće sekcije) */
-#o-studiju { margin-top: clamp(28px, 4vh, 60px); }
+#o-studiju { margin-top: clamp(56px, 8vh, 104px); }
 .about__body { margin: var(--sp-6) auto 0; max-width: 68ch; display: flex; flex-direction: column; gap: var(--sp-4); text-align: center; }
 .about__body p { color: var(--ash); margin-inline: auto; }
 
@@ -539,7 +539,7 @@ html.lenis, html.lenis body { height: auto; }
    seče DIREKTNO u susedne (soot) sekcije — nema zasebnog benda, nema crnog jaza. */
 .ethereal-zone {
   position: relative; isolation: isolate;
-  margin-top: clamp(28px, 4vh, 60px);
+  margin-top: clamp(56px, 8vh, 104px);
   padding-block: clamp(70px, 10vh, 120px);
   clip-path: polygon(0% 39.7px, 2.27% 34.4px, 4.55% 22.2px, 6.82% 23px, 9.09% 24.4px, 11.36% 27.9px, 13.64% 22.6px, 15.91% 11.5px, 18.18% 10.4px, 20.45% 27.7px, 22.73% 20.1px, 25% 40.9px, 27.27% 23.1px, 29.55% 26.1px, 31.82% 21.6px, 34.09% 43.1px, 36.36% 24.1px, 38.64% 28.5px, 40.91% 35.3px, 43.18% 28.8px, 45.45% 58.8px, 47.73% 28.6px, 50% 33.7px, 52.27% 20.9px, 54.55% 6.7px, 56.82% 13.3px, 59.09% 29.4px, 61.36% 26.9px, 63.64% 28.5px, 65.91% 7px, 68.18% 29.3px, 70.45% 55.5px, 72.73% 26.1px, 75% 39.7px, 77.27% 7.2px, 79.55% 35.7px, 81.82% 12.3px, 84.09% 36.9px, 86.36% 41.6px, 88.64% 43.1px, 90.91% 33.4px, 93.18% 56.7px, 95.45% 28.5px, 97.73% 12.6px, 100% 9.5px, 100% calc(100% - 9.5px), 97.73% calc(100% - 12.6px), 95.45% calc(100% - 28.5px), 93.18% calc(100% - 56.7px), 90.91% calc(100% - 33.4px), 88.64% calc(100% - 43.1px), 86.36% calc(100% - 41.6px), 84.09% calc(100% - 36.9px), 81.82% calc(100% - 12.3px), 79.55% calc(100% - 35.7px), 77.27% calc(100% - 7.2px), 75% calc(100% - 39.7px), 72.73% calc(100% - 26.1px), 70.45% calc(100% - 55.5px), 68.18% calc(100% - 29.3px), 65.91% calc(100% - 7px), 63.64% calc(100% - 28.5px), 61.36% calc(100% - 26.9px), 59.09% calc(100% - 29.4px), 56.82% calc(100% - 13.3px), 54.55% calc(100% - 6.7px), 52.27% calc(100% - 20.9px), 50% calc(100% - 33.7px), 47.73% calc(100% - 28.6px), 45.45% calc(100% - 58.8px), 43.18% calc(100% - 28.8px), 40.91% calc(100% - 35.3px), 38.64% calc(100% - 28.5px), 36.36% calc(100% - 24.1px), 34.09% calc(100% - 43.1px), 31.82% calc(100% - 21.6px), 29.55% calc(100% - 26.1px), 27.27% calc(100% - 23.1px), 25% calc(100% - 40.9px), 22.73% calc(100% - 20.1px), 20.45% calc(100% - 27.7px), 18.18% calc(100% - 10.4px), 15.91% calc(100% - 11.5px), 13.64% calc(100% - 22.6px), 11.36% calc(100% - 27.9px), 9.09% calc(100% - 24.4px), 6.82% calc(100% - 23px), 4.55% calc(100% - 22.2px), 2.27% calc(100% - 34.4px), 0% calc(100% - 39.7px));
 }
@@ -740,6 +740,7 @@ html.lenis, html.lenis body { height: auto; }
 .auth-card__logo { width: 44px; height: 44px; margin: 0 auto var(--sp-3); border: 1px solid var(--hair); display: grid; place-items: center; }
 .auth-card__logo img { width: 24px; height: 24px; }
 .auth-card__title { margin: 0; font-size: var(--fs-h3); }
+.contact__note { margin-top: var(--sp-3); max-width: 52ch; font-size: var(--fs-small); line-height: 1.7; }
 .auth-card__sub { margin-top: var(--sp-1); font-size: var(--fs-small); color: var(--ash); max-width: none; }
 /* Polja sa ikonicom */
 .field--auth { position: relative; display: block; margin-bottom: var(--sp-3); }
@@ -814,6 +815,7 @@ html.lenis, html.lenis body { height: auto; }
   -webkit-text-fill-color: transparent; color: transparent;
   filter: grayscale(1) contrast(1.03);
 }
+.footer__slogan { margin-top: var(--sp-5); text-align: center; font-family: var(--font-mono); font-size: var(--fs-small); color: var(--ash); letter-spacing: 0.02em; }
 .footer__bottom { display: flex; flex-wrap: wrap; justify-content: space-between; gap: var(--sp-2); margin-top: var(--sp-4); font-family: var(--font-mono); font-size: var(--fs-small); color: var(--ash); }
 .footer__bottom a { color: var(--ash); }
 .footer__bottom a:hover { color: var(--bone); }
