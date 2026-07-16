@@ -259,6 +259,8 @@ strong { font-weight: 700; }
   transition: background var(--dur-base) ease-out, border-color var(--dur-base) ease-out;
 }
 .nav.scrolled { background: rgba(14,11,10,0.85); backdrop-filter: blur(8px); }
+/* Galerija: nav nije sticky — stoji na vrhu heroja i sklizne sa skrolom */
+.nav.nav--static { position: absolute; }
 .nav__inner { display: flex; align-items: center; justify-content: space-between; gap: var(--sp-4); height: 88px; }
 .nav__brand { display: flex; align-items: center; gap: var(--sp-3); }
 .nav__logo { display: flex; align-items: center; gap: var(--sp-2); }

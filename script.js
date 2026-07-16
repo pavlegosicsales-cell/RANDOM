@@ -16,7 +16,7 @@
       ig: '@mr_lemson',
       igUrl: 'https://instagram.com/mr_lemson',
       portrait: 'assets/artists/lemson.jpg',
-      count: 11,
+      count: 31,
       lead: 'Lemson radi u dva sveta koja mali broj umetnika može da premosti — hiperprecizna preciznost crno-belog realizma i slobodna, izražajna energija apstraktnih boja.',
       desc: 'Bez obzira na stil, svaki komad nosi isti kvalitet: izgleda živo.'
     },
@@ -27,7 +27,7 @@
       ig: '@alex.anja.tattoo',
       igUrl: 'https://instagram.com/alex.anja.tattoo',
       portrait: 'assets/artists/anja.jpg',
-      count: 7,
+      count: 11,
       lead: 'Anjin rad je tih i precizan — i upravo zbog toga je toliko moćan. Njene tetovaže fine linije su elegantne, promišljene i napravljene da lepo stare.',
       desc: 'Savršeno za one koji žele nešto rafinirano i duboko lično.'
     },
@@ -38,7 +38,7 @@
       ig: '@enco_enco.tattoo',
       igUrl: 'https://instagram.com/enco_enco.tattoo',
       portrait: 'assets/artists/enco.jpg',
-      count: 11,
+      count: 34,
       lead: 'Enco prenosi ulične zidove na tvoju kožu. Ukorenjen u grafiti kulturu, njegov rad je smeo, izražajan i pun karaktera.',
       desc: 'Ako želiš nešto što privlači pažnju, Enco je tvoj umetnik.'
     }
@@ -54,7 +54,10 @@
     'anja-4': [1170, 1560], 'anja-5': [1170, 1552], 'anja-6': [1170, 1463], 'anja-7': [1170, 1552],
     'enco-1': [1170, 1463], 'enco-2': [1170, 1463], 'enco-3': [1440, 1918], 'enco-4': [1440, 1918],
     'enco-5': [1170, 1170], 'enco-6': [1170, 1462], 'enco-7': [1170, 1170], 'enco-8': [1170, 1463],
-    'enco-9': [1170, 1463], 'enco-10': [1170, 1463], 'enco-11': [1170, 1463]
+    'enco-9': [1170, 1463], 'enco-10': [1170, 1463], 'enco-11': [1170, 1463],
+    'lemson-12': [1440, 1440], 'lemson-13': [1440, 1440], 'lemson-14': [1440, 1918], 'lemson-15': [1440, 1439], 'lemson-16': [1440, 1920], 'lemson-17': [1440, 1920], 'lemson-18': [1440, 1918], 'lemson-19': [1440, 1800], 'lemson-20': [1440, 1800], 'lemson-21': [1440, 1440], 'lemson-22': [1440, 1440], 'lemson-23': [1440, 1920], 'lemson-24': [1440, 1800], 'lemson-25': [1440, 1920], 'lemson-26': [1440, 1800], 'lemson-27': [1440, 1800], 'lemson-28': [1440, 1920], 'lemson-29': [1440, 1799], 'lemson-30': [1440, 1796], 'lemson-31': [1440, 1918],
+    'anja-8': [1170, 1560], 'anja-9': [1170, 1560], 'anja-10': [1170, 1560], 'anja-11': [1170, 1416],
+    'enco-12': [1170, 1500], 'enco-13': [1170, 1463], 'enco-14': [1170, 1463], 'enco-15': [1170, 1463], 'enco-16': [1170, 1170], 'enco-17': [1170, 1463], 'enco-18': [1170, 1463], 'enco-19': [1170, 1557], 'enco-20': [1170, 1463], 'enco-21': [1170, 1463], 'enco-22': [1170, 1463], 'enco-23': [1170, 1463], 'enco-24': [1170, 1463], 'enco-25': [1170, 1463], 'enco-26': [1170, 1463], 'enco-27': [1080, 1350], 'enco-28': [1170, 1170], 'enco-29': [1170, 1499], 'enco-30': [1170, 1463], 'enco-31': [1170, 1462], 'enco-32': [1170, 1460], 'enco-33': [1170, 1463], 'enco-34': [1170, 1499]
   };
 
   var CAT_ALT = {
@@ -77,15 +80,16 @@
     }
     return list;
   }
-  function interleave(arrs) {
-    var out = [], max = 0, i, j;
-    for (i = 0; i < arrs.length; i++) max = Math.max(max, arrs[i].length);
-    for (i = 0; i < max; i++)
-      for (j = 0; j < arrs.length; j++)
-        if (arrs[j][i]) out.push(arrs[j][i]);   // svih 29 radova, izmešano
-    return out;
+  // Nasumično mešanje (Fisher–Yates) — galerija NE ide redom po umetniku
+  function shuffle(arr) {
+    var a = arr.slice();
+    for (var i = a.length - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1));
+      var t = a[i]; a[i] = a[j]; a[j] = t;
+    }
+    return a;
   }
-  var WORKS = interleave([worksFor('lemson'), worksFor('anja'), worksFor('enco')]);
+  var WORKS = shuffle(worksFor('lemson').concat(worksFor('anja'), worksFor('enco')));
 
   var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var isMobile = window.matchMedia('(max-width: 711px)').matches;
@@ -312,7 +316,7 @@
       else { io.observe(img); img.addEventListener('load', function () { img.classList.add('visible'); }); }
       var name = document.createElement('div');
       name.className = 'master-name-overlay';
-      name.textContent = 'Artista — ' + (NAMES[item.cat] || 'Random');
+      name.textContent = 'Artist — ' + (NAMES[item.cat] || 'Random');
       li.appendChild(img);
       li.appendChild(name);
       return li;
