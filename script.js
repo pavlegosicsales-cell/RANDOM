@@ -7,10 +7,10 @@
   'use strict';
 
   /* ---------- PODACI ------------------------------------- */
-  // Kategorije: realizam (Mr Lemson), fine-line (Alex Anja), blackwork (Enco Enco)
+  // Kategorije: realizam (Lemson), fine-line (Anja), blackwork (Enco)
   var ARTISTS = {
     lemson: {
-      name: 'Mr Lemson',
+      name: 'Lemson',
       cat: 'realizam',
       style: 'REALIZAM · APSTRAKTNE BOJE',
       ig: '@mr_lemson',
@@ -21,7 +21,7 @@
       desc: 'Bez obzira na stil, svaki komad nosi isti kvalitet: izgleda živo.'
     },
     anja: {
-      name: 'Alex Anja',
+      name: 'Anja',
       cat: 'fine-line',
       style: 'FINA LINIJA · LINEWORK',
       ig: '@alex.anja.tattoo',
@@ -32,7 +32,7 @@
       desc: 'Savršeno za one koji žele nešto rafinirano i duboko lično.'
     },
     enco: {
-      name: 'Enco Enco',
+      name: 'Enco',
       cat: 'blackwork',
       style: 'GRAFITI · URBANI STIL',
       ig: '@enco_enco.tattoo',
@@ -1131,6 +1131,38 @@
     window.addEventListener('resize', onScroll);
   }
 
+  /* ---------- LOKACIJA (expand mapa) -------------------- */
+  function initLocationMap() {
+    var el = $('[data-lmap]');
+    if (!el) return;
+    var card = $('.lmap__card', el);
+    function toggle() {
+      var open = el.classList.toggle('is-open');
+      el.setAttribute('aria-expanded', String(open));
+    }
+    el.addEventListener('click', toggle);
+    el.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); }
+    });
+    // 3D tilt — samo desktop (bez hovera na telefonu)
+    if (reduceMotion || isMobile || !card) return;
+    var frame = null;
+    el.addEventListener('mousemove', function (e) {
+      var r = el.getBoundingClientRect();
+      var px = (e.clientX - r.left) / r.width - 0.5;
+      var py = (e.clientY - r.top) / r.height - 0.5;
+      if (frame) cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(function () {
+        card.style.setProperty('--ry', (px * 12).toFixed(2) + 'deg');
+        card.style.setProperty('--rx', (-py * 12).toFixed(2) + 'deg');
+      });
+    });
+    el.addEventListener('mouseleave', function () {
+      card.style.setProperty('--rx', '0deg');
+      card.style.setProperty('--ry', '0deg');
+    });
+  }
+
   /* ---------- INIT --------------------------------------- */
   document.addEventListener('DOMContentLoaded', function () {
     ensureLightbox();
@@ -1147,6 +1179,7 @@
     initBlurReveal();
     initInkCursor();
     initTilt();
+    initLocationMap();
     initAssemble();
     initScrollReveal();
     initCircularText();

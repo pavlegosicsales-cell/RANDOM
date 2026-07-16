@@ -265,18 +265,19 @@ strong { font-weight: 700; }
 .nav__link { font-size: var(--fs-small); font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; color: var(--bone); transition: color var(--dur-fast) var(--ease); }
 .nav__link:hover { color: var(--ash); }
 .nav__cta { display: none; white-space: nowrap; }
-/* Nav CTA — ista ethereal pozadina kao kontakt forma (tamna baza + Ember oblak) */
-.nav__cta { position: relative; overflow: hidden; background: rgba(22,15,13,0.92); }
+/* Nav CTA — ethereal tekstura kao kontakt forma, ali Ember baza (da se ne stapa sa nav-om).
+   BEZ overflow:hidden i bez diranja .btn__corner pozicije (inače coškovi ispadnu iz uglova). */
+.nav__cta { position: relative; background: var(--ember); }
 .nav__cta::before {
-  content: ""; position: absolute; inset: -40%; z-index: 0; pointer-events: none;
-  background-color: var(--ember);
-  -webkit-mask: url('assets/ethereal-mask.png') center / 200% auto no-repeat;
-  mask: url('assets/ethereal-mask.png') center / 200% auto no-repeat;
-  filter: url(#ethereal-shadow) blur(3px);
-  opacity: 0.8;
+  content: ""; position: absolute; inset: 0; z-index: 0; pointer-events: none;
+  background-color: rgba(74, 17, 11, 0.9);
+  -webkit-mask: url('assets/ethereal-mask.png') center / 220% auto no-repeat;
+  mask: url('assets/ethereal-mask.png') center / 220% auto no-repeat;
+  filter: url(#ethereal-shadow);
 }
-.nav__cta:hover { background: rgba(30,18,15,0.95); }
-.nav__cta > * { position: relative; z-index: 1; }
+.nav__cta:hover { background: var(--ember-hover); }
+.nav__cta .btn__label, .nav__cta .btn__arrow { position: relative; z-index: 1; }
+.nav__cta .btn__corner { z-index: 2; }
 /* Uske širine (tablet): zbijeniji nav da duži CTA ne lomi red */
 @media (min-width: 712px) and (max-width: 1040px) {
   .nav__inner { gap: var(--sp-2); }
@@ -540,6 +541,8 @@ html.lenis, html.lenis body { height: auto; }
 .step__list li::before { content: "—"; position: absolute; left: 0; color: var(--ember); }
 
 /* ---------- O STUDIJU ------------------------------------ */
+/* Isti razmak gore (do „/ O studiju" pill-a) i dole (od kraja teksta do sledeće sekcije) */
+#o-studiju { margin-top: clamp(28px, 4vh, 60px); }
 .about__body { margin: var(--sp-6) auto 0; max-width: 68ch; display: flex; flex-direction: column; gap: var(--sp-4); text-align: center; }
 .about__body p { color: var(--ash); margin-inline: auto; }
 
@@ -630,8 +633,69 @@ html.lenis, html.lenis body { height: auto; }
 .contact__info h3 { margin-bottom: var(--sp-1); }
 .contact__info a { color: var(--bone); transition: color var(--dur-fast) var(--ease); }
 .contact__info a:hover { color: var(--ash); }
-.contact__map { margin-top: var(--sp-5); border: 1px solid var(--hair); }
-.contact__map iframe { width: 100%; height: 320px; border: 0; filter: grayscale(1) invert(0.92) contrast(0.9); }
+/* ---------- LOKACIJA (expand mapa) ---------------------- */
+.lmap { position: relative; perspective: 1000px; cursor: pointer; user-select: none; margin-top: var(--sp-5); }
+.lmap__card {
+  position: relative; overflow: hidden; height: 150px;
+  background: var(--surface); border: 1px solid var(--hair);
+  transform: perspective(1000px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
+  transform-style: preserve-3d;
+  transition: height var(--dur-slow) var(--ease), transform var(--dur-base) var(--ease);
+}
+.lmap.is-open .lmap__card { height: 300px; }
+/* mreža (skupljeno) */
+.lmap__grid { position: absolute; inset: 0; opacity: 0.05; transition: opacity var(--dur-base) var(--ease);
+  background-image: linear-gradient(var(--bone) 1px, transparent 1px), linear-gradient(90deg, var(--bone) 1px, transparent 1px);
+  background-size: 20px 20px; }
+.lmap.is-open .lmap__grid { opacity: 0; }
+/* scena (prošireno) */
+.lmap__scene { position: absolute; inset: 0; opacity: 0; pointer-events: none; background: var(--clay); transition: opacity var(--dur-base) var(--ease); }
+.lmap.is-open .lmap__scene { opacity: 1; }
+.lmap__roads { position: absolute; inset: 0; width: 100%; height: 100%; }
+.lmap__roads line { stroke: var(--bone); stroke-dasharray: 1200; stroke-dashoffset: 1200; transition: stroke-dashoffset 0.8s var(--ease); }
+.lmap.is-open .lmap__roads line { stroke-dashoffset: 0; }
+.rd--main { stroke-opacity: 0.25; stroke-width: 4; }
+.rd--v { stroke-opacity: 0.2; stroke-width: 3; transition-delay: 0.12s; }
+.rd--s { stroke-opacity: 0.1; stroke-width: 1.5; transition-delay: 0.2s; }
+/* zgrade */
+.lmap__bld { position: absolute; background: rgba(150,135,126,0.28); border: 1px solid rgba(150,135,126,0.18);
+  opacity: 0; transform: scale(0.8); transition: opacity 0.4s var(--ease), transform 0.4s var(--ease); }
+.lmap.is-open .lmap__bld { opacity: 1; transform: scale(1); }
+.lmap.is-open .lmap__bld:nth-of-type(2) { transition-delay: 0.08s; }
+.lmap.is-open .lmap__bld:nth-of-type(3) { transition-delay: 0.14s; }
+.lmap.is-open .lmap__bld:nth-of-type(4) { transition-delay: 0.06s; }
+.lmap.is-open .lmap__bld:nth-of-type(5) { transition-delay: 0.12s; }
+.lmap.is-open .lmap__bld:nth-of-type(6) { transition-delay: 0.18s; }
+/* pin */
+.lmap__pin { position: absolute; top: 50%; left: 50%; display: block;
+  transform: translate(-50%, -60%) scale(0); filter: drop-shadow(0 0 10px rgba(192,57,43,0.55));
+  transition: transform 0.5s var(--ease) 0.22s; }
+.lmap.is-open .lmap__pin { transform: translate(-50%, -50%) scale(1); }
+.lmap__fade { position: absolute; inset: 0; background: linear-gradient(to top, var(--soot), transparent 60%); opacity: 0.6; }
+/* sadržaj */
+.lmap__content { position: relative; z-index: 2; height: 100%; display: flex; flex-direction: column; justify-content: space-between; padding: var(--sp-3); }
+.lmap__top { display: flex; align-items: flex-start; justify-content: space-between; gap: var(--sp-2); }
+.lmap__icon { width: 18px; height: 18px; color: var(--ember); transition: opacity var(--dur-base) var(--ease); }
+.lmap.is-open .lmap__icon { opacity: 0; }
+.lmap__live { display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; border: 1px solid var(--clay-border); border-radius: 999px;
+  font-family: var(--font-mono); font-size: 10px; text-transform: uppercase; letter-spacing: 0.14em; color: var(--ash); }
+.lmap__live i { width: 5px; height: 5px; border-radius: 50%; background: var(--ember); }
+.lmap__loc { margin: 0; font-family: var(--font-body); font-weight: 500; font-size: var(--fs-small);
+  text-transform: none; letter-spacing: 0; color: var(--bone); transition: transform var(--dur-base) var(--ease); }
+.lmap:hover .lmap__loc { transform: translateX(4px); }
+.lmap__coords { margin: 0; font-family: var(--font-mono); font-size: 11px; color: var(--ash);
+  max-height: 0; opacity: 0; overflow: hidden; transition: max-height var(--dur-base) var(--ease), opacity var(--dur-base) var(--ease), margin var(--dur-base) var(--ease); }
+.lmap.is-open .lmap__coords { max-height: 20px; opacity: 1; margin-top: 4px; }
+.lmap__rule { height: 1px; margin-top: var(--sp-2); background: linear-gradient(90deg, rgba(192,57,43,0.5), rgba(192,57,43,0.2), transparent);
+  transform: scaleX(0.3); transform-origin: 0 50%; transition: transform 0.4s var(--ease); }
+.lmap:hover .lmap__rule, .lmap.is-open .lmap__rule { transform: scaleX(1); }
+.lmap__hint { position: absolute; left: 50%; bottom: -20px; transform: translateX(-50%); white-space: nowrap;
+  font-family: var(--font-mono); font-size: 10px; color: var(--ash); opacity: 0; transition: opacity var(--dur-fast) var(--ease); }
+.lmap:hover .lmap__hint { opacity: 1; }
+.lmap.is-open .lmap__hint { opacity: 0; }
+.lmap__dir { display: inline-block; margin-top: var(--sp-4); font-family: var(--font-mono); font-size: var(--fs-small);
+  color: var(--bone); border-bottom: 1px solid var(--clay-border); padding-bottom: 3px; transition: color var(--dur-fast) var(--ease), border-color var(--dur-fast) var(--ease); }
+.lmap__dir:hover { color: var(--ember); border-color: var(--ember); }
 
 /* ---------- GLASS AUTH KARTICA (kontakt forma) ---------- */
 .auth-wrap { perspective: 1500px; }
