@@ -428,6 +428,9 @@
         onDragEnd: function () { updateZ(); window.setTimeout(updateZ, 320); }
       });
     }
+
+    // kartice raspoređene → otkrij točak (bez bljeska naslaganih kartica na load)
+    hub.classList.add('is-ready');
   }
 
   /* ---------- LIGHTBOX ----------------------------------- */
