@@ -222,6 +222,8 @@
     /* ---------- GALERIJA ---------- */
     'gal.title1':  { sr: 'Naši',   en: 'Our' },
     'gal.title2':  { sr: 'radovi', en: 'work' },
+    'gal.heroLead':{ sr: 'Svaka tetovaža u našem portfoliju počela je kao razgovor. Evo gde su se neki od tih razgovora završili.',
+                     en: 'Every tattoo in our portfolio started as a conversation. Here is where some of those conversations ended up.' },
     'gal.more':    { sr: 'Prikaži još radova', en: 'Show more work' },
     'gal.artist':  { sr: 'Artist', en: 'Artist' },
 
