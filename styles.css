@@ -429,6 +429,13 @@ strong { font-weight: 700; }
 }
 /* Invert efekat na naslov — bela slova invertuju pozadinu iza sebe (kao Hype "masterpiece gallery") */
 .gallery-hero__title { mix-blend-mode: exclusion; color: #fff; }
+/* Blog hero — ista sekcija, druga pozadinska slika */
+.gallery-hero--blog {
+  background-image:
+    linear-gradient(to bottom, rgba(14,11,10,0.68) 0%, rgba(14,11,10,0.40) 40%, rgba(14,11,10,0.66) 82%, var(--soot) 100%),
+    url('assets/blog-hero.jpg');
+}
+.blog-list-section { padding-top: var(--section-gap); padding-bottom: var(--section-gap); }
 .gallery-hero__inner { display: flex; flex-direction: column; align-items: center; text-align: center; gap: var(--sp-3); }
 .gallery-hero__title { display: flex; flex-direction: column; align-items: center; line-height: 0.9; }
 .gallery-hero__title span { display: block; white-space: nowrap; }
