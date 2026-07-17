@@ -362,14 +362,6 @@
     if (moreBtn) moreBtn.addEventListener('click', function () { renderMore(STEP); });
   }
 
-  /* ---------- HERO APPEAR: očisti animaciju po završetku ---
-     Da lingering composite layer ne ugasi mix-blend-mode na naslovu. */
-  function initHeroAppear() {
-    $$('.hero__title, .gallery-hero__title, .artist-hero .display').forEach(function (el) {
-      el.addEventListener('animationend', function () { el.style.animation = 'none'; });
-    });
-  }
-
   /* ---------- BLOG WHEEL (rotirajući luk, samo desktop) -- */
   function initBlogWheel() {
     var wheel = $('[data-wheel]');
@@ -1329,7 +1321,6 @@
     initGallery();
     initHypeGallery();
     initBlogWheel();
-    initHeroAppear();
     initCircular();
     initScroller();
     initReviewsMarquee();

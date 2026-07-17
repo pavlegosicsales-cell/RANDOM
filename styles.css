@@ -474,35 +474,22 @@ html[data-lang="en"] .post-body[lang="sr"] { display: none; }
 /* Invert efekat na naslov — bela slova invertuju pozadinu iza sebe (kao Hype "masterpiece gallery") */
 .gallery-hero__title { mix-blend-mode: exclusion; color: #fff; }
 
-/* ---------- HERO APPEAR (naslov → podnaslov → dugmad) ---------
-   VAŽNO: animacija se ZAVRŠAVA na transform:none/filter:none. translateY(0) ili
-   blur() bi napravili trajni stacking context i ugasili mix-blend-mode na naslovu. */
+/* ---------- HERO APPEAR (dugmad, labele) ---------------------
+   Naslovi i podnaslovi koriste per-reč blur reveal (data-blur / initBlurReveal) —
+   ta animacija deli reči u spanove UNUTAR naslova, pa h1 nema transform i
+   mix-blend-mode (invert) ostaje. Ovde ostaju samo labela, dugmad i donja traka. */
 @media (prefers-reduced-motion: no-preference) {
   @keyframes heroRise { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: none; } }
-  @keyframes heroTitleRise { from { opacity: 0; transform: translateY(26px); filter: blur(9px); } to { opacity: 1; transform: none; filter: none; } }
 
-  /* labela/pill prvo */
   .hero__status,
   .gallery-hero__inner > .label,
-  .artist-hero > .label { animation: heroRise 0.5s var(--ease) both; animation-delay: 0.03s; }
+  .artist-hero > .label { animation: heroRise 0.5s var(--ease) both; animation-delay: 0.04s; }
 
-  /* naslov (malkice brži, sa blur-in osećajem) */
-  .hero__title,
-  .gallery-hero__title,
-  .artist-hero > .display { animation: heroTitleRise 0.5s var(--ease) both; animation-delay: 0.12s; }
-
-  /* podnaslov posle naslova */
-  .hero__lead,
-  .gallery-hero__lead,
-  .artist-hero__meta,
-  .artist-hero__lead { animation: heroRise 0.55s var(--ease) both; animation-delay: 0.30s; }
-
-  /* dugmad poslednja */
   .hero .btn-row,
   .gallery-hero__cta,
-  .artist-hero__actions { animation: heroRise 0.55s var(--ease) both; animation-delay: 0.46s; }
+  .artist-hero__actions { animation: heroRise 0.6s var(--ease) both; animation-delay: 0.5s; }
 
-  .gallery-hero__bottom { animation: heroRise 0.6s var(--ease) both; animation-delay: 0.55s; }
+  .gallery-hero__bottom { animation: heroRise 0.6s var(--ease) both; animation-delay: 0.6s; }
 }
 /* Blog hero — ista sekcija, druga pozadinska slika */
 .gallery-hero--blog {
