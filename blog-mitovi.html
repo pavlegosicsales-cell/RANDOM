@@ -17,8 +17,8 @@
   <svg class="goo-defs" aria-hidden="true"><defs><filter id="goo"><feGaussianBlur in="SourceGraphic" stdDeviation="6" result="blur"/><feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 35 -15" result="goo"/><feComposite in="SourceGraphic" in2="goo" operator="atop"/></filter></defs></svg>
   <div id="ink-cursor" class="ink-cursor" aria-hidden="true"></div>
 
-  <!-- ============ NAV ============ -->
-  <header class="nav">
+  <!-- ============ NAV (nije sticky) ============ -->
+  <header class="nav nav--static">
     <div class="wrap nav__inner">
       <div class="nav__brand">
         <a class="nav__logo" href="index.html" aria-label="Random Tattoo Studio — početna">
@@ -55,6 +55,7 @@
     </div>
   </header>
 
+  <!-- ============ STAGGERED MOBILNI MENI ============ -->
   <div class="sm" id="nav-overlay" data-position="right" aria-hidden="true">
     <div class="sm-prelayers" aria-hidden="true">
       <div class="sm-prelayer" style="background:var(--clay)"></div>
@@ -99,19 +100,27 @@
   <main id="glavni">
     <article class="post">
       <header class="post-hero wrap">
-        <a class="post-back" href="blog.html">← Blog</a>
-        <span class="label">/ Mitovi</span>
-        <h1 class="post-title">Zašto ne smeš da veruješ svemu što pročitaš o tetovažama</h1>
-        <p class="post-meta">4 min čitanja</p>
+        <a class="post-back" href="blog.html" data-i18n="blog.back">← Blog</a>
+        <span class="label" data-i18n="blog.mitovi.cat">/ Mitovi</span>
+        <h1 class="post-title" data-i18n="blog.mitovi.title">Zašto ne smeš da veruješ svemu što pročitaš o tetovažama</h1>
+        <p class="post-meta">4 <span data-i18n="blog.readTime">min čitanja</span></p>
       </header>
       <div class="post-cover wrap"><img src="assets/blog-3.jpg" alt="" width="1600" height="900"></div>
-      <div class="post-body wrap reveal">
+      <div class="post-body wrap reveal" lang="sr">
         <p>Malo koja tema ima toliko mitova oko sebe kao tetoviranje. Priče se prenose sa kolena na koleno, sa foruma na forum, i vremenom se toliko ukorene da ljudi u njih veruju kao u činjenice. Vredi razbiti neke od najčešćih, jer pogrešna verovanja često plaše ljude bez razloga ili ih navode na loše odluke.</p>
         <p>Jedan od najpoznatijih mitova kaže da ne smeš da se tetoviraš ako imaš mladež ili puno pega. Istina je da dobar majstor jednostavno neće tetovirati preko mladeža, i to ne zato što je opasno za tetovažu, već zato što je važno da mladež ostane vidljiv radi praćenja zdravlja kože. Umesto da preskoči čitav deo tela, majstor će jednostavno ostaviti mali razmak oko njega i dizajn se prilagodi tako da to niko i ne primeti.</p>
         <p>Druga rasprostranjena zabluda je da tetovaže „kvare” znojenje ili da osoba sa velikim tetovažama ne može normalno da se znoji. To jednostavno nije tačno. Mastilo se nalazi u dermisu, a znojne žlezde funkcionišu potpuno nezavisno od pigmenta. Ljudi sa telom prekrivenim tetovažama znoje se isto kao i svi ostali. Ovaj mit verovatno potiče od toga što sveža tetovaža, dok zaceljuje, privremeno menja način na koji koža reaguje, ali to prođe za par nedelja.</p>
         <p>Postoji i verovanje da su tanke, sitne linije „lakše” za telo i da manje bole nego velike tetovaže. Ironično, često je obrnuto. Vrlo fine linije zahtevaju precizne i spore prolaze iglom, dok popunjavanje velikih površina ide brže i telo ga ponekad podnese lakše. Veličina tetovaže ne govori direktno o tome koliko će boleti, mnogo je važnije mesto na telu i tehnika koja se koristi.</p>
         <p>Čest je i mit da tetovaža mora da bude skupa da bi bila dobra, ili obrnuto, da je jeftina tetovaža isto što i loša. Cena zavisi od mnogo faktora, iskustva majstora, veličine i detalja, ali prava mera kvaliteta je portfolio majstora i higijena studija, a ne sam iznos. Najpametnije je da gledaš radove, a ne cenu, jer tetovažu nosiš ceo život.</p>
         <p>Na kraju, tu je i priča da tetovaže ne mogu da se uklone ili poprave. Iako je uklanjanje laserom proces koji traje i nije jeftin, danas je sasvim moguće. Isto tako, veliki broj naizgled „propalih” tetovaža može da se pretvori u nešto lepo kroz takozvani cover up, gde vešt majstor iskoristi stari rad kao osnovu za novi dizajn. Malo koja greška je zaista trajna presuda.</p>
+      </div>
+      <div class="post-body wrap reveal" lang="en">
+        <p>Few subjects carry as many myths as tattooing. Stories get passed down from person to person, from forum to forum, and over time they take root so deeply that people believe them as fact. It is worth breaking down some of the most common ones, because wrong beliefs often scare people off for no reason or push them into bad decisions.</p>
+        <p>One of the best known myths says you cannot get tattooed if you have moles or lots of freckles. The truth is that a good artist simply will not tattoo over a mole, and not because it is dangerous for the tattoo, but because it matters that the mole stays visible so your skin health can be monitored. Instead of skipping an entire part of the body, the artist will just leave a small gap around it and the design adapts so that nobody even notices.</p>
+        <p>Another widespread misconception is that tattoos „ruin” sweating, or that a person with large tattoos cannot sweat normally. That is simply not true. The ink sits in the dermis, and sweat glands work completely independently of pigment. People covered in tattoos sweat exactly like everyone else. This myth probably comes from the fact that a fresh tattoo, while it heals, temporarily changes how the skin behaves, but that passes within a couple of weeks.</p>
+        <p>There is also a belief that thin, small lines are „easier” on the body and hurt less than large tattoos. Ironically, it is often the opposite. Very fine lines demand precise, slow passes with the needle, while filling large areas goes faster and the body sometimes takes it more easily. The size of a tattoo does not directly tell you how much it will hurt; the spot on the body and the technique used matter far more.</p>
+        <p>Another common myth is that a tattoo has to be expensive to be good, or the reverse, that a cheap tattoo is the same as a bad one. Price depends on many factors, the artist's experience, the size and the detail, but the real measure of quality is the artist's portfolio and the studio's hygiene, not the amount itself. The smartest thing is to look at the work, not the price, because you wear the tattoo for life.</p>
+        <p>Finally, there is the story that tattoos cannot be removed or fixed. Although laser removal is a process that takes time and is not cheap, today it is entirely possible. In the same way, a large number of seemingly „ruined” tattoos can be turned into something beautiful through a so-called cover up, where a skilled artist uses the old piece as the base for a new design. Very few mistakes are truly a life sentence.</p>
       </div>
       <nav class="post-nav wrap" aria-label="Ostali blogovi">
         <a class="post-nav__link" href="blog-osecaj-bola.html">← Osećaj bola zavisi od mesta na telu</a>

@@ -98,35 +98,35 @@
     <!-- ============ GALERIJA HERO ============ -->
     <section class="gallery-hero">
       <div class="wrap gallery-hero__inner">
-        <span class="label">/ Galerija</span>
+        <span class="label" data-i18n="home.gal.label">/ Galerija</span>
         <h1 class="display gallery-hero__title">
-          <span>Naši</span>
-          <span>radovi</span>
+          <span data-i18n="gal.title1">Naši</span>
+          <span data-i18n="gal.title2">radovi</span>
         </h1>
-        <p class="lead gallery-hero__lead">Bez filtera, bez ulepšavanja. Ovako izgleda kad zaraste.</p>
-        <a class="btn btn-secondary gallery-hero__cta" href="#portfolio">Pogledaj radove</a>
+        <p class="lead gallery-hero__lead" data-i18n="home.gal.lead">Bez filtera, bez ulepšavanja. Ovako izgleda kad zaraste.</p>
+        <a class="btn btn-secondary gallery-hero__cta" href="#portfolio" data-i18n="common.viewWorks">Pogledaj radove</a>
       </div>
       <div class="gallery-hero__bottom">
-        <span>Beograd, Srbija</span>
-        <a class="gallery-hero__down" href="#portfolio">Skroluj dole ↓</a>
+        <span data-i18n="common.location">Beograd, Srbija</span>
+        <a class="gallery-hero__down" href="#portfolio" data-i18n="common.scroll">Skroluj dole ↓</a>
       </div>
     </section>
 
     <!-- ============ GALERIJA GRID (edge-to-edge) ============ -->
     <section id="portfolio" class="portfolio-section">
       <ul class="gallery-list" data-gallery-hype></ul>
-      <p class="gallery-empty" hidden>Nema radova u ovoj kategoriji</p>
+      <p class="gallery-empty" hidden data-i18n="home.gal.empty">Nema radova u ovoj kategoriji</p>
       <div class="gallery-more-wrap">
-        <a class="btn gallery-more" data-gallery-more href="javascript:void(0)" role="button">Prikaži još radova</a>
+        <a class="btn gallery-more" data-gallery-more href="javascript:void(0)" role="button" data-i18n="gal.more">Prikaži još radova</a>
       </div>
     </section>
 
     <!-- ============ KONTAKT (forma levo, konsultacije desno) ============ -->
     <section class="section wrap" id="kontakt">
       <div class="section-head reveal">
-        <span class="label">/ Kontakt</span>
-        <h2>Zakaži svoj termin</h2>
-        <p class="lead">Piši nam ideju ili zakaži besplatnu konsultaciju — javljamo se u roku od 24h.</p>
+        <span class="label" data-i18n="contact.label">/ Kontakt</span>
+        <h2 data-i18n="gal.kontakt.title">Zakaži svoj termin</h2>
+        <p class="lead" data-i18n="gal.kontakt.lead">Piši nam ideju ili zakaži besplatnu konsultaciju — javljamo se u roku od 24h.</p>
       </div>
       <div class="gallery-contact">
         <div class="auth-wrap reveal">
@@ -139,21 +139,21 @@
               <div class="auth-card__ether" aria-hidden="true"><div class="auth-card__ether-shape"></div></div>
               <div class="auth-card__head">
                 <div class="auth-card__logo"><img src="assets/logo.png" alt="" width="24" height="24"></div>
-                <h3 class="auth-card__title">Piši Nam</h3>
-                <p class="auth-card__sub">Piši nam ideju — javljamo se u roku od 24h.</p>
+                <h3 class="auth-card__title" data-i18n="form.title">Piši Nam</h3>
+                <p class="auth-card__sub" data-i18n="form.sub">Piši nam ideju — javljamo se u roku od 24h.</p>
               </div>
 
               <div class="auth-row2">
                 <div class="field field--auth">
                   <label class="sr-only" for="ime">Ime</label>
                   <span class="field__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6.2 8-6.2S20 17 20 21"/></svg></span>
-                  <input type="text" id="ime" name="ime" placeholder="Ime" data-required autocomplete="name">
+                  <input type="text" id="ime" name="ime" placeholder="Ime" data-i18n-attr="placeholder:form.name" data-required autocomplete="name">
                   <span class="field__error" aria-live="polite"></span>
                 </div>
                 <div class="field field--auth">
                   <label class="sr-only" for="kontakt-info">Email adresa</label>
                   <span class="field__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7.5 9 6 9-6"/></svg></span>
-                  <input type="email" id="kontakt-info" name="email" placeholder="Email adresa" data-required autocomplete="email">
+                  <input type="email" id="kontakt-info" name="email" placeholder="Email adresa" data-i18n-attr="placeholder:form.email" data-required autocomplete="email">
                   <span class="field__error" aria-live="polite"></span>
                 </div>
               </div>
@@ -162,7 +162,7 @@
                 <label class="sr-only" for="umetnik">Kod koga bi?</label>
                 <span class="field__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.2"/><path d="M2.5 20c0-3.3 3-5.2 6.5-5.2s6.5 1.9 6.5 5.2"/><path d="M16.5 5.3a3 3 0 0 1 0 5.6"/><path d="M21.5 20c0-2.4-1.3-4-3.2-4.7"/></svg></span>
                 <select id="umetnik" name="umetnik">
-                  <option value="svejedno">Kod koga bi? — svejedno</option>
+                  <option value="svejedno" data-i18n="form.artist">Kod koga bi? — svejedno</option>
                   <option value="lemson">Lemson</option>
                   <option value="anja">Anja</option>
                   <option value="enco">Enco</option>
@@ -172,26 +172,26 @@
               <div class="field field--auth">
                 <label class="sr-only" for="ideja">Ispričaj nam ideju</label>
                 <span class="field__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H8l-4 4V5a2 2 0 0 1 2-2h13a2 2 0 0 1 2 2z"/></svg></span>
-                <textarea id="ideja" name="ideja" placeholder="Ispričaj nam ideju" data-required></textarea>
+                <textarea id="ideja" name="ideja" placeholder="Ispričaj nam ideju" data-i18n-attr="placeholder:form.idea" data-required></textarea>
                 <span class="field__error" aria-live="polite"></span>
               </div>
 
-              <button type="submit" class="btn btn-primary auth-card__submit">Pošalji Svoju Ideju</button>
+              <button type="submit" class="btn btn-primary auth-card__submit" data-i18n="form.submit">Pošalji Svoju Ideju</button>
             </div>
           </form>
         </div>
 
         <aside class="consult reveal">
           <div class="consult__bg" aria-hidden="true"><canvas class="consult__canvas" data-artisti-shader></canvas></div>
-          <span class="label consult__label">/ Konsultacija</span>
-          <h3 class="consult__title">Zakaži besplatnu konsultaciju</h3>
-          <p class="consult__text">Nisi siguran odakle da počneš? Naš tim ti pravi besplatnu skicu. Izabraćemo umetnika koji je pravi za tvoju ideju — spreman da izvede i najsmelije zamisli.</p>
+          <span class="label consult__label" data-i18n="consult.label">/ Konsultacija</span>
+          <h3 class="consult__title" data-i18n="consult.title">Zakaži besplatnu konsultaciju</h3>
+          <p class="consult__text" data-i18n="consult.text">Nisi siguran odakle da počneš? Naš tim ti pravi besplatnu skicu. Izabraćemo umetnika koji je pravi za tvoju ideju — spreman da izvede i najsmelije zamisli.</p>
           <ul class="consult__list">
-            <li>Besplatno, bez obaveza</li>
-            <li>Predlog umetnika i stila</li>
-            <li>Okvirna procena cene i termina</li>
+            <li data-i18n="consult.li1">Besplatno, bez obaveza</li>
+            <li data-i18n="consult.li2">Predlog umetnika i stila</li>
+            <li data-i18n="consult.li3">Okvirna procena cene i termina</li>
           </ul>
-          <a class="btn btn-primary consult__cta" href="#kontakt-forma">Zakaži konsultaciju</a>
+          <a class="btn btn-primary consult__cta" href="#kontakt-forma" data-i18n="consult.cta">Zakaži konsultaciju</a>
         </aside>
       </div>
     </section>

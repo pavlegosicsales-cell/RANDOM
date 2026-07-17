@@ -17,8 +17,8 @@
   <svg class="goo-defs" aria-hidden="true"><defs><filter id="goo"><feGaussianBlur in="SourceGraphic" stdDeviation="6" result="blur"/><feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 35 -15" result="goo"/><feComposite in="SourceGraphic" in2="goo" operator="atop"/></filter></defs></svg>
   <div id="ink-cursor" class="ink-cursor" aria-hidden="true"></div>
 
-  <!-- ============ NAV ============ -->
-  <header class="nav">
+  <!-- ============ NAV (nije sticky) ============ -->
+  <header class="nav nav--static">
     <div class="wrap nav__inner">
       <div class="nav__brand">
         <a class="nav__logo" href="index.html" aria-label="Random Tattoo Studio — početna">
@@ -55,6 +55,7 @@
     </div>
   </header>
 
+  <!-- ============ STAGGERED MOBILNI MENI ============ -->
   <div class="sm" id="nav-overlay" data-position="right" aria-hidden="true">
     <div class="sm-prelayers" aria-hidden="true">
       <div class="sm-prelayer" style="background:var(--clay)"></div>
@@ -99,19 +100,27 @@
   <main id="glavni">
     <article class="post">
       <header class="post-hero wrap">
-        <a class="post-back" href="blog.html">← Blog</a>
-        <span class="label">/ Nauka o koži</span>
-        <h1 class="post-title">Koža pamti, ali se i menja</h1>
-        <p class="post-meta">4 min čitanja</p>
+        <a class="post-back" href="blog.html" data-i18n="blog.back">← Blog</a>
+        <span class="label" data-i18n="blog.koza-pamti.cat">/ Nauka o koži</span>
+        <h1 class="post-title" data-i18n="blog.koza-pamti.title">Koža pamti, ali se i menja</h1>
+        <p class="post-meta">4 <span data-i18n="blog.readTime">min čitanja</span></p>
       </header>
       <div class="post-cover wrap"><img src="assets/blog-1.jpg" alt="" width="1600" height="900"></div>
-      <div class="post-body wrap reveal">
+      <div class="post-body wrap reveal" lang="sr">
         <p>Većina ljudi misli da tetovaža jednostavno stoji na koži, kao neka nalepnica koja s vremenom počne da bledi. Istina je mnogo zanimljivija i ima veze sa načinom na koji tvoje telo funkcioniše na nivou koji golim okom ne možeš da vidiš.</p>
         <p>Kada te majstor tetovira, igla ne ostavlja mastilo na površini kože. Ona probija gornji sloj, koji se zove epidermis, i ostavlja pigment u dubljem sloju, dermisu. To je ključni razlog zašto tetovaža ostaje ceo život. Epidermis se, naime, obnavlja neprestano. Svakih nekoliko nedelja tvoje telo praktično zameni ceo gornji sloj kože novim ćelijama. Da mastilo stoji tu, tetovaža bi ti nestala za mesec dana, kao da si je nacrtao flomasterom. Ali pošto je pigment zaključan dublje, ostaje na mestu.</p>
         <p>Ono što se dešava odmah nakon tetoviranja je prava mala bitka unutar tvog tela. Tvoj imuni sistem prepoznaje čestice mastila kao strano telo i šalje ćelije koje se zovu makrofagi da ih „pojedu” i uklone. Problem je, iz njihove perspektive, u tome što su čestice pigmenta prevelike da bi ih u potpunosti razgradili. Tako makrofagi jednostavno ostaju zaglavljeni sa tim česticama, držeći ih na mestu godinama. Kada takva ćelija umre, druga preuzme pigment. Tvoja tetovaža je zapravo u stanju stalnog, tihog održavanja koje tvoje telo obavlja bez tvog znanja.</p>
         <p>Zato tetovaže vremenom omekšaju i blago izblede. Sitne linije koje su na početku bile oštre kao žilet, posle deset ili petnaest godina postanu malo mekše i šire. To nije znak lošeg rada, već prirodan proces. Sunce dodatno ubrzava bledjenje, jer UV zraci razgrađuju pigment, i upravo zato ljudi koji čuvaju tetovaže od sunca i redovno ih mažu kremom imaju radove koji izgledaju sveže i posle mnogo godina.</p>
         <p>Zanimljivo je i to da koža na različitim delovima tela drži mastilo drugačije. Mesta gde je koža deblja i gde ima manje trenja, poput nadlaktice ili lista, obično zadrže tetovažu jasnijom duže vreme. Delovi kao što su šake, prsti i stopala su poznati po tome što brzo blede, jer se ta koža najviše koristi, često pere i izložena je stalnom trenju. Zbog toga mnogi majstori unapred upozore mušteriju da će tetovaža na prstu verovatno morati da se dorađuje.</p>
         <p>Sve ovo znači jednu lepu stvar. Tvoja tetovaža nije mrtva slika na koži. Ona je deo živog tkiva koje se menja zajedno sa tobom, koje stari kada ti stariš i koje tvoje telo aktivno čuva svakog dana. To je možda i najlepši razlog zašto su tetovaže toliko lične.</p>
+      </div>
+      <div class="post-body wrap reveal" lang="en">
+        <p>Most people think a tattoo just sits on the skin, like a sticker that slowly starts to fade. The truth is far more interesting, and it has everything to do with how your body works at a level you cannot see with the naked eye.</p>
+        <p>When an artist tattoos you, the needle does not leave ink on the surface of the skin. It pierces the top layer, called the epidermis, and deposits pigment in the deeper layer, the dermis. That is the key reason a tattoo stays for life. The epidermis renews itself constantly. Every few weeks your body essentially replaces the entire top layer of skin with new cells. If the ink sat there, your tattoo would be gone in a month, as if you had drawn it with a marker. But because the pigment is locked in deeper, it stays put.</p>
+        <p>What happens right after tattooing is a small battle inside your body. Your immune system recognises the ink particles as foreign and sends cells called macrophages to „eat” and remove them. The problem, from their point of view, is that the pigment particles are too big to break down completely. So the macrophages simply end up stuck holding those particles, keeping them in place for years. When one of those cells dies, another takes over the pigment. Your tattoo is actually in a state of constant, quiet maintenance your body performs without you knowing.</p>
+        <p>That is why tattoos soften and fade slightly over time. Fine lines that were razor sharp at the start become a little softer and wider after ten or fifteen years. That is not a sign of bad work, it is a natural process. The sun speeds up the fading, because UV rays break down pigment, and that is exactly why people who keep their tattoos out of the sun and moisturise them regularly have pieces that still look fresh many years later.</p>
+        <p>It is also interesting that skin on different parts of the body holds ink differently. Places where the skin is thicker and there is less friction, like the upper arm or the calf, usually keep a tattoo sharper for longer. Areas such as hands, fingers and feet are known for fading fast, because that skin is used the most, washed often and exposed to constant friction. That is why many artists warn a client up front that a finger tattoo will probably need touching up.</p>
+        <p>All of this means one beautiful thing. Your tattoo is not a dead picture on your skin. It is part of living tissue that changes along with you, that ages when you age, and that your body actively protects every single day. That is perhaps the loveliest reason why tattoos are so personal.</p>
       </div>
       <nav class="post-nav wrap" aria-label="Ostali blogovi">
         <span></span>

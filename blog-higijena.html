@@ -17,8 +17,8 @@
   <svg class="goo-defs" aria-hidden="true"><defs><filter id="goo"><feGaussianBlur in="SourceGraphic" stdDeviation="6" result="blur"/><feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 35 -15" result="goo"/><feComposite in="SourceGraphic" in2="goo" operator="atop"/></filter></defs></svg>
   <div id="ink-cursor" class="ink-cursor" aria-hidden="true"></div>
 
-  <!-- ============ NAV ============ -->
-  <header class="nav">
+  <!-- ============ NAV (nije sticky) ============ -->
+  <header class="nav nav--static">
     <div class="wrap nav__inner">
       <div class="nav__brand">
         <a class="nav__logo" href="index.html" aria-label="Random Tattoo Studio — početna">
@@ -55,6 +55,7 @@
     </div>
   </header>
 
+  <!-- ============ STAGGERED MOBILNI MENI ============ -->
   <div class="sm" id="nav-overlay" data-position="right" aria-hidden="true">
     <div class="sm-prelayers" aria-hidden="true">
       <div class="sm-prelayer" style="background:var(--clay)"></div>
@@ -99,19 +100,27 @@
   <main id="glavni">
     <article class="post">
       <header class="post-hero wrap">
-        <a class="post-back" href="blog.html">← Blog</a>
-        <span class="label">/ Higijena i bezbednost</span>
-        <h1 class="post-title">Zašto svaki tattoo studio insistira na higijeni koliko i na dizajnu</h1>
-        <p class="post-meta">4 min čitanja</p>
+        <a class="post-back" href="blog.html" data-i18n="blog.back">← Blog</a>
+        <span class="label" data-i18n="blog.higijena.cat">/ Higijena i bezbednost</span>
+        <h1 class="post-title" data-i18n="blog.higijena.title">Zašto svaki tattoo studio insistira na higijeni koliko i na dizajnu</h1>
+        <p class="post-meta">4 <span data-i18n="blog.readTime">min čitanja</span></p>
       </header>
       <div class="post-cover wrap"><img src="assets/blog-6.jpg" alt="" width="1600" height="900"></div>
-      <div class="post-body wrap reveal">
+      <div class="post-body wrap reveal" lang="sr">
         <p>Kada biraš gde ćeš se tetovirati, najčešće gledaš radove majstora, njegov stil i portfolio. To je logično, jer je to ono što ostaje na tvojoj koži zauvek. Ali postoji stvar koja je jednako važna, a koju mnogi početnici potpuno previde, a to je higijena studija. Dobar dizajn u prljavom studiju ne vredi ništa, jer tetovaža nije samo umetnost, već i mali medicinski zahvat.</p>
         <p>Svaka tetovaža je, u suštini, otvorena rana. Igla probija kožu na hiljade puta u minuti i time otvara vrata svemu što se nalazi u okolini. Zbog toga ozbiljan studio funkcioniše po pravilima koja liče na ordinaciju. Sve što dolazi u kontakt sa tvojom kožom mora biti ili sterilno i za jednokratnu upotrebu ili propisno dezinfikovano. Igle se koriste jednom i bacaju, nikada se ne dele i nikada se ne koriste ponovo, i to je nešto oko čega nema kompromisa.</p>
         <p>Ono što odaje ozbiljan studio jesu detalji koje možeš da primetiš i sam. Majstor pred tobom otvara novu, zapakovanu iglu iz sterilnog pakovanja. Nosi rukavice koje menja kada je potrebno. Radna površina, mašinica i sve što drži u ruci prekriveni su zaštitnom folijom koja se baca posle svake mušterije. Boje se sipaju u male posudice za jednokratnu upotrebu, a ne uzimaju direktno iz zajedničke bočice na način koji bi mogao da je kontaminira. Ako uđeš u studio i vidiš da se ove stvari poštuju, to je dobar znak.</p>
         <p>Sterilizacija opreme koja se koristi više puta je posebna priča. Ozbiljni studiji imaju aparat koji se zove autoklav, koji pod visokim pritiskom i temperaturom uništava sve mikroorganizme na priboru. To nije nešto što se radi na oko, već proces koji se prati i beleži. Ako te zanima, potpuno je u redu da pitaš majstora kako sterilišu opremu. Profesionalac se neće uvrediti na to pitanje, naprotiv, biće mu drago što razmišljaš na pravi način.</p>
         <p>Higijena se ne završava u studiju, već se nastavlja i kod tebe kod kuće. Majstor ti daje uputstva za negu upravo zato da bi ta otvorena rana zacelila bez problema. Prljave ruke, prljav peškir ili prerano izlaganje bazenu i moru mogu da unesu bakterije i pokvare i najlepši rad, pa čak i da izazovu infekciju. Zbog toga je nega posle tetoviranja jednako deo higijene kao i sve ono što se dešava u studiju.</p>
         <p>Poenta je jednostavna. Kada biraš gde ćeš se tetovirati, gledaj radove, ali gledaj i čistoću. Ne ustručavaj se da postaviš pitanja i da obratiš pažnju na to kako studio izgleda i kako se majstor ponaša. Tvoje zdravlje i tvoja koža vrede toga. Najbolji studiji su ponosni na svoju higijenu koliko i na svoje radove, jer znaju da jedno bez drugog ne ide.</p>
+      </div>
+      <div class="post-body wrap reveal" lang="en">
+        <p>When you are choosing where to get tattooed, you usually look at the artist's work, their style and their portfolio. That makes sense, because that is what stays on your skin forever. But there is something equally important that many beginners completely overlook, and that is the studio's hygiene. Good design in a dirty studio is worth nothing, because a tattoo is not only art, it is also a small medical procedure.</p>
+        <p>Every tattoo is, in essence, an open wound. The needle pierces the skin thousands of times a minute and in doing so opens the door to everything in the surroundings. That is why a serious studio operates by rules that resemble a clinic. Everything that comes into contact with your skin must be either sterile and single use or properly disinfected. Needles are used once and thrown away, never shared and never reused, and there is no compromise on that.</p>
+        <p>What gives away a serious studio are details you can notice yourself. The artist opens a new, sealed needle from sterile packaging in front of you. They wear gloves and change them when needed. The work surface, the machine and everything they hold are covered with protective film that is thrown away after every client. Inks are poured into small single use caps, not taken directly from a shared bottle in a way that could contaminate it. If you walk into a studio and see these things respected, that is a good sign.</p>
+        <p>Sterilising equipment that gets reused is a story of its own. Serious studios have a device called an autoclave, which uses high pressure and temperature to destroy every microorganism on the tools. That is not something done by eye, it is a process that is monitored and logged. If you are curious, it is completely fine to ask the artist how they sterilise their equipment. A professional will not be offended by that question; on the contrary, they will be glad you are thinking the right way.</p>
+        <p>Hygiene does not end in the studio, it continues at your home. The artist gives you aftercare instructions precisely so that open wound heals without trouble. Dirty hands, a dirty towel or getting into a pool or the sea too early can introduce bacteria and ruin even the most beautiful piece, and can even cause an infection. That is why aftercare is just as much a part of hygiene as everything that happens in the studio.</p>
+        <p>The point is simple. When you are choosing where to get tattooed, look at the work, but look at the cleanliness too. Do not hesitate to ask questions and to pay attention to how the studio looks and how the artist behaves. Your health and your skin are worth it. The best studios are as proud of their hygiene as they are of their work, because they know one does not go without the other.</p>
       </div>
       <nav class="post-nav wrap" aria-label="Ostali blogovi">
         <a class="post-nav__link" href="blog-zaceljivanje.html">← Šta se zapravo dešava dok tvoja tetovaža zaceljuje</a>

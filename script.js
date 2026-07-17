@@ -100,6 +100,15 @@
   function lenisStop() { if (lenisInst) lenisInst.stop(); }
   function lenisStart() { if (lenisInst) lenisInst.start(); }
 
+  // Prevod iz i18n rečnika (fallback: srpski)
+  function tr(key, fallback) {
+    try {
+      var l = (window.RandomI18N && window.RandomI18N.current()) || 'sr';
+      var v = window.RandomI18N && window.RandomI18N.t(key, l);
+      return v != null ? v : fallback;
+    } catch (e) { return fallback; }
+  }
+
   /* ---------- NAV (scroll pozadina) ---------------------- */
   function initNav() {
     var nav = $('.nav');
@@ -513,7 +522,7 @@
           err = $('.field__error', wrap),
           ok = field.value.trim() !== '';
       wrap.classList.toggle('error', !ok);
-      if (err) err.textContent = ok ? '' : 'Ovo polje je obavezno.';
+      if (err) err.textContent = ok ? '' : tr('form.required', 'Ovo polje je obavezno.');
       return ok;
     }
     fields.forEach(function (f) {
@@ -531,14 +540,14 @@
       }
       var btn = $('button[type="submit"]', form);
       btn.disabled = true;
-      btn.textContent = 'ŠALJEM…';
+      btn.textContent = tr('form.sending', 'ŠALJEM…');
       form.setAttribute('data-loading', '1');
       // Bez backend-a: simuliraj slanje, pa zameni formu porukom
       window.setTimeout(function () {
         var msg = document.createElement('p');
         msg.className = 'form__success';
         msg.setAttribute('role', 'status');
-        msg.textContent = 'Javićemo ti se u roku od 24h.';
+        msg.textContent = tr('form.success', 'Javićemo ti se u roku od 24h.');
         form.replaceWith(msg);
       }, 700);
     });

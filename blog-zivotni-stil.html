@@ -17,8 +17,8 @@
   <svg class="goo-defs" aria-hidden="true"><defs><filter id="goo"><feGaussianBlur in="SourceGraphic" stdDeviation="6" result="blur"/><feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 35 -15" result="goo"/><feComposite in="SourceGraphic" in2="goo" operator="atop"/></filter></defs></svg>
   <div id="ink-cursor" class="ink-cursor" aria-hidden="true"></div>
 
-  <!-- ============ NAV ============ -->
-  <header class="nav">
+  <!-- ============ NAV (nije sticky) ============ -->
+  <header class="nav nav--static">
     <div class="wrap nav__inner">
       <div class="nav__brand">
         <a class="nav__logo" href="index.html" aria-label="Random Tattoo Studio — početna">
@@ -55,6 +55,7 @@
     </div>
   </header>
 
+  <!-- ============ STAGGERED MOBILNI MENI ============ -->
   <div class="sm" id="nav-overlay" data-position="right" aria-hidden="true">
     <div class="sm-prelayers" aria-hidden="true">
       <div class="sm-prelayer" style="background:var(--clay)"></div>
@@ -99,19 +100,27 @@
   <main id="glavni">
     <article class="post">
       <header class="post-hero wrap">
-        <a class="post-back" href="blog.html">← Blog</a>
-        <span class="label">/ Nega i vreme</span>
-        <h1 class="post-title">Kako tvoj životni stil oblikuje izgled tetovaže godinama kasnije</h1>
-        <p class="post-meta">4 min čitanja</p>
+        <a class="post-back" href="blog.html" data-i18n="blog.back">← Blog</a>
+        <span class="label" data-i18n="blog.zivotni-stil.cat">/ Nega i vreme</span>
+        <h1 class="post-title" data-i18n="blog.zivotni-stil.title">Kako tvoj životni stil oblikuje izgled tetovaže godinama kasnije</h1>
+        <p class="post-meta">4 <span data-i18n="blog.readTime">min čitanja</span></p>
       </header>
       <div class="post-cover wrap"><img src="assets/blog-4.jpg" alt="" width="1600" height="900"></div>
-      <div class="post-body wrap reveal">
+      <div class="post-body wrap reveal" lang="sr">
         <p>Kada ljudi biraju tetovažu, obično razmišljaju samo o tome kako će izgledati onog dana kada izađu iz studija. Retko ko se zapita kako će taj isti rad izgledati za pet, deset ili dvadeset godina. A istina je da tvoja tetovaža ne živi u vakuumu, ona stari zajedno sa tobom i sve što radiš sa svojim telom ostavlja trag na njoj.</p>
         <p>Najveći neprijatelj svake tetovaže je sunce. UV zraci polako razgrađuju čestice pigmenta u koži i vremenom čine boje bleđim i mutnijim. Osoba koja provodi mnogo vremena na suncu bez zaštite imaće tetovaže koje mnogo brže gube na oštrini, dok neko ko redovno maže kremu za sunčanje preko svojih radova može da ih sačuva svežim decenijama. Zbog toga iskusni majstori uvek kažu da je krema sa visokim faktorom najbolji prijatelj svake tetovaže.</p>
         <p>Promene telesne težine su druga velika stvar koju ljudi ne uzimaju u obzir. Koža je elastična, ali ima svoje granice. Naglo dobijanje ili gubljenje kilograma može da razvuče ili blago izobliči tetovažu, posebno ako se nalazi na mestima poput stomaka, ruku ili butina, gde se koža najviše menja. Kod žena je čest primer trudnoća, kada tetovaže na stomaku ili bokovima mogu da promene oblik. To ne znači da treba izbegavati te delove, već da je dobro znati kako telo funkcioniše i eventualno birati stabilnija mesta ako planiraš veće promene.</p>
         <p>Zanimanje i svakodnevne navike takođe igraju ulogu. Ljudi koji rade fizičke poslove, često peru ruke ili rade sa hemikalijama primetiće da tetovaže na šakama i podlakticama brže blede od onih na skrivenijim delovima tela. Isto važi i za sportiste čija koža trpi mnogo trenja. Tetovaža na mestu koje je stalno u pokretu i pod pritiskom jednostavno će zahtevati više pažnje i povremene dorade.</p>
         <p>Ni ishrana i hidratacija nisu nevažne. Koža koja je dobro hidrirana i negovana bolje zadržava pigment i izgleda zdravije, pa samim tim i tetovaža na njoj izgleda lepše. Pušenje, s druge strane, utiče na kvalitet i elastičnost kože tokom godina, što se posredno odražava i na to kako stare tvoji radovi. Ništa od ovoga ne znači da moraš da promeniš ceo život zbog jedne tetovaže, ali vredi razumeti da je nega kože zapravo nega tetovaže.</p>
         <p>Poenta svega je jednostavna. Tetovaža nije nešto što uradiš i zaboraviš. Ona je deo tebe koji zahteva malo pažnje da bi lepo ostario. Oni koji to razumeju i posvete par minuta nedeljno nezi svojih radova, uživaju u tetovažama koje i posle mnogo godina izgledaju gotovo kao onog prvog dana.</p>
+      </div>
+      <div class="post-body wrap reveal" lang="en">
+        <p>When people choose a tattoo, they usually only think about how it will look on the day they walk out of the studio. Rarely does anyone ask how that same piece will look in five, ten or twenty years. And the truth is that your tattoo does not live in a vacuum, it ages along with you and everything you do with your body leaves a mark on it.</p>
+        <p>The greatest enemy of every tattoo is the sun. UV rays slowly break down pigment particles in the skin and over time make the colours paler and murkier. Someone who spends a lot of time in the sun without protection will have tattoos that lose their sharpness far faster, while someone who regularly applies sunscreen over their pieces can keep them fresh for decades. That is why experienced artists always say that a high factor sunscreen is every tattoo's best friend.</p>
+        <p>Changes in body weight are the second big thing people do not take into account. Skin is elastic, but it has its limits. Rapid weight gain or loss can stretch or slightly distort a tattoo, especially if it sits on places like the stomach, arms or thighs, where the skin changes the most. With women a common example is pregnancy, when tattoos on the stomach or hips can change shape. That does not mean you should avoid those areas, only that it is good to know how the body works and perhaps choose more stable spots if you are planning big changes.</p>
+        <p>Your job and everyday habits also play a role. People who do physical work, wash their hands often or handle chemicals will notice that tattoos on the hands and forearms fade faster than those on more hidden parts of the body. The same goes for athletes whose skin takes a lot of friction. A tattoo in a spot that is constantly moving and under pressure will simply demand more attention and the occasional touch up.</p>
+        <p>Diet and hydration are not irrelevant either. Skin that is well hydrated and cared for holds pigment better and looks healthier, and so a tattoo on it looks better too. Smoking, on the other hand, affects the quality and elasticity of the skin over the years, which indirectly shows in how your pieces age. None of this means you have to change your whole life for one tattoo, but it is worth understanding that caring for your skin is caring for your tattoo.</p>
+        <p>The point of it all is simple. A tattoo is not something you get and forget. It is a part of you that needs a little attention to age well. Those who understand that and give a couple of minutes a week to caring for their pieces enjoy tattoos that still look almost like day one many years later.</p>
       </div>
       <nav class="post-nav wrap" aria-label="Ostali blogovi">
         <a class="post-nav__link" href="blog-mitovi.html">← Zašto ne smeš da veruješ svemu što pročitaš o tetovažama</a>

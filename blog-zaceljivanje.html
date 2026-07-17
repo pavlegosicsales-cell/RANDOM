@@ -17,8 +17,8 @@
   <svg class="goo-defs" aria-hidden="true"><defs><filter id="goo"><feGaussianBlur in="SourceGraphic" stdDeviation="6" result="blur"/><feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 35 -15" result="goo"/><feComposite in="SourceGraphic" in2="goo" operator="atop"/></filter></defs></svg>
   <div id="ink-cursor" class="ink-cursor" aria-hidden="true"></div>
 
-  <!-- ============ NAV ============ -->
-  <header class="nav">
+  <!-- ============ NAV (nije sticky) ============ -->
+  <header class="nav nav--static">
     <div class="wrap nav__inner">
       <div class="nav__brand">
         <a class="nav__logo" href="index.html" aria-label="Random Tattoo Studio — početna">
@@ -55,6 +55,7 @@
     </div>
   </header>
 
+  <!-- ============ STAGGERED MOBILNI MENI ============ -->
   <div class="sm" id="nav-overlay" data-position="right" aria-hidden="true">
     <div class="sm-prelayers" aria-hidden="true">
       <div class="sm-prelayer" style="background:var(--clay)"></div>
@@ -99,19 +100,27 @@
   <main id="glavni">
     <article class="post">
       <header class="post-hero wrap">
-        <a class="post-back" href="blog.html">← Blog</a>
-        <span class="label">/ Zaceljivanje</span>
-        <h1 class="post-title">Šta se zapravo dešava dok tvoja tetovaža zaceljuje</h1>
-        <p class="post-meta">4 min čitanja</p>
+        <a class="post-back" href="blog.html" data-i18n="blog.back">← Blog</a>
+        <span class="label" data-i18n="blog.zaceljivanje.cat">/ Zaceljivanje</span>
+        <h1 class="post-title" data-i18n="blog.zaceljivanje.title">Šta se zapravo dešava dok tvoja tetovaža zaceljuje</h1>
+        <p class="post-meta">4 <span data-i18n="blog.readTime">min čitanja</span></p>
       </header>
       <div class="post-cover wrap"><img src="assets/blog-5.jpg" alt="" width="1600" height="900"></div>
-      <div class="post-body wrap reveal">
+      <div class="post-body wrap reveal" lang="sr">
         <p>Trenutak kada izađeš iz studija sa svežom tetovažom je tek početak priče. Ono što se dešava tokom sledećih nekoliko nedelja odlučuje da li će tvoja tetovaža izgledati oštro i živo ili mutno i izbledelo. Razumevanje tog procesa pomaže ti da ne paničiš kada primetiš stvari koje su potpuno normalne, i da prepoznaš kada nešto zaista nije u redu.</p>
         <p>Prvih nekoliko dana tvoja koža se ponaša kao da je posekotina, jer to u suštini i jeste. Sveža tetovaža je otvorena rana i tvoje telo odmah reaguje. Normalno je da to mesto bude crveno, blago otečeno i toplo na dodir. Iz tetovaže se prvog dana često izlučuje mešavina viška mastila, plazme i limfe, i to je potpuno prirodno. Upravo zato majstori savetuju da se prvog dana tetovaža nežno opere i da se ne pokriva predugo, kako bi mogla da diše.</p>
         <p>Otprilike od trećeg do šestog dana počinje faza koja mnoge iznenadi i uplaši, a to je ljuštenje. Koža počne da se suši i da se ljušti u sitnim ljuspicama, baš kao kada preplaneš na suncu. U tim ljuspicama često se vidi boja tvoje tetovaže, pa ljudi pomisle da im mastilo otpada i da će tetovaža nestati. Nema razloga za paniku. To je samo mrtvi gornji sloj kože koji otpada, dok pravo mastilo ostaje bezbedno u dubljem sloju. U ovoj fazi je najvažnije da odoliš iskušenju da čačkaš ili čupaš te ljuspice, jer time možeš da izvučeš pigment pre vremena i napraviš rupe u tetovaži.</p>
         <p>Negde oko druge nedelje tetovaža uđe u fazu koju mnogi opišu kao čudan osećaj. Ljuštenje je uglavnom gotovo, ali koža preko tetovaže može da izgleda pomalo mutno, kao da je prekrivena tankim slojem. Ta zamućenost je sasvim normalna i nastaje jer se ispod površine formira nova, sveža koža koja još nije potpuno prozirna. Tokom sledećih nedelja ta magla se povuče i tetovaža ponovo dobije svoju punu jasnoću i sjaj. Zbog toga nikada ne treba suditi o konačnom izgledu tetovaže dok potpuno ne zaceli.</p>
         <p>Iako je površinsko zaceljivanje uglavnom gotovo za dve do tri nedelje, duboko zaceljivanje traje mnogo duže, često i do nekoliko meseci. U tom periodu koža ispod površine i dalje radi na tome da se u potpunosti oporavi. Zato je pametno da još neko vreme nakon što tetovaža deluje zaceljeno nastaviš da je hidriraš i čuvaš od jakog sunca. Nega u ovom periodu direktno utiče na to koliko će rad izgledati lepo na duže staze.</p>
         <p>Kroz sve ovo, ključna reč je strpljenje. Najčešće greške ne prave majstori, već mušterije koje ne poštuju proces zaceljivanja, čačkaju ranu, previše je kvase ili je izlažu suncu i bazenu prerano. Ako svom telu daš vremena i pratiš uputstva majstora, nagradiće te tetovažom koja izgleda tačno onako kako si zamislio. Tvoja tetovaža je zajednički rad, majstor uradi svoj deo u studiju, a ti završiš posao kod kuće tokom narednih nedelja.</p>
+      </div>
+      <div class="post-body wrap reveal" lang="en">
+        <p>The moment you walk out of the studio with a fresh tattoo is only the beginning of the story. What happens over the next few weeks decides whether your tattoo will look sharp and alive or dull and faded. Understanding that process helps you not panic when you notice things that are completely normal, and to recognise when something genuinely is wrong.</p>
+        <p>For the first few days your skin behaves as if it has a cut, because that is essentially what it is. A fresh tattoo is an open wound and your body reacts immediately. It is normal for the area to be red, slightly swollen and warm to the touch. On the first day the tattoo often weeps a mix of excess ink, plasma and lymph, and that is completely natural. That is exactly why artists advise washing the tattoo gently on day one and not covering it for too long, so it can breathe.</p>
+        <p>Roughly from the third to the sixth day comes the phase that surprises and scares many people, and that is peeling. The skin starts to dry and flake off in small pieces, just like when you have been sunburnt. The colour of your tattoo is often visible in those flakes, so people think the ink is falling out and the tattoo will disappear. There is no reason to panic. That is only the dead top layer of skin coming off, while the real ink stays safely in the deeper layer. In this phase the most important thing is to resist the urge to pick or pull at those flakes, because that can pull pigment out early and leave holes in your tattoo.</p>
+        <p>Around the second week the tattoo enters a phase many describe as a strange feeling. The peeling is mostly done, but the skin over the tattoo can look slightly cloudy, as if covered by a thin film. That cloudiness is perfectly normal and happens because new, fresh skin is forming below the surface and is not fully transparent yet. Over the following weeks that haze lifts and the tattoo regains its full clarity and shine. That is why you should never judge the final look of a tattoo before it is completely healed.</p>
+        <p>Although surface healing is mostly done within two to three weeks, deep healing takes much longer, often up to a few months. During that period the skin below the surface is still working on fully recovering. That is why it is smart to keep moisturising it and keeping it out of strong sun for a while even after the tattoo looks healed. Care in this period directly affects how good the piece looks in the long run.</p>
+        <p>Through all of this, the key word is patience. The most common mistakes are not made by artists, but by clients who do not respect the healing process, pick at the wound, soak it too much or expose it to sun and pools too early. If you give your body time and follow your artist's instructions, it will reward you with a tattoo that looks exactly the way you imagined. Your tattoo is a joint effort: the artist does their part in the studio, and you finish the job at home over the following weeks.</p>
       </div>
       <nav class="post-nav wrap" aria-label="Ostali blogovi">
         <a class="post-nav__link" href="blog-zivotni-stil.html">← Kako tvoj životni stil oblikuje izgled tetovaže godinama kasnije</a>
