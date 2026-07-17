@@ -1331,10 +1331,12 @@
       '  float l=dot(c.rgb,vec3(0.299,0.587,0.114));',
       '  l=pow(clamp(l,0.0,1.0),1.15);',
       '  vec3 soot=vec3(0.055,0.043,0.039);',
-      '  vec3 clay=vec3(0.129,0.098,0.082);',
+      '  vec3 clay=vec3(0.16,0.11,0.09);',
       '  vec3 ember=vec3(0.753,0.224,0.169);',
-      '  vec3 col=mix(soot,clay,smoothstep(0.15,0.6,l));',
-      '  col=mix(col,ember,smoothstep(0.62,1.0,l));',
+      '  vec3 emberHot=vec3(0.90,0.33,0.24);',
+      '  vec3 col=mix(soot,clay,smoothstep(0.05,0.35,l));',
+      '  col=mix(col,ember,smoothstep(0.30,0.75,l));',
+      '  col=mix(col,emberHot,smoothstep(0.80,1.0,l));',
       '  gl_FragColor=vec4(clamp(col,0.0,1.0),1.0);',
       '}'
     ].join('\n');
