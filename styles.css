@@ -533,10 +533,12 @@ html[data-lang="en"] .post-body[lang="sr"] { display: none; }
 /* Kontakt sekcija prekriva fiksiranu hero sliku na skrol.
    Sekcija je .wrap (centrirana kolona), pa crnu pozadinu razvlačimo full-width
    preko ::before — inače bi fiksirana siva hero slika probijala pored kolone. */
-.kontakt-cover { position: relative; z-index: 1; margin-top: 0; padding-top: var(--section-gap); padding-bottom: var(--section-gap); background: var(--soot); }
+.kontakt-cover { position: relative; z-index: 1; margin-top: 0; background: var(--soot); }
 /* DarkVeil host (kontakt sekcija na kontakt i pocetnoj strani).
+   padding-block ovde (a ne na sekciji) — veil ispuni ceo box, pa sadrzaj mora
+   da ima razmak iznutra da ne dodiruje ivice. Vazi i za pocetnu i za kontakt stranu.
    Slojevi: soot baza (::before, full-bleed) → DarkVeil canvas → dim vignette (::after) → sadrzaj */
-.darkveil-host { position: relative; isolation: isolate; }
+.darkveil-host { position: relative; isolation: isolate; padding-block: var(--sp-6); }
 .darkveil-host::before { content: ""; position: absolute; top: 0; bottom: 0; left: calc(50% - 50vw); width: 100vw; z-index: 0; background: var(--soot); pointer-events: none; }
 .darkveil { position: absolute; top: 0; bottom: 0; left: calc(50% - 50vw); width: 100vw; height: 100%; z-index: 1; display: block; opacity: 1; pointer-events: none; }
 .darkveil-host::after { content: ""; position: absolute; top: 0; bottom: 0; left: calc(50% - 50vw); width: 100vw; z-index: 2; pointer-events: none;
@@ -1018,7 +1020,7 @@ html.lenis, html.lenis body { height: auto; }
 @keyframes shimmer { to { transform: translateX(100%); } }
 
 /* ---------- FOOTER --------------------------------------- */
-.footer { margin-top: var(--section-gap); overflow: hidden; padding-top: var(--sp-7); padding-bottom: var(--sp-5); }
+.footer { margin-top: var(--sp-6); overflow: hidden; padding-top: var(--sp-4); padding-bottom: var(--sp-5); }
 .footer__cols { display: grid; grid-template-columns: 1fr; gap: var(--sp-6); padding-top: var(--sp-6); border-top: 1px solid var(--hair); }
 .footer__col h4 { font-family: var(--font-mono); font-size: var(--fs-label); font-weight: 400; text-transform: uppercase; letter-spacing: 0.16em; color: var(--ash); margin-bottom: var(--sp-3); }
 .footer__col a, .footer__col p, .footer__col li { color: var(--bone); }
