@@ -436,6 +436,14 @@ strong { font-weight: 700; }
     url('assets/blog-hero.jpg');
 }
 .blog-list-section { padding-top: var(--section-gap); padding-bottom: var(--section-gap); }
+/* Kontakt hero — ista sekcija, Anja.jpg pozadina */
+.gallery-hero--kontakt {
+  background-image:
+    linear-gradient(to bottom, rgba(14,11,10,0.68) 0%, rgba(14,11,10,0.40) 40%, rgba(14,11,10,0.66) 82%, var(--soot) 100%),
+    url('assets/kontakt-hero.jpg');
+}
+/* Kontakt sekcija prekriva fiksiranu hero sliku na skrol */
+.kontakt-cover { position: relative; z-index: 1; background: var(--soot); margin-top: 0; padding-top: var(--section-gap); }
 
 /* ---------- BLOG KARTICE (bcard) ------------------------ */
 .bcard { position: relative; display: block; overflow: hidden; background: var(--clay); border: 4px solid var(--bone); }

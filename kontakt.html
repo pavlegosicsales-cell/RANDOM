@@ -18,8 +18,8 @@
   <svg class="goo-defs" aria-hidden="true"><defs><filter id="goo"><feGaussianBlur in="SourceGraphic" stdDeviation="6" result="blur"/><feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 35 -15" result="goo"/><feComposite in="SourceGraphic" in2="goo" operator="atop"/></filter></defs></svg>
   <div id="ink-cursor" class="ink-cursor" aria-hidden="true"></div>
 
-  <!-- ============ NAV ============ -->
-  <header class="nav">
+  <!-- ============ NAV (nije sticky) ============ -->
+  <header class="nav nav--static">
     <div class="wrap nav__inner">
       <div class="nav__brand">
         <a class="nav__logo" href="index.html" aria-label="Random Tattoo Studio — početna">
@@ -66,11 +66,27 @@
 
   <main id="glavni">
 
-    <!-- ============ KONTAKT ============ -->
-    <section class="section wrap page-top" id="kontakt">
-      <div class="section-head reveal">
+    <!-- ============ KONTAKT HERO (isto kao blog/galerija) ============ -->
+    <section class="gallery-hero gallery-hero--kontakt">
+      <div class="wrap gallery-hero__inner">
         <span class="label">/ Kontakt</span>
-        <h1>Pronađi Nas</h1>
+        <h1 class="display gallery-hero__title">
+          <span>Kontakt</span>
+        </h1>
+        <p class="lead gallery-hero__lead">Piši nam ideju ili svrati na kafu. Odgovaramo u roku od 24h.</p>
+        <a class="btn btn-secondary gallery-hero__cta" href="#kontakt">Kontaktiraj nas</a>
+      </div>
+      <div class="gallery-hero__bottom">
+        <span>Beograd, Srbija</span>
+        <a class="gallery-hero__down" href="#kontakt">Skroluj dole ↓</a>
+      </div>
+    </section>
+
+    <!-- ============ KONTAKT (prekriva hero na skrol) ============ -->
+    <section class="section wrap kontakt-cover" id="kontakt">
+      <div class="section-head reveal">
+        <span class="label">/ Pronađi nas</span>
+        <h2>Pronađi Nas</h2>
         <p class="lead">Piši nam ideju ili svrati na kafu. Odgovaramo u roku od 24h.</p>
       </div>
       <div class="contact__grid">
