@@ -353,6 +353,53 @@
     if (moreBtn) moreBtn.addEventListener('click', function () { renderMore(STEP); });
   }
 
+  /* ---------- BLOG WHEEL (rotirajući luk, samo desktop) -- */
+  function initBlogWheel() {
+    var wheel = $('[data-wheel]');
+    if (!wheel) return;
+    var hub = $('[data-wheel-hub]', wheel);
+    var items = $$('.wheel__item', hub);
+    if (!items.length) return;
+    // Telefon/tablet ili reduce → ostaje grid (CSS), bez luka i draga
+    if (window.innerWidth < 1024 || reduceMotion) return;
+
+    var N = items.length;
+    var degree = 12;                 // razmak između kartica u luku (radius = 760px)
+    var center = (N - 1) / 2;        // centriraj srednju karticu na vrh
+    items.forEach(function (it, i) {
+      it.style.transform = 'rotate(' + ((i - center) * degree) + 'deg)';
+    });
+
+    // Ulet na skrol: kartice izrone i slože se (jednom)
+    if (typeof gsap !== 'undefined') {
+      var played = false;
+      var run = function () {
+        if (played) return; played = true;
+        gsap.from(items, {
+          opacity: 0, scale: 0.6, y: 80, duration: 0.9,
+          ease: 'power3.out', stagger: 0.09
+        });
+      };
+      if ('IntersectionObserver' in window) {
+        var io = new IntersectionObserver(function (es) {
+          if (es[0].isIntersecting) { run(); io.disconnect(); }
+        }, { threshold: 0.2 });
+        io.observe(wheel);
+      } else { run(); }
+    }
+
+    // Vučenje: rotacija huba u granicama luka, uz snap na karticu
+    if (typeof Draggable !== 'undefined') {
+      try { if (gsap && gsap.registerPlugin) gsap.registerPlugin(Draggable); } catch (e) {}
+      Draggable.create(hub, {
+        type: 'rotation',
+        inertia: false,
+        bounds: { minRotation: -center * degree, maxRotation: center * degree },
+        snap: function (v) { return Math.round(v / degree) * degree; }
+      });
+    }
+  }
+
   /* ---------- LIGHTBOX ----------------------------------- */
   var lb, lbImg, lbList = [], lbIndex = 0, lbLastFocus = null;
   function ensureLightbox() {
@@ -1242,6 +1289,7 @@
     initStaggeredMenu();
     initGallery();
     initHypeGallery();
+    initBlogWheel();
     initCircular();
     initScroller();
     initReviewsMarquee();

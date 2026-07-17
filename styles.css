@@ -437,21 +437,33 @@ strong { font-weight: 700; }
 }
 .blog-list-section { padding-top: var(--section-gap); padding-bottom: var(--section-gap); }
 
-/* ---------- BLOG LISTA (kartice) ------------------------ */
-.blog-grid { display: grid; grid-template-columns: 1fr; gap: var(--sp-4); margin-top: var(--sp-6); }
-@media (min-width: 680px) { .blog-grid { grid-template-columns: repeat(2, 1fr); } }
-@media (min-width: 1040px) { .blog-grid { grid-template-columns: repeat(3, 1fr); } }
-.blog-card { display: flex; flex-direction: column; background: var(--clay); border: 1px solid var(--hair); overflow: hidden; transition: border-color var(--dur-base) var(--ease), transform var(--dur-base) var(--ease); }
-.blog-card:hover { border-color: var(--ember); transform: translateY(-4px); }
-.blog-card__media { overflow: hidden; aspect-ratio: 16 / 10; background: var(--soot-2); }
-.blog-card__media img { width: 100%; height: 100%; object-fit: cover; transition: transform var(--dur-slow) var(--ease); }
-.blog-card:hover .blog-card__media img { transform: scale(1.05); }
-.blog-card__body { display: flex; flex-direction: column; gap: var(--sp-2); padding: var(--sp-4); flex: 1; }
-.blog-card__cat { font-family: var(--font-mono); font-size: var(--fs-label); text-transform: uppercase; letter-spacing: 0.14em; color: var(--ember); }
-.blog-card__title { font-family: var(--font-display); font-weight: 900; text-transform: uppercase; font-size: clamp(18px, 1.5vw, 22px); line-height: 1.12; letter-spacing: -0.01em; }
-.blog-card__excerpt { color: var(--ash); font-size: var(--fs-small); line-height: 1.6; max-width: none; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
-.blog-card__more { margin-top: auto; padding-top: var(--sp-1); font-family: var(--font-mono); font-size: var(--fs-small); color: var(--bone); transition: color var(--dur-fast) var(--ease); }
-.blog-card:hover .blog-card__more { color: var(--ember); }
+/* ---------- BLOG KARTICE (bcard) ------------------------ */
+.bcard { position: relative; display: block; overflow: hidden; background: var(--clay); border: 4px solid var(--bone); }
+.bcard__media { position: absolute; inset: 0; }
+.bcard__media img { width: 100%; height: 100%; object-fit: cover; transition: transform var(--dur-slow) var(--ease); }
+.bcard:hover .bcard__media img { transform: scale(1.05); }
+.bcard__info { position: absolute; left: 0; right: 0; bottom: 0; z-index: 2; display: flex; flex-direction: column; gap: var(--sp-1); padding: var(--sp-4); background: linear-gradient(180deg, transparent 0%, rgba(14,11,10,0.5) 45%, rgba(14,11,10,0.94) 100%); }
+.bcard__cat { font-family: var(--font-mono); font-size: var(--fs-label); text-transform: uppercase; letter-spacing: 0.14em; color: var(--ember); }
+.bcard__title { font-family: var(--font-display); font-weight: 900; text-transform: uppercase; font-size: clamp(15px, 1.05vw, 18px); line-height: 1.12; letter-spacing: -0.01em; color: var(--bone); display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden; }
+.bcard__more { margin-top: var(--sp-1); font-family: var(--font-mono); font-size: var(--fs-small); color: var(--bone); opacity: 0; transform: translateY(6px); transition: opacity var(--dur-base) var(--ease), transform var(--dur-base) var(--ease), color var(--dur-fast) var(--ease); }
+.bcard:hover .bcard__more { opacity: 1; transform: translateY(0); color: var(--ember); }
+
+/* --- Telefon/tablet: običan grid (bez luka) --- */
+.wheel { margin-top: var(--sp-6); }
+.wheel__hint { display: none; }
+.wheel__hub { display: grid; grid-template-columns: 1fr; gap: var(--sp-4); }
+@media (min-width: 560px) { .wheel__hub { grid-template-columns: repeat(2, 1fr); } }
+.wheel__item .bcard { aspect-ratio: 3 / 3.4; }
+
+/* --- Desktop (≥1024px): rotirajući luk kartica (vuci da zavrtiš) --- */
+@media (min-width: 1024px) {
+  .wheel { position: relative; height: min(78vh, 720px); overflow: hidden; margin-top: var(--sp-5); touch-action: none; }
+  .wheel__hint { display: block; position: absolute; left: 50%; bottom: var(--sp-3); transform: translateX(-50%); z-index: 5; font-family: var(--font-mono); font-size: var(--fs-small); letter-spacing: 0.14em; text-transform: uppercase; color: var(--ash); pointer-events: none; }
+  .wheel__hub { position: absolute; left: 50%; top: 36%; width: 0; height: 0; display: block; grid-template-columns: none; gap: 0; transform-origin: 50% 760px; cursor: grab; will-change: transform; }
+  .wheel__hub:active { cursor: grabbing; }
+  .wheel__item { position: absolute; left: 0; top: 0; transform-origin: 50% 760px; }
+  .wheel__item .bcard { position: absolute; left: 0; top: 0; width: clamp(190px, 15vw, 240px); aspect-ratio: 3 / 4.2; transform: translate(-50%, -50%); }
+}
 
 /* ---------- BLOG ČLANAK (post stranica) ----------------- */
 .post-hero { padding-top: calc(88px + var(--sp-7)); max-width: 820px; margin-inline: auto; display: flex; flex-direction: column; align-items: center; text-align: center; gap: var(--sp-3); }
@@ -464,8 +476,6 @@ strong { font-weight: 700; }
 .post-body { max-width: 720px; margin: var(--sp-6) auto 0; }
 .post-body p { margin-bottom: var(--sp-4); font-size: var(--fs-lead); line-height: 1.85; color: var(--bone); }
 .post-body p:first-child { font-size: 21px; }
-.post-cta { max-width: 720px; margin: var(--sp-7) auto 0; padding: var(--sp-5); background: var(--clay); border: 1px solid var(--hair); display: flex; flex-direction: column; gap: var(--sp-3); align-items: flex-start; }
-.post-cta__text { color: var(--bone); font-size: var(--fs-lead); max-width: none; }
 .post-nav { max-width: 940px; margin: var(--sp-6) auto 0; display: flex; justify-content: space-between; gap: var(--sp-4); border-top: 1px solid var(--hair); padding-top: var(--sp-5); }
 .post-nav__link { font-family: var(--font-mono); font-size: var(--fs-small); color: var(--ash); max-width: 46%; transition: color var(--dur-fast) var(--ease); }
 .post-nav__link:hover { color: var(--ember); }
