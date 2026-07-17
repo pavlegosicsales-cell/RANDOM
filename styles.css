@@ -288,6 +288,44 @@ strong { font-weight: 700; }
 .nav__toggle.is-open span:nth-child(2) { opacity: 0; }
 .nav__toggle.is-open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
+/* ---------- PREKIDAČ JEZIKA (SR / EN) ------------------- */
+.lang { position: relative; display: inline-block; flex-shrink: 0; }
+.lang__btn {
+  display: inline-flex; align-items: center; gap: 7px;
+  padding: 9px 12px; border: 1px solid var(--clay-border); border-radius: 0;
+  background: rgba(244,238,231,0.04); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+  font-family: var(--font-mono); font-size: 12px; font-weight: 700; letter-spacing: 0.12em;
+  color: var(--bone); cursor: pointer;
+  transition: border-color var(--dur-fast) var(--ease), color var(--dur-fast) var(--ease);
+}
+.lang__btn:hover { border-color: var(--ember); color: var(--ember); }
+.lang__chev { width: 12px; height: 12px; display: block; transition: transform var(--dur-fast) var(--ease); }
+.lang__btn[aria-expanded="true"] .lang__chev { transform: rotate(180deg); }
+.lang__menu {
+  position: absolute; top: calc(100% + 6px); right: 0; z-index: calc(var(--z-nav) + 5);
+  min-width: 168px; margin: 0; padding: 0; list-style: none;
+  background: rgba(14,11,10,0.96); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+  border: 1px solid var(--clay-border);
+}
+.lang__menu[hidden] { display: none; }
+.lang__opt {
+  display: flex; align-items: center; gap: 10px; width: 100%;
+  padding: 11px 13px; background: none; border: 0; cursor: pointer; text-align: left;
+  font-family: var(--font-mono); font-size: var(--fs-small); color: var(--bone);
+  transition: background var(--dur-fast) var(--ease), color var(--dur-fast) var(--ease);
+}
+.lang__opt:hover { background: rgba(244,238,231,0.06); }
+.lang__opt + .lang__opt { border-top: 1px solid var(--hair); }
+.lang__opt .lang__code { font-weight: 700; letter-spacing: 0.1em; color: var(--ash); min-width: 22px; }
+.lang__opt .lang__name { flex: 1; }
+.lang__check { width: 14px; height: 14px; display: block; opacity: 0; color: var(--ember); flex-shrink: 0; }
+.lang__opt.is-active { color: var(--ember); }
+.lang__opt.is-active .lang__code { color: var(--ember); }
+.lang__opt.is-active .lang__check { opacity: 1; }
+/* Telefon: prekidač ide u staggered meni, ispod linkova */
+.sm-lang { padding-top: var(--sp-4); }
+.sm-lang .lang__menu { right: auto; left: 0; }
+
 /* ---------- STAGGERED MOBILNI MENI ---------------------- */
 .sm { position: fixed; inset: 0; z-index: 95; pointer-events: none; visibility: hidden; }
 .sm.open { visibility: visible; pointer-events: auto; }
@@ -342,8 +380,10 @@ strong { font-weight: 700; }
 }
 /* Invert efekat na naslov — bela slova invertuju pozadinsku sliku (kao galerija/Hype) */
 .hero__title { mix-blend-mode: exclusion; color: #fff; }
-/* Prva sekcija posle heroja klizi PREKO fiksirane slike i prekriva je */
-.hero + .section { position: relative; z-index: 1; background: var(--soot); }
+/* Prva sekcija posle heroja klizi PREKO fiksirane slike i prekriva je.
+   margin -> padding: inace u margin procepu nema pozadine pa se vidi film-grain
+   (body::before) i ispadne svetlija siva traka izmedju heroja i galerije. */
+.hero + .section { position: relative; z-index: 1; background: var(--soot); margin-top: 0; padding-top: var(--section-gap); }
 .hero__inner { width: 100%; display: flex; flex-direction: column; align-items: center; }
 /* Rotirajući kružni tekst — RANDOM * TATTOO * STUDIO */
 .hero__badge { position: absolute; bottom: 44px; right: var(--margin); width: 152px; height: 152px; display: none; place-items: center; z-index: 3; }
