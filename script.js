@@ -364,10 +364,9 @@
     if (window.innerWidth < 1024 || reduceMotion) return;
 
     var N = items.length;
-    var degree = 12;                 // razmak između kartica u luku (radius = 760px)
-    var center = (N - 1) / 2;        // centriraj srednju karticu na vrh
+    var degree = 360 / N;            // pun krug — beskonačna petlja
     items.forEach(function (it, i) {
-      it.style.transform = 'rotate(' + ((i - center) * degree) + 'deg)';
+      it.style.transform = 'rotate(' + (i * degree) + 'deg)';   // kartica 0 u vrhu, ostale oko kruga
     });
 
     // Ulet na skrol: kartice izrone i slože se (jednom)
@@ -394,8 +393,7 @@
       Draggable.create(hub, {
         type: 'rotation',
         inertia: false,
-        bounds: { minRotation: -center * degree, maxRotation: center * degree },
-        snap: function (v) { return Math.round(v / degree) * degree; }
+        snap: function (v) { return Math.round(v / degree) * degree; }   // bez granica → beskonačno vrtenje
       });
     }
   }

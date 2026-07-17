@@ -442,8 +442,11 @@ strong { font-weight: 700; }
     linear-gradient(to bottom, rgba(14,11,10,0.68) 0%, rgba(14,11,10,0.40) 40%, rgba(14,11,10,0.66) 82%, var(--soot) 100%),
     url('assets/kontakt-hero.jpg');
 }
-/* Kontakt sekcija prekriva fiksiranu hero sliku na skrol */
-.kontakt-cover { position: relative; z-index: 1; background: var(--soot); margin-top: 0; padding-top: var(--section-gap); }
+/* Kontakt sekcija prekriva fiksiranu hero sliku na skrol.
+   Sekcija je .wrap (centrirana kolona), pa crnu pozadinu razvlačimo full-width
+   preko ::before — inače bi fiksirana siva hero slika probijala pored kolone. */
+.kontakt-cover { position: relative; z-index: 1; margin-top: 0; padding-top: var(--section-gap); padding-bottom: var(--section-gap); }
+.kontakt-cover::before { content: ""; position: absolute; top: 0; bottom: 0; left: calc(50% - 50vw); width: 100vw; z-index: -1; background: var(--soot); pointer-events: none; }
 
 /* ---------- BLOG KARTICE (bcard) ------------------------ */
 .bcard { position: relative; display: block; overflow: hidden; background: var(--clay); border: 4px solid var(--bone); }
@@ -463,14 +466,16 @@ strong { font-weight: 700; }
 @media (min-width: 560px) { .wheel__hub { grid-template-columns: repeat(2, 1fr); } }
 .wheel__item .bcard { aspect-ratio: 3 / 3.4; }
 
-/* --- Desktop (≥1024px): rotirajući luk kartica (vuci da zavrtiš) --- */
+/* --- Desktop (≥1024px): rotirajući TOČAK kartica (beskonačna petlja, vuci da zavrtiš)
+   Velike kartice — samo srednja je puna u vrhu, susedne proviruju sa strane,
+   ostale su van ekrana; vučenjem se točak vrti u krug (nema kraja). --- */
 @media (min-width: 1024px) {
-  .wheel { position: relative; height: min(78vh, 720px); overflow: hidden; margin-top: var(--sp-5); touch-action: none; }
+  .wheel { position: relative; height: min(88vh, 860px); overflow: hidden; margin-top: var(--sp-5); touch-action: none; }
   .wheel__hint { display: block; position: absolute; left: 50%; bottom: var(--sp-3); transform: translateX(-50%); z-index: 5; font-family: var(--font-mono); font-size: var(--fs-small); letter-spacing: 0.14em; text-transform: uppercase; color: var(--ash); pointer-events: none; }
-  .wheel__hub { position: absolute; left: 50%; top: 36%; width: 0; height: 0; display: block; grid-template-columns: none; gap: 0; transform-origin: 50% 760px; cursor: grab; will-change: transform; }
+  .wheel__hub { position: absolute; left: 50%; top: 44%; width: 0; height: 0; display: block; grid-template-columns: none; gap: 0; transform-origin: 50% 820px; cursor: grab; will-change: transform; }
   .wheel__hub:active { cursor: grabbing; }
-  .wheel__item { position: absolute; left: 0; top: 0; transform-origin: 50% 760px; }
-  .wheel__item .bcard { position: absolute; left: 0; top: 0; width: clamp(190px, 15vw, 240px); aspect-ratio: 3 / 4.2; transform: translate(-50%, -50%); }
+  .wheel__item { position: absolute; left: 0; top: 0; transform-origin: 50% 820px; }
+  .wheel__item .bcard { position: absolute; left: 0; top: 0; width: clamp(300px, 27vw, 430px); aspect-ratio: 3 / 4.25; transform: translate(-50%, -50%); }
 }
 
 /* ---------- BLOG ČLANAK (post stranica) ----------------- */
