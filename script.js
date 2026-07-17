@@ -1329,14 +1329,12 @@
       '  vec4 c=cppn_fn(uv,0.1*sin(0.3*uTime),0.1*sin(0.69*uTime),0.1*sin(0.44*uTime));',
       // --- BREND REKOLOR: struktura plazme -> soot→ember (bez ljubičaste) ---
       '  float l=dot(c.rgb,vec3(0.299,0.587,0.114));',
-      '  l=pow(clamp(l,0.0,1.0),1.15);',
-      '  vec3 soot=vec3(0.055,0.043,0.039);',
-      '  vec3 clay=vec3(0.16,0.11,0.09);',
-      '  vec3 ember=vec3(0.753,0.224,0.169);',
-      '  vec3 emberHot=vec3(0.90,0.33,0.24);',
-      '  vec3 col=mix(soot,clay,smoothstep(0.05,0.35,l));',
-      '  col=mix(col,ember,smoothstep(0.30,0.75,l));',
-      '  col=mix(col,emberHot,smoothstep(0.80,1.0,l));',
+      '  l=smoothstep(0.12,0.86,clamp(l,0.0,1.0));',   // razvuci kontrast — plazma jasno vidljiva',
+      '  vec3 base=vec3(0.10,0.055,0.05);',            // tamno toplo (skoro soot)',
+      '  vec3 ember=vec3(0.82,0.26,0.19);',            // brend crvena',
+      '  vec3 emberHot=vec3(1.0,0.55,0.36);',          // uzareni vrh tokova',
+      '  vec3 col=mix(base,ember,l);',
+      '  col=mix(col,emberHot,smoothstep(0.72,1.0,l));',
       '  gl_FragColor=vec4(clamp(col,0.0,1.0),1.0);',
       '}'
     ].join('\n');
