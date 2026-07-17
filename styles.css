@@ -497,33 +497,28 @@ html[data-lang="en"] .post-body[lang="sr"] { display: none; }
     linear-gradient(to bottom, rgba(14,11,10,0.68) 0%, rgba(14,11,10,0.40) 40%, rgba(14,11,10,0.66) 82%, var(--soot) 100%),
     url('assets/blog-hero.jpg');
 }
-/* Blog sekcija: fiksirana pozadinska slika (kao Hype .why-section) — slika stoji
-   dok kartice i naslov klize preko nje. To je onaj "sticky" osećaj. */
-/* Blog sekcija: pozadina "stoji" dok kartice i naslov klize preko nje (Hype .why-section).
-   NE koristimo background-attachment: fixed (preslikava sliku na svaki frame skrola = jank).
-   Umesto toga sticky sloj (.blog-bg) — GPU-kompozitovan, gladak, isti efekat.
-   Specifičnost 0,2,0 nadjačava .portfolio-section {background: soot} definisan kasnije. */
+/* Blog sekcija: fiksirana pozadina (background-attachment: fixed) pokriva CEO box
+   sekcije — nema crne trake ni gore ni dole (sticky sloj od 100vh nije mogao da
+   pokrije sekciju visu od jednog ekrana). Slika kompresovana (~430KB) -> nema janka.
+   Specifičnost 0,2,0 nadjačava .portfolio-section {background: soot} (shorthand,
+   definisan kasnije, koji bi inace resetovao background-image na none). */
 .portfolio-section.blog-list-section {
   position: relative; isolation: isolate;
-  padding-top: 0; padding-bottom: var(--section-gap);   /* gornji razmak ide na .wrap, da sticky slika pokrije od vrha */
-  background: var(--soot);
-}
-.blog-list-section > .wrap { padding-top: var(--section-gap); }
-.blog-bg {
-  position: sticky; top: 0; z-index: 0;
-  height: 100vh; margin-bottom: -100vh;   /* pinuje se bez zauzimanja prostora u toku */
-  pointer-events: none; will-change: transform;
+  padding-top: 0; padding-bottom: var(--sp-6);
   background-image:
     linear-gradient(rgba(14,11,10,0.78), rgba(14,11,10,0.78)),
     url('assets/blog-back.jpg');
   background-repeat: no-repeat, no-repeat;
   background-position: center, center;
   background-size: cover, cover;
+  background-attachment: fixed, fixed;
 }
-.blog-list-section > .wrap,
+/* gornji razmak na .wrap (naslov), da fiksirana slika pokriva od vrha */
+.blog-list-section > .wrap { padding-top: var(--section-gap); position: relative; z-index: 1; }
 .blog-list-section > .wheel { position: relative; z-index: 1; }
 /* Naslov invertuje pozadinu (mix-blend), kao Hype .why-section h2 */
 .blog-list-section .section-head h2 { mix-blend-mode: exclusion; color: #fff; }
+@media (max-width: 711px) { .portfolio-section.blog-list-section { background-attachment: scroll, scroll; } }
 /* Kontakt hero — ista sekcija, Anja.jpg pozadina */
 .gallery-hero--kontakt {
   background-image:
