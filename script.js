@@ -527,7 +527,8 @@
     if (!root) return;
     var params = new URLSearchParams(window.location.search);
     var id = params.get('id');
-    var a = ARTISTS[id] || ARTISTS.lemson;
+    if (!ARTISTS[id]) id = 'lemson';        // bez ?id= ili nepoznat id → fallback (worksFor koristi isti id)
+    var a = ARTISTS[id];
 
     document.title = a.name + ' — Random Tattoo Studio';
     var set = function (sel, txt) { var el = $(sel); if (el) el.textContent = txt; };

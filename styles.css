@@ -340,7 +340,6 @@ strong { font-weight: 700; }
   background-size: cover, cover;
   background-attachment: fixed, fixed;
 }
-.hero__bg { display: none; }
 /* Invert efekat na naslov — bela slova invertuju pozadinsku sliku (kao galerija/Hype) */
 .hero__title { mix-blend-mode: exclusion; color: #fff; }
 /* Prva sekcija posle heroja klizi PREKO fiksirane slike i prekriva je */
