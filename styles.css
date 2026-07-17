@@ -434,7 +434,26 @@ strong { font-weight: 700; }
     linear-gradient(to bottom, rgba(14,11,10,0.68) 0%, rgba(14,11,10,0.40) 40%, rgba(14,11,10,0.66) 82%, var(--soot) 100%),
     url('assets/blog-hero.jpg');
 }
-.blog-list-section { padding-top: var(--section-gap); padding-bottom: var(--section-gap); }
+/* Blog sekcija: fiksirana pozadinska slika (kao Hype .why-section) — slika stoji
+   dok kartice i naslov klize preko nje. To je onaj "sticky" osećaj. */
+/* NAPOMENA: mora .portfolio-section.blog-list-section (specifičnost 0,2,0) —
+   .portfolio-section dole koristi `background` skraćenicu koja bi inače
+   resetovala background-image na none (definisana je kasnije u fajlu). */
+.portfolio-section.blog-list-section {
+  position: relative; isolation: isolate;
+  padding-top: var(--section-gap); padding-bottom: var(--section-gap);
+  background-image:
+    linear-gradient(rgba(14,11,10,0.78), rgba(14,11,10,0.78)),
+    url('assets/blog-back.jpg');
+  background-repeat: no-repeat, no-repeat;
+  background-position: center, center;
+  background-size: cover, cover;
+  background-attachment: fixed, fixed;
+}
+/* Naslov sekcije invertuje pozadinu — isti efekat kao naslovi na hero sekcijama
+   (Hype: .why-section h2 { mix-blend-mode: exclusion }) */
+.blog-list-section .section-head h2 { mix-blend-mode: exclusion; color: #fff; }
+@media (max-width: 711px) { .portfolio-section.blog-list-section { background-attachment: scroll, scroll; } }
 /* Kontakt hero — ista sekcija, Anja.jpg pozadina */
 .gallery-hero--kontakt {
   background-image:
@@ -469,12 +488,13 @@ strong { font-weight: 700; }
    Velike kartice — samo srednja je puna u vrhu, susedne proviruju sa strane,
    ostale su van ekrana; vučenjem se točak vrti u krug (nema kraja). --- */
 @media (min-width: 1024px) {
-  .wheel { position: relative; height: min(88vh, 860px); overflow: hidden; margin-top: var(--sp-5); touch-action: none; }
+  .wheel { position: relative; height: min(92vh, 880px); overflow: hidden; margin-top: var(--sp-5); touch-action: none; }
   .wheel__hint { display: block; position: absolute; left: 50%; bottom: var(--sp-3); transform: translateX(-50%); z-index: 5; font-family: var(--font-mono); font-size: var(--fs-small); letter-spacing: 0.14em; text-transform: uppercase; color: var(--ash); pointer-events: none; }
-  .wheel__hub { position: absolute; left: 50%; top: 44%; width: 0; height: 0; display: block; grid-template-columns: none; gap: 0; transform-origin: 50% 820px; cursor: grab; will-change: transform; }
+  /* Radius 1300px + ugao 15° → blag nagib, tri kartice u kadru, mali razmak */
+  .wheel__hub { position: absolute; left: 50%; top: 45%; width: 0; height: 0; display: block; grid-template-columns: none; gap: 0; transform-origin: 50% 1300px; cursor: grab; will-change: transform; }
   .wheel__hub:active { cursor: grabbing; }
-  .wheel__item { position: absolute; left: 0; top: 0; transform-origin: 50% 820px; }
-  .wheel__item .bcard { position: absolute; left: 0; top: 0; width: clamp(300px, 27vw, 430px); aspect-ratio: 3 / 4.25; transform: translate(-50%, -50%); }
+  .wheel__item { position: absolute; left: 0; top: 0; transform-origin: 50% 1300px; }
+  .wheel__item .bcard { position: absolute; left: 0; top: 0; width: clamp(260px, 25vw, 360px); aspect-ratio: 3 / 4.25; transform: translate(-50%, -50%); }
 }
 
 /* ---------- BLOG ČLANAK (post stranica) ----------------- */

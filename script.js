@@ -363,11 +363,32 @@
     // Telefon/tablet ili reduce → ostaje grid (CSS), bez luka i draga
     if (window.innerWidth < 1024 || reduceMotion) return;
 
-    var N = items.length;
-    var degree = 360 / N;            // pun krug — beskonačna petlja
+    // Mali ugao između kartica = blag nagib i tri u kadru. Da petlja ostane
+    // beskonačna BEZ praznina, kartice se ponavljaju u krug (6 × 4 = 24 pozicije).
+    var degree = 15;
+    var slots = Math.round(360 / degree);
+    var base = items.slice();
+    var repeats = Math.max(1, Math.round(slots / base.length));
+    for (var r = 1; r < repeats; r++) {
+      base.forEach(function (it) { hub.appendChild(it.cloneNode(true)); });
+    }
+    items = $$('.wheel__item', hub);
     items.forEach(function (it, i) {
       it.style.transform = 'rotate(' + (i * degree) + 'deg)';   // kartica 0 u vrhu, ostale oko kruga
     });
+
+    // Kartica najbliža vrhu mora da bude iznad susednih (inače joj naslov prekriju)
+    function updateZ() {
+      var rot = 0;
+      try { rot = parseFloat(gsap.getProperty(hub, 'rotation')) || 0; } catch (e) {}
+      items.forEach(function (it, i) {
+        var a = (i * degree + rot) % 360;
+        if (a > 180) a -= 360;
+        if (a < -180) a += 360;
+        it.style.zIndex = String(Math.round(200 - Math.abs(a)));
+      });
+    }
+    updateZ();
 
     // Ulet na skrol: kartice izrone i slože se (jednom)
     if (typeof gsap !== 'undefined') {
@@ -393,7 +414,9 @@
       Draggable.create(hub, {
         type: 'rotation',
         inertia: false,
-        snap: function (v) { return Math.round(v / degree) * degree; }   // bez granica → beskonačno vrtenje
+        snap: function (v) { return Math.round(v / degree) * degree; },  // bez granica → beskonačno vrtenje
+        onDrag: updateZ,
+        onDragEnd: function () { updateZ(); window.setTimeout(updateZ, 320); }
       });
     }
   }
