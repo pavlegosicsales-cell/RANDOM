@@ -505,9 +505,10 @@ html[data-lang="en"] .post-body[lang="sr"] { display: none; }
    Specifičnost 0,2,0 nadjačava .portfolio-section {background: soot} definisan kasnije. */
 .portfolio-section.blog-list-section {
   position: relative; isolation: isolate;
-  padding-top: var(--section-gap); padding-bottom: var(--section-gap);
+  padding-top: 0; padding-bottom: var(--section-gap);   /* gornji razmak ide na .wrap, da sticky slika pokrije od vrha */
   background: var(--soot);
 }
+.blog-list-section > .wrap { padding-top: var(--section-gap); }
 .blog-bg {
   position: sticky; top: 0; z-index: 0;
   height: 100vh; margin-bottom: -100vh;   /* pinuje se bez zauzimanja prostora u toku */
