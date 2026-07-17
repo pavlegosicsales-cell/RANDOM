@@ -533,15 +533,17 @@ html[data-lang="en"] .post-body[lang="sr"] { display: none; }
 /* Kontakt sekcija prekriva fiksiranu hero sliku na skrol.
    Sekcija je .wrap (centrirana kolona), pa crnu pozadinu razvlačimo full-width
    preko ::before — inače bi fiksirana siva hero slika probijala pored kolone. */
-.kontakt-cover { position: relative; z-index: 1; isolation: isolate; margin-top: 0; padding-top: var(--section-gap); padding-bottom: var(--section-gap); background: var(--soot); }
-/* Slojevi: soot baza (::before, full-bleed, prekriva hero) → DarkVeil canvas → dim gradijent (::after) → sadržaj */
-.kontakt-cover::before { content: ""; position: absolute; top: 0; bottom: 0; left: calc(50% - 50vw); width: 100vw; z-index: 0; background: var(--soot); pointer-events: none; }
+.kontakt-cover { position: relative; z-index: 1; margin-top: 0; padding-top: var(--section-gap); padding-bottom: var(--section-gap); background: var(--soot); }
+/* DarkVeil host (kontakt sekcija na kontakt i pocetnoj strani).
+   Slojevi: soot baza (::before, full-bleed) → DarkVeil canvas → dim vignette (::after) → sadrzaj */
+.darkveil-host { position: relative; isolation: isolate; }
+.darkveil-host::before { content: ""; position: absolute; top: 0; bottom: 0; left: calc(50% - 50vw); width: 100vw; z-index: 0; background: var(--soot); pointer-events: none; }
 .darkveil { position: absolute; top: 0; bottom: 0; left: calc(50% - 50vw); width: 100vw; height: 100%; z-index: 1; display: block; opacity: 1; pointer-events: none; }
-/* tanak vignette samo na ivicama (blend u soot), sredina pušta punu plazmu */
-.kontakt-cover::after { content: ""; position: absolute; top: 0; bottom: 0; left: calc(50% - 50vw); width: 100vw; z-index: 2; pointer-events: none;
+.darkveil-host::after { content: ""; position: absolute; top: 0; bottom: 0; left: calc(50% - 50vw); width: 100vw; z-index: 2; pointer-events: none;
   background: linear-gradient(to bottom, rgba(14,11,10,0.30) 0%, rgba(14,11,10,0) 14%, rgba(14,11,10,0) 86%, rgba(14,11,10,0.45) 100%); }
-.kontakt-cover > .section-head,
-.kontakt-cover > .contact__grid { position: relative; z-index: 3; }
+.darkveil-host > .section-head,
+.darkveil-host > .contact__grid,
+.darkveil-host > .gallery-contact { position: relative; z-index: 3; }
 
 /* ---------- BLOG KARTICE (bcard) ------------------------ */
 .bcard { position: relative; display: block; overflow: hidden; background: var(--clay); border: 4px solid var(--bone); }

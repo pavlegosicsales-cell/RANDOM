@@ -325,7 +325,7 @@
       else { io.observe(img); img.addEventListener('load', function () { img.classList.add('visible'); }); }
       var name = document.createElement('div');
       name.className = 'master-name-overlay';
-      name.textContent = 'Artist — ' + (NAMES[item.cat] || 'Random');
+      name.textContent = 'Artist \u00b7 ' + (NAMES[item.cat] || 'Random');
       li.appendChild(img);
       li.appendChild(name);
       return li;
@@ -1286,8 +1286,10 @@
      Vanilla WebGL adaptacija React Bits DarkVeil (ogl). CPPN plazma shader,
      rekolorisan u soot→ember. Pola rezolucije, pauza van ekrana, samo desktop. */
   function initDarkVeil() {
-    var canvas = $('[data-darkveil]');
-    if (!canvas || reduceMotion || isMobile) return;
+    if (reduceMotion || isMobile) return;
+    $$('[data-darkveil]').forEach(darkVeilOn);
+  }
+  function darkVeilOn(canvas) {
     var gl = canvas.getContext('webgl', { alpha: false, antialias: false, depth: false });
     if (!gl) return;
 
