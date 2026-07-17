@@ -65,7 +65,7 @@
     'art.enco.style':   { sr: 'Grafiti · Urbani stil', en: 'Graffiti · Urban style' },
     'art.enco.desc':    { sr: 'Enco prenosi ulične zidove na tvoju kožu. Ukorenjen u grafiti kulturu, njegov rad je smeo, izražajan i pun karaktera. Ako želiš nešto što privlači pažnju, Enco je tvoj umetnik.',
                           en: 'Enco brings the street walls onto your skin. Rooted in graffiti culture, his work is bold, expressive and full of character. If you want something that turns heads, Enco is your artist.' },
-    'art.link':         { sr: 'Pogledaj radove →', en: 'View works →' },
+    'art.link':         { sr: 'Pogledaj radove', en: 'View works' },
 
     /* tagovi */
     'tag.realizam':   { sr: 'Realizam', en: 'Realism' },
@@ -263,8 +263,8 @@
     'artist.all':      { sr: '← Svi umetnici', en: '← All artists' },
 
     /* ---------- FOOTER ---------- */
-    'footer.slogan':  { sr: 'Random Tattoo Studio. Beograd. Umetnost na koži. Napravljena za tebe.',
-                        en: 'Random Tattoo Studio. Belgrade. Art on skin. Made for you.' },
+    'footer.slogan':  { sr: 'Random Tattoo Studio.<br class="br-m">Beograd.<br class="br-m">Umetnost na koži.<br class="br-m">Napravljena za tebe.',
+                        en: 'Random Tattoo Studio.<br class="br-m">Belgrade.<br class="br-m">Art on skin.<br class="br-m">Made for you.' },
     'footer.discover':{ sr: 'Otkrij', en: 'Discover' },
     'footer.social':  { sr: 'Social', en: 'Social' },
     'footer.contact': { sr: 'Kontakt', en: 'Contact' },
@@ -295,7 +295,7 @@
     Array.prototype.forEach.call(document.querySelectorAll('[data-i18n]'), function (el) {
       var v = get(el.getAttribute('data-i18n'), lang);
       if (v == null) return;
-      if (v.indexOf('<br>') > -1) el.innerHTML = v; else el.textContent = v;
+      if (v.indexOf('<br') > -1) el.innerHTML = v; else el.textContent = v;
     });
 
     // atributi: data-i18n-attr="placeholder:kljuc, aria-label:drugi"

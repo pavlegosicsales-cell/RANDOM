@@ -9,7 +9,7 @@
   <link rel="icon" href="assets/logo.png">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=20260718h">
+  <link rel="stylesheet" href="styles.css?v=20260718i">
 </head>
 <body>
   <a class="skip-link" href="#glavni" data-i18n="nav.skip">Preskoči na sadržaj</a>
@@ -65,6 +65,7 @@
         <li class="sm-itemWrap"><a class="sm-item" href="blog.html"><span class="sm-label" data-i18n="nav.blog">Blog</span></a></li>
         <li class="sm-itemWrap"><a class="sm-item" href="kontakt.html"><span class="sm-label" data-i18n="nav.contact">Kontakt</span></a></li>
       </ul>
+      <a class="btn btn-primary sm-cta" href="kontakt.html" data-i18n="nav.cta">Zakaži Konsultaciju</a>
       <div class="sm-socials" aria-label="Instagram">
         <h3 class="sm-socials-title" data-i18n="nav.instagram">Instagram</h3>
         <ul class="sm-socials-list" role="list">
@@ -97,31 +98,35 @@
   <main id="glavni" data-artist-page>
 
     <!-- ============ ARTIST HERO ============ -->
-    <section class="artist-hero wrap">
-      <span class="label" data-i18n="artist.label">Artist · Random Tattoo Studio</span>
-      <h1 class="display" data-a-name data-blur>Umetnik</h1>
-      <p class="artist-hero__meta" data-a-style></p>
-      <p class="lead artist-hero__lead" data-blur data-a-lead></p>
-      <p class="artist-hero__desc text-ash" data-a-desc></p>
-      <div class="artist-hero__actions">
-        <a class="btn btn-primary" href="index.html#kontakt">Zakaži Konsultaciju</a>
-        <a class="btn btn-secondary" data-a-ig href="#" target="_blank" rel="noopener">Instagram</a>
-      </div>
-      <div class="artist-portrait">
-        <img data-a-portrait src="" alt="" width="1440" height="1800">
+    <section class="artist-hero">
+      <canvas class="aura" data-aura aria-hidden="true"></canvas>
+      <div class="wrap artist-hero__inner">
+        <span class="label" data-i18n="artist.label">Artist · Random Tattoo Studio</span>
+        <h1 class="display" data-a-name data-blur>Umetnik</h1>
+        <p class="artist-hero__meta" data-a-style></p>
+        <p class="lead artist-hero__lead" data-blur data-a-lead></p>
+        <p class="artist-hero__desc text-ash" data-a-desc></p>
+        <div class="artist-hero__actions">
+          <a class="btn btn-primary" href="index.html#kontakt">Zakaži Konsultaciju</a>
+          <a class="btn btn-secondary" data-a-ig href="#" target="_blank" rel="noopener">Instagram</a>
+        </div>
+        <div class="artist-portrait">
+          <img data-a-portrait src="" alt="" width="1440" height="1800">
+        </div>
       </div>
     </section>
 
-    <!-- ============ RADOVI ============ -->
-    <section class="section wrap">
-      <div class="section-head">
+    <!-- ============ RADOVI (edge-to-edge, kao galerija) ============ -->
+    <section class="section" id="portfolio">
+      <div class="section-head wrap">
         <span class="label" data-i18n="artist.works">Radovi</span>
         <h2 data-i18n="artist.selected">Izbor radova</h2>
       </div>
-      <div class="gallery-full">
-        <div class="masonry" data-gallery></div>
+      <ul class="gallery-list" data-gallery-hype data-artist-gallery></ul>
+      <div class="gallery-more-wrap">
+        <a class="btn gallery-more" data-gallery-more href="javascript:void(0)" role="button" data-i18n="gal.more">Prikaži još radova</a>
       </div>
-      <div class="gallery-cta">
+      <div class="gallery-cta wrap">
         <a class="btn btn-secondary" href="index.html#artisti" data-i18n="artist.all">← Svi umetnici</a>
       </div>
     </section>
@@ -183,7 +188,7 @@
 
   <script src="vendor/lenis.min.js"></script>
   <script src="vendor/gsap.min.js"></script>
-  <script src="i18n.js?v=20260718h"></script>
-  <script src="script.js?v=20260718h"></script>
+  <script src="i18n.js?v=20260718i"></script>
+  <script src="script.js?v=20260718i"></script>
 </body>
 </html>

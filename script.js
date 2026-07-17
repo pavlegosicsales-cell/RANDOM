@@ -297,13 +297,21 @@
   /* ---------- HYPE GALERIJA (galerija.html) -------------- */
   // Edge-to-edge grid, isti format, kursor-zoom, ime umetnika izranja, "Prikaži još"
   function initHypeGallery() {
-    var grid = $('[data-gallery-hype]');
-    if (!grid) return;
+    $$('[data-gallery-hype]').forEach(hypeGalleryOn);
+  }
+  function hypeGalleryOn(grid) {
     var section = grid.closest('section') || document;
     var moreBtn = $('[data-gallery-more]', section);
     var NAMES = { 'realizam': 'Lemson', 'fine-line': 'Anja', 'blackwork': 'Enco' };
-    var pool = WORKS.slice();
-    var shown = 0, INIT = 12, STEP = 6;
+    var pool, INIT, STEP = 6;
+    if (grid.hasAttribute('data-artist-gallery')) {   // artist stranica → samo radovi tog umetnika
+      var params = new URLSearchParams(window.location.search);
+      var aid = params.get('id'); if (!ARTISTS[aid]) aid = 'lemson';
+      pool = worksFor(aid); INIT = 9;
+    } else {
+      pool = WORKS.slice(); INIT = 12;
+    }
+    var shown = 0;
 
     // reveal na skrol
     var io = ('IntersectionObserver' in window) ? new IntersectionObserver(function (entries) {
@@ -577,14 +585,9 @@
     var portrait = $('[data-a-portrait]');
     if (portrait) {
       portrait.src = a.portrait;
-      portrait.alt = 'Portret — ' + a.name;
+      portrait.alt = 'Portret, ' + a.name;
     }
-    // Napuni galeriju radovima ovog umetnika
-    var grid = $('[data-gallery]', root);
-    if (grid) {
-      worksFor(id).forEach(function (it) { grid.appendChild(makeWork(it)); });
-      bindLightbox(grid);
-    }
+    // Radove puni hypeGalleryOn (data-gallery-hype data-artist-gallery)
   }
 
   /* ---------- MARQUEE (Ticker auto-scroll) -------------- */
@@ -1143,8 +1146,11 @@
   /* ---------- ARTISTI SMOKE POZADINA (WebGL2) ----------- */
   // Suptilan animirani dim, tintovan u našu Ember boju. Diskretno (opacity + maska).
   function initArtistiShader() {
-    var canvas = $('[data-artisti-shader]');
-    if (!canvas || reduceMotion || isMobile) return;     // reduce/telefon → čist soot (perf)
+    if (reduceMotion) return;
+    $$('[data-artisti-shader]').forEach(artistiShaderOn);
+  }
+  function artistiShaderOn(canvas) {
+    if (isMobile && !canvas.hasAttribute('data-mobile')) return;   // difolt: skip telefon; data-mobile → radi i na telefonu
     var gl = canvas.getContext('webgl2');
     if (!gl) return;                                      // treba WebGL2 → fallback soot
 
@@ -1194,7 +1200,8 @@
     var uRes = gl.getUniformLocation(prog, 'resolution');
     var uTime = gl.getUniformLocation(prog, 'time');
     var uColor = gl.getUniformLocation(prog, 'u_color');
-    var color = [0.75, 0.22, 0.17];   // Ember (--ember #C0392B)
+    var color = [0.75, 0.22, 0.17];   // default Ember (--ember #C0392B)
+    if (canvas.dataset.color) { var cc = canvas.dataset.color.split(',').map(Number); if (cc.length === 3 && cc.every(function (n) { return !isNaN(n); })) color = cc; }
 
     function resize() {
       var dpr = Math.min(window.devicePixelRatio || 1, 1.5);
@@ -1395,6 +1402,98 @@
     frame();
   }
 
+  /* ---------- AURALIS (artist hero pozadina) ------------- */
+  // WebGL1 snoise ambijent, rekolorisan u brend ember; radi i na telefonu (lagan)
+  function initAura() {
+    if (reduceMotion) return;
+    $$('[data-aura]').forEach(auraOn);
+  }
+  function auraOn(canvas) {
+    var gl = canvas.getContext('webgl', { alpha: false, antialias: false, depth: false });
+    if (!gl) return;
+    var vs = 'attribute vec2 position;varying vec2 vUv;void main(){vUv=position*0.5+0.5;gl_Position=vec4(position,0.0,1.0);}';
+    var fs = [
+      '#ifdef GL_FRAGMENT_PRECISION_HIGH',
+      'precision highp float;',
+      '#else',
+      'precision mediump float;',
+      '#endif',
+      'varying vec2 vUv;',
+      'uniform vec2 u_res; uniform float u_time;',
+      'vec3 mod289(vec3 x){return x-floor(x*(1.0/289.0))*289.0;}',
+      'vec2 mod289(vec2 x){return x-floor(x*(1.0/289.0))*289.0;}',
+      'vec3 permute(vec3 x){return mod289(((x*34.0)+1.0)*x);}',
+      'float snoise(vec2 v){',
+      '  const vec4 C=vec4(0.211324865405187,0.366025403784439,-0.577350269189626,0.024390243902439);',
+      '  vec2 i=floor(v+dot(v,C.yy)); vec2 x0=v-i+dot(i,C.xx);',
+      '  vec2 i1=(x0.x>x0.y)?vec2(1.0,0.0):vec2(0.0,1.0);',
+      '  vec4 x12=x0.xyxy+C.xxzz; x12.xy-=i1; i=mod289(i);',
+      '  vec3 p=permute(permute(i.y+vec3(0.0,i1.y,1.0))+i.x+vec3(0.0,i1.x,1.0));',
+      '  vec3 m=max(0.5-vec3(dot(x0,x0),dot(x12.xy,x12.xy),dot(x12.zw,x12.zw)),0.0); m=m*m; m=m*m;',
+      '  vec3 x=2.0*fract(p*C.www)-1.0; vec3 h=abs(x)-0.5; vec3 ox=floor(x+0.5); vec3 a0=x-ox;',
+      '  m*=1.79284291400159-0.85373472095314*(a0*a0+h*h);',
+      '  vec3 g; g.x=a0.x*x0.x+h.x*x0.y; g.yz=a0.yz*x12.xz+h.yz*x12.yw;',
+      '  return 130.0*dot(m,g);',
+      '}',
+      'void main(){',
+      '  vec2 uv=vUv; float ratio=u_res.x/u_res.y; vec2 p=uv*vec2(ratio,1.0); float t=u_time*0.2;',
+      '  float n1=snoise(p*0.5+t); float n2=snoise(p*0.9-t*0.5+n1);',
+      '  float light=pow(abs(n2),2.5)*0.5;',
+      '  vec3 col=vec3(0.05,0.028,0.024);',              // topla soot baza',
+      '  vec3 c0=vec3(0.75,0.22,0.17);',                 // brend ember',
+      '  vec3 c1=vec3(0.95,0.42,0.24);',                 // uzareni vrh',
+      '  col+=c0*smoothstep(0.1,1.0,n1)*0.55;',
+      '  col+=c1*light;',
+      '  float grain=fract(sin(dot(uv,vec2(12.9898,78.233)))*43758.5453+u_time);',
+      '  col+=(grain-0.5)*0.6*0.5;',
+      '  float dist=length(uv-0.5); col*=smoothstep(1.25,0.15,dist);',
+      '  gl_FragColor=vec4(clamp(col,0.0,1.0),1.0);',
+      '}'
+    ].join('\n');
+    function compile(type, src) {
+      var s = gl.createShader(type); gl.shaderSource(s, src); gl.compileShader(s);
+      if (!gl.getShaderParameter(s, gl.COMPILE_STATUS)) { gl.deleteShader(s); return null; }
+      return s;
+    }
+    var v = compile(gl.VERTEX_SHADER, vs), f = compile(gl.FRAGMENT_SHADER, fs);
+    if (!v || !f) return;
+    var prog = gl.createProgram();
+    gl.attachShader(prog, v); gl.attachShader(prog, f); gl.linkProgram(prog);
+    if (!gl.getProgramParameter(prog, gl.LINK_STATUS)) return;
+    gl.useProgram(prog);
+    var buf = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 1, -1, -1, 1, 1, 1]), gl.STATIC_DRAW);
+    var aPos = gl.getAttribLocation(prog, 'position');
+    gl.enableVertexAttribArray(aPos);
+    gl.vertexAttribPointer(aPos, 2, gl.FLOAT, false, 0, 0);
+    var uRes = gl.getUniformLocation(prog, 'u_res');
+    var uTime = gl.getUniformLocation(prog, 'u_time');
+    var SCALE = isMobile ? 0.4 : 0.6, SPEED = 0.3;
+    function resize() {
+      var w = canvas.clientWidth || 1, h = canvas.clientHeight || 1;
+      canvas.width = Math.max(1, Math.floor(w * SCALE));
+      canvas.height = Math.max(1, Math.floor(h * SCALE));
+      gl.viewport(0, 0, canvas.width, canvas.height);
+      gl.uniform2f(uRes, canvas.width, canvas.height);
+    }
+    resize();
+    window.addEventListener('resize', resize);
+    var visible = false;
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(function (es) { visible = es[0].isIntersecting; }, { threshold: 0 }).observe(canvas);
+    } else { visible = true; }
+    var start = performance.now();
+    function frame() {
+      if (visible) {
+        gl.uniform1f(uTime, (performance.now() - start) / 1000 * SPEED);
+        gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+      }
+      requestAnimationFrame(frame);
+    }
+    frame();
+  }
+
   function initLocationMap() {
     var el = $('[data-lmap]');
     if (!el) return;
@@ -1446,6 +1545,7 @@
     initTilt();
     initLocationMap();
     initDarkVeil();
+    initAura();
     initAssemble();
     initScrollReveal();
     initCircularText();

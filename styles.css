@@ -358,6 +358,7 @@ html[data-lang="en"] .post-body[lang="sr"] { display: none; }
   font-family: var(--font-mono); font-size: 14px; font-weight: 400;
   color: var(--ember); opacity: var(--sm-num-opacity, 0);
 }
+.sm-cta { align-self: flex-start; margin-top: var(--sp-4); }
 .sm-socials { padding-top: var(--sp-5); display: flex; flex-direction: column; gap: var(--sp-3); }
 .sm-socials-title { margin: 0; font-family: var(--font-mono); font-size: var(--fs-label); text-transform: uppercase; letter-spacing: 0.16em; color: var(--ember); }
 .sm-socials-list { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: var(--sp-3); }
@@ -597,6 +598,9 @@ html[data-lang="en"] .post-body[lang="sr"] { display: none; }
 /* Hero dugme: blurovano staklo pocetno -> Ember na hover (kao Hype .app), meksi 0.7s */
 .gallery-hero__cta { margin-top: var(--sp-4); padding: clamp(18px, 2vw, 26px) clamp(34px, 4.2vw, 60px); font-size: clamp(14px, 1.15vw, 17px); letter-spacing: 0.1em; backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); transition: background 0.7s var(--ease), border-color 0.7s var(--ease), color 0.7s var(--ease); }
 .gallery-hero__cta .btn__label, .gallery-hero__cta .btn__arrow { transition: color 0.7s var(--ease); }
+/* dva stakovana hero dugmeta iste velicine (Zakazi konsultaciju iznad Kontaktiraj nas) */
+.gallery-hero__ctas { display: flex; flex-direction: column; align-items: center; gap: var(--sp-2); margin-top: var(--sp-4); }
+.gallery-hero__ctas .gallery-hero__cta { margin-top: 0; width: min(360px, 84vw); }
 .gallery-hero__bottom { position: absolute; left: 0; right: 0; bottom: var(--sp-4); display: flex; justify-content: space-between; padding: 0 var(--margin); font-family: var(--font-mono); font-size: var(--fs-small); color: var(--ash); }
 .gallery-hero__down { color: var(--ash); transition: color var(--dur-fast) var(--ease); }
 .gallery-hero__down:hover { color: var(--bone); }
@@ -619,11 +623,12 @@ html[data-lang="en"] .post-body[lang="sr"] { display: none; }
 /* Kontakt na galeriji: forma levo, konsultacije desno */
 .gallery-contact { margin-top: var(--sp-7); display: grid; grid-template-columns: 1fr; gap: var(--sp-6); align-items: stretch; text-align: left; }
 .consult { position: relative; overflow: hidden; isolation: isolate; display: flex; flex-direction: column; justify-content: center; gap: var(--sp-3); padding: clamp(28px, 3vw, 48px); background: var(--clay); border: 1px solid var(--hair); }
-/* Ista shader pozadina kao sekcija UMETNICI (ember dim) */
+/* Prljavo žuto-crna shader pozadina, vidljivija (radi i na telefonu) */
+.consult { background: #14100c; }
 .consult__bg { position: absolute; inset: 0; z-index: 0; pointer-events: none; }
-.consult__canvas { display: block; width: 100%; height: 100%; opacity: 0.42;
-  -webkit-mask-image: radial-gradient(92% 62% at 50% 50%, #000 0%, rgba(0,0,0,0.45) 55%, transparent 86%);
-  mask-image: radial-gradient(92% 62% at 50% 50%, #000 0%, rgba(0,0,0,0.45) 55%, transparent 86%); }
+.consult__canvas { display: block; width: 100%; height: 100%; opacity: 0.8;
+  -webkit-mask-image: radial-gradient(108% 76% at 50% 45%, #000 0%, rgba(0,0,0,0.6) 62%, transparent 100%);
+  mask-image: radial-gradient(108% 76% at 50% 45%, #000 0%, rgba(0,0,0,0.6) 62%, transparent 100%); }
 .consult > *:not(.consult__bg) { position: relative; z-index: 1; }
 /* Manji pill */
 .consult__label { align-self: flex-start; padding: 4px 11px; font-size: 10px; letter-spacing: 0.14em; }
@@ -724,8 +729,13 @@ html[data-lang="en"] .post-body[lang="sr"] { display: none; }
 .artist-row__rule { height: 1px; background: rgba(244, 238, 231, 0.18); margin: var(--sp-5) 0; }
 .tags { display: flex; flex-wrap: wrap; gap: var(--sp-2); }
 .tag { font-family: var(--font-mono); font-size: var(--fs-label); text-transform: uppercase; letter-spacing: 0.1em; color: var(--bone); background: var(--surface); border: 1px solid var(--clay-border); border-radius: 999px; padding: 9px 16px; }  /* lepše zaobljene pilule, kao Taylor */
-.artist-row__link { display: inline-block; margin-top: var(--sp-3); font-size: var(--fs-small); font-weight: 500; text-transform: uppercase; letter-spacing: 0.08em; color: var(--bone); border-bottom: 1px solid var(--clay-border); padding-bottom: 4px; transition: border-color var(--dur-fast) var(--ease); }
-.artist-row__link:hover { border-color: var(--ember); }
+.artist-row__link { position: relative; display: inline-flex; align-items: center; gap: 0.7em; margin-top: var(--sp-4); padding: 4px 0 10px; font-family: var(--font-mono); font-weight: 700; font-size: var(--fs-label); text-transform: uppercase; letter-spacing: 0.14em; color: var(--bone); transition: color var(--dur-base) var(--ease); }
+.artist-row__link::after { content: ""; position: absolute; left: 0; bottom: 0; height: 2px; width: 100%; background: linear-gradient(to right, var(--ember) 50%, rgba(244, 238, 231, 0.22) 50%); background-size: 200% 100%; background-position: 100% 0; transition: background-position var(--dur-base) var(--ease); }
+.artist-row__link .artist-row__arrow { width: 1.15em; height: 1.15em; flex: 0 0 auto; transition: transform var(--dur-base) var(--ease); }
+.artist-row__link:hover { color: var(--ember); }
+.artist-row__link:hover::after { background-position: 0 0; }
+.artist-row__link:hover .artist-row__arrow { transform: translateX(5px); }
+.artist-row__link:focus-visible { outline: 2px solid var(--ember); outline-offset: 4px; }
 
 /* ---------- SCROLLER (skorašnji radovi) ------------------ */
 .scroller { display: flex; gap: 12px; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: var(--sp-2); margin-top: var(--sp-6); -webkit-overflow-scrolling: touch; scrollbar-width: none; }
@@ -1065,6 +1075,7 @@ html.lenis, html.lenis body { height: auto; }
   -webkit-text-fill-color: transparent; color: transparent;
   filter: grayscale(1) contrast(1.03);
 }
+.br-m { display: none; }   /* prelomi reda samo na telefonu (footer slogan) */
 .footer__slogan {
   margin: 0 auto var(--sp-6);
   max-width: none;   /* gazi globalno p { max-width: 62ch } — inace se p skupi na sirinu teksta i centriranje se ne vidi */
@@ -1089,9 +1100,14 @@ html.lenis, html.lenis body { height: auto; }
 .lightbox__next { right: var(--sp-2); }
 
 /* ---------- ARTIST PAGE ---------------------------------- */
-.artist-hero { padding-top: calc(76px + var(--section-gap)); text-align: center; }
+.artist-hero { position: relative; isolation: isolate; padding-top: calc(76px + var(--section-gap)); padding-bottom: var(--sp-6); text-align: center; overflow: hidden; }
+.artist-hero .aura { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0; display: block; pointer-events: none; }
+.artist-hero::after { content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none;
+  background: radial-gradient(120% 80% at 50% 30%, transparent 40%, rgba(14,11,10,0.55) 100%),
+              linear-gradient(to bottom, rgba(14,11,10,0.35), rgba(14,11,10,0) 22%, rgba(14,11,10,0) 70%, var(--soot) 100%); }
+.artist-hero__inner { position: relative; z-index: 2; }
 .artist-hero .status { margin-bottom: var(--sp-4); }
-.artist-hero__meta { font-family: var(--font-mono); font-size: var(--fs-label); text-transform: uppercase; letter-spacing: 0.16em; color: var(--ash); margin-top: var(--sp-3); }
+.artist-hero__meta { font-family: var(--font-mono); font-size: var(--fs-label); text-transform: uppercase; letter-spacing: 0.16em; color: var(--bone); margin-top: var(--sp-3); text-align: center; }
 .artist-hero__lead { margin: var(--sp-4) auto 0; color: var(--ash); }
 .artist-hero__desc { margin: var(--sp-2) auto 0; color: var(--ash); max-width: 62ch; }
 .artist-hero__actions { margin-top: var(--sp-5); display: flex; flex-wrap: wrap; gap: var(--sp-2); justify-content: center; }
@@ -1159,12 +1175,13 @@ html.lenis, html.lenis body { height: auto; }
 
 /* ---------- TELEFON (mobile) ---------------------------- */
 @media (max-width: 711px) {
-  /* Footer slogan: jedan red bi trazio ~7px font — prelama se u vise redova, ostaje verzal i centriran */
+  /* Footer slogan: 4 eksplicitna reda preko .br-m (Studio / Beograd / na kozi / za tebe) */
   .footer__slogan {
-    white-space: normal; text-wrap: balance;
-    font-size: clamp(17px, 5.4vw, 24px); line-height: 1.25;
-    max-width: 18ch; margin-bottom: var(--sp-5);
+    white-space: normal; text-wrap: normal;
+    font-size: clamp(18px, 6vw, 26px); line-height: 1.3;
+    max-width: none; margin-bottom: var(--sp-5);
   }
+  .footer__slogan .br-m { display: inline; }
 
   /* Hero: svaka fraza u svom redu (Tri umetnika. / Tri stila. / Jedan standard.) */
   .hero__title { font-size: clamp(30px, 9.2vw, 54px); }
@@ -1177,6 +1194,9 @@ html.lenis, html.lenis body { height: auto; }
   .tile::before { opacity: 1; height: 34%; }
   .master-name-overlay { opacity: 1; bottom: 12px; }
   .gallery-more { min-width: 100%; }
+
+  /* Telefon: dah ispod svakog CTA dugmeta na dnu sekcije (ne lepi se za sledeću) */
+  .gallery-cta { margin-top: var(--sp-5); padding-bottom: var(--sp-4); }
 
   /* Artisti: prvo slika, pa ime i tekst */
   .artist-row__media,
