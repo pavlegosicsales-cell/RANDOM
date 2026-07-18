@@ -1142,7 +1142,7 @@ html.lenis, html.lenis body { height: auto; }
 .artist-portrait img { width: 100%; height: auto; filter: grayscale(1) brightness(0.9); }
 .gallery-full { margin-top: var(--sp-6); }
 /* Artist: radovi (slike) dolaze ODMAH posle hero-a — bez naslova, bez razmaka/sive trake */
-.artist-hero + #portfolio { margin-top: 0; padding-top: var(--sp-3); background: var(--soot); position: relative; z-index: 1; }
+.artist-hero + #portfolio { margin-top: 0; padding-top: var(--sp-3); padding-bottom: var(--sp-8); background: var(--soot); position: relative; z-index: 1; }
 
 /* ---------- FRAME KORNERI (istaknute slike) ------------- */
 /* Suptilan okvir + „+" markeri u uglovima. Bez galerije i carousela. */
