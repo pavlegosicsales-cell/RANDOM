@@ -216,7 +216,7 @@
     'consult.li2':   { sr: 'Predlog umetnika i stila', en: 'Artist and style suggestion' },
     'consult.li3':   { sr: 'Okvirna procena cene i termina', en: 'Ballpark price and timing' },
     'consult.cta':   { sr: 'Zakaži konsultaciju', en: 'Book a consultation' },
-    'gal.kontakt.title': { sr: 'Zakaži svoj termin', en: 'Book your slot' },
+    'gal.kontakt.title': { sr: 'Zakaži svoju konsultaciju', en: 'Book your consultation' },
     'gal.kontakt.lead':  { sr: 'Piši nam ideju ili zakaži besplatnu konsultaciju, javljamo se u roku od 24h.',
                            en: 'Send us your idea or book a free consultation, we reply within 24h.' },
 
