@@ -1033,6 +1033,7 @@
     // hash linkovi — glatko skrolovanje do sekcije
     $$('a[href^="#"]').forEach(function (a) {
       a.addEventListener('click', function (e) {
+        if (a.hasAttribute('data-cal-link')) return;   // Cal dugme — otvara popup, ne skroluj nikuda
         var href = a.getAttribute('href');
         if (href.length > 1) {
           var t = document.querySelector(href);

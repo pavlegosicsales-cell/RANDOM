@@ -20,5 +20,9 @@ document.addEventListener('DOMContentLoaded', function () {
     el.setAttribute('data-cal-link', 'randomtattoo/konsultacije');
     el.setAttribute('data-cal-namespace', 'konsultacije');
     el.setAttribute('data-cal-config', cfg);
+    // Spreci navigaciju (href -> #kontakt / kontakt.html). Cal se otvara preko svoje
+    // delegacije na document-u i NE preskace defaultPrevented, pa modal svejedno iskace.
+    // preventDefault (bez stopPropagation) samo zaustavi skok/skrol — korisnik ostaje gde je.
+    el.addEventListener('click', function (e) { e.preventDefault(); });
   });
 });
