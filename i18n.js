@@ -295,6 +295,10 @@
     Array.prototype.forEach.call(document.querySelectorAll('[data-i18n]'), function (el) {
       var v = get(el.getAttribute('data-i18n'), lang);
       if (v == null) return;
+      // Dugme koje je initButtons vec obradio: menjaj SAMO labelu, da ne obrisemo
+      // frame-uglove/strelicu/scramble strukturu (inace se dizajn dugmeta pokvari na promenu jezika)
+      var label = el.querySelector ? el.querySelector('.btn__label') : null;
+      if (label) { label.textContent = v; return; }
       if (v.indexOf('<br') > -1) el.innerHTML = v; else el.textContent = v;
     });
 

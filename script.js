@@ -12,35 +12,41 @@
     lemson: {
       name: 'Lemson',
       cat: 'realizam',
-      style: 'REALIZAM · APSTRAKTNE BOJE',
+      style: { sr: 'REALIZAM · APSTRAKTNE BOJE', en: 'REALISM · ABSTRACT COLOUR' },
       ig: '@mr_lemson',
       igUrl: 'https://instagram.com/mr_lemson',
       portrait: 'assets/artists/lemson.jpg',
       count: 31,
-      lead: 'Lemson radi u dva sveta koja mali broj umetnika može da premosti — hiperprecizna preciznost crno-belog realizma i slobodna, izražajna energija apstraktnih boja.',
-      desc: 'Bez obzira na stil, svaki komad nosi isti kvalitet: izgleda živo.'
+      lead: { sr: 'Lemson radi u dva sveta koja mali broj umetnika može da premosti, hiperprecizna preciznost crno-belog realizma i slobodna, izražajna energija apstraktnih boja.',
+              en: 'Lemson works across two worlds few artists can bridge, the razor precision of black and grey realism and the loose, expressive energy of abstract colour.' },
+      desc: { sr: 'Bez obzira na stil, svaki komad nosi isti kvalitet: izgleda živo.',
+              en: 'Whatever the style, every piece carries the same quality: it looks alive.' }
     },
     anja: {
       name: 'Anja',
       cat: 'fine-line',
-      style: 'FINA LINIJA · LINEWORK',
+      style: { sr: 'FINA LINIJA · LINEWORK', en: 'FINE LINE · LINEWORK' },
       ig: '@alex.anja.tattoo',
       igUrl: 'https://instagram.com/alex.anja.tattoo',
       portrait: 'assets/artists/anja.jpg',
       count: 11,
-      lead: 'Anjin rad je tih i precizan — i upravo zbog toga je toliko moćan. Njene tetovaže fine linije su elegantne, promišljene i napravljene da lepo stare.',
-      desc: 'Savršeno za one koji žele nešto rafinirano i duboko lično.'
+      lead: { sr: 'Anjin rad je tih i precizan, i upravo zbog toga je toliko moćan. Njene tetovaže fine linije su elegantne, promišljene i napravljene da lepo stare.',
+              en: 'Anja\'s work is quiet and precise, and that is exactly why it hits so hard. Her fine line tattoos are elegant, considered and built to age well.' },
+      desc: { sr: 'Savršeno za one koji žele nešto rafinirano i duboko lično.',
+              en: 'Perfect for anyone who wants something refined and deeply personal.' }
     },
     enco: {
       name: 'Enco',
       cat: 'blackwork',
-      style: 'GRAFITI · URBANI STIL',
+      style: { sr: 'GRAFITI · URBANI STIL', en: 'GRAFFITI · URBAN STYLE' },
       ig: '@enco_enco.tattoo',
       igUrl: 'https://instagram.com/enco_enco.tattoo',
       portrait: 'assets/artists/enco.jpg',
       count: 34,
-      lead: 'Enco prenosi ulične zidove na tvoju kožu. Ukorenjen u grafiti kulturu, njegov rad je smeo, izražajan i pun karaktera.',
-      desc: 'Ako želiš nešto što privlači pažnju, Enco je tvoj umetnik.'
+      lead: { sr: 'Enco prenosi ulične zidove na tvoju kožu. Ukorenjen u grafiti kulturu, njegov rad je smeo, izražajan i pun karaktera.',
+              en: 'Enco brings the street walls onto your skin. Rooted in graffiti culture, his work is bold, expressive and full of character.' },
+      desc: { sr: 'Ako želiš nešto što privlači pažnju, Enco je tvoj umetnik.',
+              en: 'If you want something that turns heads, Enco is your artist.' }
     }
   };
 
@@ -574,11 +580,18 @@
     var a = ARTISTS[id];
 
     document.title = a.name + ' — Random Tattoo Studio';
-    var set = function (sel, txt) { var el = $(sel); if (el) el.textContent = txt; };
-    set('[data-a-name]', a.name);
-    set('[data-a-style]', a.style);
-    set('[data-a-lead]', a.lead);
-    set('[data-a-desc]', a.desc);
+    var set = function (sel, txt) { var el = $(sel); if (el && txt != null) el.textContent = txt; };
+    // Polje moze biti string ili { sr, en } — biramo po trenutnom jeziku
+    function pick(field, lang) { var f = a[field]; return (f && typeof f === 'object') ? (f[lang] || f.sr) : f; }
+    function paint() {
+      var lang = (window.RandomI18N && window.RandomI18N.current()) || 'sr';
+      set('[data-a-name]', a.name);
+      set('[data-a-style]', pick('style', lang));
+      set('[data-a-lead]', pick('lead', lang));
+      set('[data-a-desc]', pick('desc', lang));
+    }
+    paint();
+    document.addEventListener('langchange', paint);   // prevedi radove kad se promeni jezik
 
     var ig = $('[data-a-ig]');
     if (ig) { ig.textContent = a.ig; ig.href = a.igUrl; }
@@ -970,8 +983,8 @@
       }
       // scramble na hover — primarno/light dugme
       if (!reduceMotion && (btn.classList.contains('btn-primary') || btn.classList.contains('btn-light') || btn.classList.contains('gallery-more') || btn.classList.contains('gallery-hero__cta')) && !isSubmit) {
-        var original = text;
         btn.addEventListener('mouseenter', function () {
+          var original = label.textContent;   // citaj trenutni tekst (jezik moze biti promenjen)
           if (!label.style.minWidth) label.style.minWidth = label.offsetWidth + 'px';
           var frame = 0;
           clearInterval(label._t);

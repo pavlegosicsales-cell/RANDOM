@@ -499,47 +499,33 @@ html[data-lang="en"] .post-body[lang="sr"] { display: none; }
     linear-gradient(to bottom, rgba(14,11,10,0.68) 0%, rgba(14,11,10,0.40) 40%, rgba(14,11,10,0.66) 82%, var(--soot) 100%),
     url('assets/blog-hero.jpg');
 }
-/* Blog sekcija: fiksirana pozadina (background-attachment: fixed) pokriva CEO box
-   sekcije — nema crne trake ni gore ni dole (sticky sloj od 100vh nije mogao da
-   pokrije sekciju visu od jednog ekrana). Slika kompresovana (~430KB) -> nema janka.
-   Specifičnost 0,2,0 nadjačava .portfolio-section {background: soot} (shorthand,
-   definisan kasnije, koji bi inace resetovao background-image na none). */
+/* Blog sekcija: PROVIDNA. Most (blog-back) je jedan FIKSIRAN kompozitni sloj (.blog-bg)
+   iza cele strane — umesto background-attachment: fixed, koji je treperio/bagovao pri
+   skrolu (i na kompu i na telefonu). Composited fixed sloj je gladak na oba, a pošto je
+   jedan sloj iza svega, most se neprekidno vidi i kroz sekciju i kroz footer (bez šava).
+   Specifičnost 0,2,0 nadjačava .portfolio-section {background: soot}. */
 .portfolio-section.blog-list-section {
-  position: relative; isolation: isolate;
+  position: relative;
   padding-top: 0; padding-bottom: var(--sp-6);
-  background-image:
-    linear-gradient(rgba(14,11,10,0.78), rgba(14,11,10,0.78)),
-    url('assets/blog-back.jpg');
-  background-repeat: no-repeat, no-repeat;
-  background-position: center, center;
-  background-size: cover, cover;
-  background-attachment: fixed, fixed;
+  background: transparent;
 }
-/* gornji razmak na .wrap (naslov), da fiksirana slika pokriva od vrha */
+/* Fiksiran most iza cele blog strane — hero (svoja slika) ga prekriva gore, a sekcija i
+   footer su providni pa se vidi kroz njih. Jedan composited sloj = bez janka. */
+.blog-bg {
+  position: fixed; inset: 0; z-index: -1; pointer-events: none;
+  background:
+    linear-gradient(rgba(14,11,10,0.80), rgba(14,11,10,0.80)),
+    url('assets/blog-back.jpg') center / cover no-repeat;
+}
+/* gornji razmak na .wrap (naslov) */
 .blog-list-section > .wrap { padding-top: var(--section-gap); position: relative; z-index: 1; }
 .blog-list-section > .wheel { position: relative; z-index: 1; }
-/* Naslov invertuje pozadinu (mix-blend), kao Hype .why-section h2 */
-.blog-list-section .section-head h2 { mix-blend-mode: exclusion; color: #fff; }
-/* Blog (komp): isti fiksirani most (blog-back) tece i preko footera — bez sava/crne trake.
-   background-attachment: fixed je vezan za viewport, pa se slika u sekciji i footeru
-   savrseno nadovezuje (footer bez margin-gepa, isti overlay/pozicija/velicina). */
-.blog-page .footer {
-  position: relative; z-index: 1; margin-top: 0;
-  background-image:
-    linear-gradient(rgba(14,11,10,0.78), rgba(14,11,10,0.78)),
-    url('assets/blog-back.jpg');
-  background-repeat: no-repeat, no-repeat;
-  background-position: center, center;
-  background-size: cover, cover;
-  background-attachment: fixed, fixed;
-}
+.blog-list-section .section-head h2 { color: var(--bone); }
+/* Blog footer: providan da se most vidi neprekidno kroz njega (bez šava, bez margin-gepa) */
+.blog-page .footer { background: transparent; margin-top: 0; }
 .blog-page .blog-list-section { padding-bottom: var(--sp-8); }
-@media (max-width: 711px) { .blog-page .footer { background-image: none; background-color: var(--soot); } }
 @media (max-width: 711px) {
-  /* Telefon: bez fiksiranog mosta (nepouzdan + mix-blend glitch preko slike) — cist soot, bez baga */
-  .portfolio-section.blog-list-section { background-image: none; background-color: var(--soot); }
   .blog-list-section > .wrap { padding-top: var(--sp-7); }
-  .blog-list-section .section-head h2 { mix-blend-mode: normal; color: var(--bone); }
 }
 /* Kontakt hero — ista sekcija, Anja.jpg pozadina */
 .gallery-hero--kontakt {
