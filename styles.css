@@ -525,6 +525,10 @@ html[data-lang="en"] .post-body[lang="sr"] { display: none; }
 .blog-page .footer { background: transparent; margin-top: 0; }
 .blog-page .blog-list-section { padding-bottom: var(--sp-8); }
 @media (max-width: 711px) {
+  /* Telefon: bez fiksnog mosta (fiksne velike slike secka pri skrolu na telefonu) — cist soot */
+  .blog-bg { display: none; }
+  .portfolio-section.blog-list-section { background: var(--soot); }
+  .blog-page .footer { background: var(--soot); }
   .blog-list-section > .wrap { padding-top: var(--sp-7); }
 }
 /* Kontakt hero — ista sekcija, Anja.jpg pozadina */
