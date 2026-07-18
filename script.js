@@ -1445,7 +1445,7 @@
       '  col+=c0*smoothstep(0.1,1.0,n1)*0.55;',
       '  col+=c1*light;',
       '  float grain=fract(sin(dot(uv,vec2(12.9898,78.233)))*43758.5453+u_time);',
-      '  col+=(grain-0.5)*0.6*0.5;',
+      '  col+=(grain-0.5)*0.05;',
       '  float dist=length(uv-0.5); col*=smoothstep(1.25,0.15,dist);',
       '  gl_FragColor=vec4(clamp(col,0.0,1.0),1.0);',
       '}'
