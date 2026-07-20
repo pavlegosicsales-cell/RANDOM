@@ -1,0 +1,14 @@
+{
+  "name": "Random Tattoo Studio",
+  "short_name": "Random Tattoo",
+  "description": "Tattoo studio u Beogradu — realizam, fine line i blackwork tetovaže.",
+  "lang": "sr",
+  "start_url": "/",
+  "display": "standalone",
+  "theme_color": "#151110",
+  "background_color": "#151110",
+  "icons": [
+    { "src": "/assets/logo.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/assets/logo.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}

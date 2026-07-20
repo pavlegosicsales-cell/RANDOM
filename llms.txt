@@ -1,0 +1,37 @@
+# Random Tattoo Studio
+
+> Tattoo studio u Beogradu (Zvezdara) sa tri umetnika. Custom tetovaže po porudžbini u stilovima realizma, fine line i grafiti/blackwork. Walk-in i zakazivanje. Besplatna konsultacija.
+
+<!-- TODO: zameniti SITE_URL (https://randomtattoo.rs) kad domen bude aktivan -->
+
+## Osnovne informacije
+- Adresa: Paje Jovanovića 33, 11000 Beograd, Srbija
+- Telefon: +381 64 9864575
+- Radno vreme: Sreda–Petak 12:00–21:00, Subota 12:00–18:00, Ponedeljak–Utorak po dogovoru, Nedelja zatvoreno
+- Prima: walk-in klijente i zakazane termine
+- Konsultacija: besplatna, bez obaveza
+- Starosno ograničenje: 18+
+- Radi isključivo custom radove, bez gotovih dizajna sa zida
+- Plaćanje: gotovina i kartica
+
+## Umetnici
+- Lemson (od 2018) — crno-beli realizam, black & grey, portreti, sleeve projekti, apstraktne boje
+- Anja (od 2020) — fine line, linework, delikatni i precizni radovi
+- Enco (od 2019) — grafiti stil, urbane i izražajne tetovaže, blackwork
+
+## Stranice
+- [Početna](https://randomtattoo.rs/): studio, umetnici, proces, česta pitanja
+- [Galerija](https://randomtattoo.rs/galerija.html): radovi po umetniku i stilu
+- [Kontakt](https://randomtattoo.rs/kontakt.html): adresa, radno vreme, forma, mapa
+- [Blog](https://randomtattoo.rs/blog.html): nega tetovaža, saveti, priče iz studija
+
+## Cene
+Cena zavisi od umetnika, veličine i kompleksnosti rada. Studio ne objavljuje fiksni cenovnik. Procena se daje nakon opisa ideje, bez obaveze.
+
+## Blog
+- [Osećaj bola zavisi od mesta na telu](https://randomtattoo.rs/blog-osecaj-bola.html): od čega zavisi bol pri tetoviranju, koja mesta bole najviše
+- [Koža pamti, ali se i menja](https://randomtattoo.rs/blog-koza-pamti.html): kako tetovaža stari i zašto ostaje ceo život
+- [Mitovi o tetovažama](https://randomtattoo.rs/blog-mitovi.html): najčešće zablude o tetovažama
+- [Kako životni stil oblikuje izgled tetovaže](https://randomtattoo.rs/blog-zivotni-stil.html): uticaj sunca, težine i nege tokom godina
+- [Šta se dešava dok tetovaža zaceljuje](https://randomtattoo.rs/blog-zaceljivanje.html): proces zaceljivanja korak po korak
+- [Higijena i bezbednost u studiju](https://randomtattoo.rs/blog-higijena.html): standardi higijene i na šta obratiti pažnju

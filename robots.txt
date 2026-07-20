@@ -1,0 +1,46 @@
+# Random Tattoo Studio — robots.txt
+# TODO: zameniti SITE_URL (https://randomtattoo.rs) kad domen bude aktivan.
+#
+# VAZNO: dok je sajt na *.vercel.app, sve je Disallow (da Google/AI ne indeksiraju
+# privremeni poddomen i ne naprave duplikat). Kad domen randomtattoo.rs bude aktivan,
+# OBRISATI blok ispod i OTKOMENTARISATI produkcijski blok na dnu (koji eksplicitno
+# dozvoljava AI botove: GPTBot, PerplexityBot, ClaudeBot, OAI-SearchBot, itd.).
+
+User-agent: *
+Disallow: /
+
+# ================= PRODUKCIJA (aktivirati kad domen bude aktivan) =================
+# User-agent: *
+# Allow: /
+#
+# User-agent: GPTBot
+# Allow: /
+#
+# User-agent: OAI-SearchBot
+# Allow: /
+#
+# User-agent: ChatGPT-User
+# Allow: /
+#
+# User-agent: PerplexityBot
+# Allow: /
+#
+# User-agent: Perplexity-User
+# Allow: /
+#
+# User-agent: ClaudeBot
+# Allow: /
+#
+# User-agent: Claude-User
+# Allow: /
+#
+# User-agent: Google-Extended
+# Allow: /
+#
+# User-agent: Applebot-Extended
+# Allow: /
+#
+# User-agent: CCBot
+# Allow: /
+#
+# Sitemap: https://randomtattoo.rs/sitemap.xml

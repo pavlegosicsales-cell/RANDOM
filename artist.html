@@ -3,13 +3,38 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Umetnik, Random Tattoo Studio</title>
-  <meta name="description" content="Radovi umetnika Random Tattoo Studija, Beograd.">
+  <!-- SEO/GEO — TODO: zameniti SITE_URL (https://randomtattoo.rs) i UKLONITI noindex kad domen bude aktivan -->
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="author" content="Random Tattoo Studio">
+  <meta name="geo.region" content="RS-00">
+  <meta name="geo.placename" content="Beograd">
+  <meta name="geo.position" content="44.7900005;20.5053084">
+  <meta name="ICBM" content="44.7900005, 20.5053084">
+  <meta name="theme-color" content="#151110">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Random Tattoo Studio">
+  <meta property="og:locale" content="sr_RS">
+  <meta property="og:image" content="https://randomtattoo.rs/assets/og-image.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Random Tattoo Studio Beograd">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://randomtattoo.rs/assets/og-image.jpg">
+  <link rel="apple-touch-icon" href="assets/logo.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <title>Umetnici — Lemson, Anja, Enco | Random Tattoo Studio Beograd</title>
+  <meta name="description" content="Tri umetnika Random Tattoo Studija u Beogradu: Lemson (realizam, black & grey), Anja (fine line) i Enco (grafiti). Custom tetovaže, besplatna konsultacija.">
+  <link rel="canonical" href="https://randomtattoo.rs/artist.html">
+  <meta property="og:url" content="https://randomtattoo.rs/artist.html">
+  <meta property="og:title" content="Umetnici — Lemson, Anja, Enco | Random Tattoo Studio Beograd">
+  <meta property="og:description" content="Tri umetnika Random Tattoo Studija u Beogradu: Lemson (realizam), Anja (fine line) i Enco (grafiti).">
+  <meta name="twitter:title" content="Umetnici | Random Tattoo Studio Beograd">
+  <meta name="twitter:description" content="Lemson (realizam), Anja (fine line) i Enco (grafiti). Custom tetovaže u Beogradu.">
 
   <link rel="icon" href="assets/logo.png">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=20260718p">
+  <link rel="stylesheet" href="styles.css?v=20260718q">
 </head>
 <body>
   <a class="skip-link" href="#glavni" data-i18n="nav.skip">Preskoči na sadržaj</a>
@@ -97,6 +122,26 @@
 
   <main id="glavni" data-artist-page>
 
+    <!-- Fallback za crawlere bez JS-a: sadržaj artist stranica se puni preko script.js -->
+    <noscript>
+      <section class="section wrap">
+        <h1>Umetnici — Random Tattoo Studio, Beograd</h1>
+        <article>
+          <h2>Lemson — realizam, black &amp; grey, apstraktne boje (od 2018)</h2>
+          <p>Lemson radi hiperprecizni crno-beli realizam, portrete i sleeve projekte, kao i slobodne apstraktne radove u boji. Instagram: <a href="https://instagram.com/mr_lemson" rel="noopener">@mr_lemson</a>.</p>
+        </article>
+        <article>
+          <h2>Anja — fine line i linework (od 2020)</h2>
+          <p>Anja radi elegantne fine line tetovaže i linework, precizne i delikatne radove napravljene da lepo stare. Instagram: <a href="https://instagram.com/alex.anja.tattoo" rel="noopener">@alex.anja.tattoo</a>.</p>
+        </article>
+        <article>
+          <h2>Enco — grafiti i urbani stil (od 2019)</h2>
+          <p>Enco prenosi grafiti kulturu na kožu, smeli i izražajni radovi sa jakim karakterom, blackwork. Instagram: <a href="https://instagram.com/enco_enco.tattoo" rel="noopener">@enco_enco.tattoo</a>.</p>
+        </article>
+        <p>Random Tattoo Studio, Paje Jovanovića 33, 11000 Beograd. Telefon: <a href="tel:+381649864575">+381 64 9864575</a>. Besplatna konsultacija.</p>
+      </section>
+    </noscript>
+
     <!-- ============ ARTIST HERO ============ -->
     <section class="artist-hero">
       <canvas class="aura" data-aura aria-hidden="true"></canvas>
@@ -165,6 +210,7 @@
         <span class="footer__ghost" aria-hidden="true">Random</span>
         <div class="footer__brand" aria-hidden="true">Random</div>
       </div>
+      <address class="footer__nap">Paje Jovanovića 33, 11000 Beograd, Srbija · <a href="tel:+381649864575">+381 64 9864575</a></address>
       <div class="footer__bottom">
         <span data-i18n="footer.copy">© 2026 Random Tattoo Studio · Beograd</span>
         <a href="#glavni" data-i18n="footer.top">Nazad na vrh ↑</a>
@@ -184,8 +230,8 @@
 
   <script src="vendor/lenis.min.js"></script>
   <script src="vendor/gsap.min.js"></script>
-  <script src="i18n.js?v=20260718p"></script>
-  <script src="script.js?v=20260718p"></script>
-  <script src="cal.js?v=20260718p"></script>
+  <script src="i18n.js?v=20260718q"></script>
+  <script src="script.js?v=20260718q"></script>
+  <script src="cal.js?v=20260718q"></script>
 </body>
 </html>

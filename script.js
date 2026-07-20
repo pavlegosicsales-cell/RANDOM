@@ -67,9 +67,9 @@
   };
 
   var CAT_ALT = {
-    'realizam': 'Crno-beli realistični rad',
-    'fine-line': 'Fine line rad tankih linija',
-    'blackwork': 'Blackwork ilustrativni rad'
+    'realizam': 'Realistična crno-bela tetovaža',
+    'fine-line': 'Fine line tetovaža tankih linija',
+    'blackwork': 'Blackwork / grafiti tetovaža'
   };
 
   // Sastavi radove po umetniku, pa interleave za "SVI" prikaz
@@ -81,7 +81,8 @@
         src: 'assets/works/' + key + '.jpg',
         cat: a.cat,
         w: d[0], h: d[1],
-        alt: CAT_ALT[a.cat] + ', ' + a.name
+        // Jedinstven, opisni alt (stil + umetnik + Beograd + redni broj) — bez izmišljanja motiva
+        alt: CAT_ALT[a.cat] + ', ' + a.name + ', Random Tattoo Studio Beograd (br. ' + i + ')'
       });
     }
     return list;
@@ -257,7 +258,7 @@
     img.src = item.src;
     img.alt = item.alt;
     img.width = item.w; img.height = item.h;
-    img.loading = 'lazy';
+    img.loading = 'lazy'; img.decoding = 'async';
     fig.appendChild(img);
     return fig;
   }
@@ -333,7 +334,7 @@
       var img = document.createElement('img');
       img.src = item.src; img.alt = item.alt;
       img.width = item.w; img.height = item.h;
-      img.loading = 'lazy';
+      img.loading = 'lazy'; img.decoding = 'async';
       img.className = 'img_view_animation';
       if (reduceMotion || !io) { img.classList.add('visible'); }
       else { io.observe(img); img.addEventListener('load', function () { img.classList.add('visible'); }); }
@@ -595,11 +596,39 @@
 
     var ig = $('[data-a-ig]');
     if (ig) { ig.textContent = a.ig; ig.href = a.igUrl; }
+
+    // ---- SEO: meta + JSON-LD po umetniku (TODO: zameniti SITE_URL kad domen bude aktivan) ----
+    var SITE = 'https://randomtattoo.rs';
+    var url = SITE + '/artist.html?id=' + id;
+    var lang0 = (window.RandomI18N && window.RandomI18N.current()) || 'sr';
+    var styleTxt = pick('style', lang0);
+    var descTxt = pick('lead', lang0);
     var portrait = $('[data-a-portrait]');
     if (portrait) {
       portrait.src = a.portrait;
-      portrait.alt = 'Portret, ' + a.name;
+      portrait.alt = a.name + ', tattoo umetnik, ' + styleTxt + ', Random Tattoo Studio Beograd';
     }
+    function meta(attr, key, val) {
+      var el = document.head.querySelector('meta[' + attr + '="' + key + '"]');
+      if (!el) { el = document.createElement('meta'); el.setAttribute(attr, key); document.head.appendChild(el); }
+      el.setAttribute('content', val);
+    }
+    document.title = a.name + ' — ' + styleTxt + ' | Random Tattoo Studio Beograd';
+    meta('name', 'description', a.name + ', ' + styleTxt + '. ' + descTxt);
+    meta('property', 'og:title', document.title);
+    meta('property', 'og:description', descTxt);
+    meta('property', 'og:url', url);
+    meta('property', 'og:image', SITE + '/assets/artists/' + id + '.jpg');
+    var can = document.head.querySelector('link[rel="canonical"]');
+    if (can) can.setAttribute('href', url);
+    var KNOWS = { lemson: ['Realizam', 'Black and Grey', 'Apstraktne boje', 'Portreti'], anja: ['Fine Line', 'Linework'], enco: ['Grafiti', 'Urbani stil', 'Blackwork'] };
+    var personLd = { '@context': 'https://schema.org', '@type': 'Person', name: a.name, jobTitle: 'Tattoo Artist', worksFor: { '@id': SITE + '/#business' }, knowsAbout: KNOWS[id] || [], image: SITE + '/assets/artists/' + id + '.jpg', sameAs: [a.igUrl], url: url };
+    var bcLd = { '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Početna', item: SITE + '/' },
+      { '@type': 'ListItem', position: 2, name: 'Umetnici', item: SITE + '/index.html#artisti' },
+      { '@type': 'ListItem', position: 3, name: a.name, item: url }
+    ] };
+    [personLd, bcLd].forEach(function (obj) { var s = document.createElement('script'); s.type = 'application/ld+json'; s.textContent = JSON.stringify(obj); document.head.appendChild(s); });
     // Radove puni hypeGalleryOn (data-gallery-hype data-artist-gallery)
   }
 
@@ -625,7 +654,7 @@
       var fig = document.createElement('figure');
       fig.className = 'scroller__item';
       var img = document.createElement('img');
-      img.src = it.src; img.alt = it.alt; img.loading = 'lazy';
+      img.src = it.src; img.alt = it.alt; img.loading = 'lazy'; img.decoding = 'async';
       img.width = it.w; img.height = it.h;
       fig.appendChild(img);
       row.appendChild(fig);
@@ -663,7 +692,7 @@
       fig.style.transform = 'rotateY(' + (i * anglePer) + 'deg) translateZ(' + radius + 'px)';
       fig.dataset.index = i;
       var img = document.createElement('img');
-      img.src = it.src; img.alt = it.alt; img.loading = 'lazy';
+      img.src = it.src; img.alt = it.alt; img.loading = 'lazy'; img.decoding = 'async';
       fig.appendChild(img);
       ring.appendChild(fig);
       nodes.push({ el: fig, img: img, angle: i * anglePer });

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<!-- ŠABLON ZA NOVE BLOG POSTOVE — kopiraj i popuni [PLACEHOLDER] polja. -->
+<!-- TODO: zameniti SITE_URL (https://randomtattoo.rs) kad domen bude aktivan -->
+<!-- TODO: uneti STVARNE datePublished/dateModified (ne izmišljati). -->
+<html lang="sr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow"><!-- TODO: index, follow, max-image-preview:large kad domen bude aktivan -->
+  <meta name="author" content="Random Tattoo Studio">
+  <meta name="geo.region" content="RS-00">
+  <meta name="geo.placename" content="Beograd">
+  <meta name="geo.position" content="44.7900005;20.5053084">
+  <meta name="ICBM" content="44.7900005, 20.5053084">
+  <meta name="theme-color" content="#151110">
+  <title>[PITANJE KAO TITLE, max 60 znakova] | Random Tattoo Beograd</title>
+  <meta name="description" content="[ODGOVOR NA PITANJE IZ TITLE-A, 150–160 znakova, sadrži Beograd]">
+  <link rel="canonical" href="https://randomtattoo.rs/blog-[SLUG].html">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Random Tattoo Studio">
+  <meta property="og:locale" content="sr_RS">
+  <meta property="og:url" content="https://randomtattoo.rs/blog-[SLUG].html">
+  <meta property="og:title" content="[TITLE]">
+  <meta property="og:description" content="[DESCRIPTION]">
+  <meta property="og:image" content="https://randomtattoo.rs/assets/[SLIKA].jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://randomtattoo.rs/assets/[SLIKA].jpg">
+  <link rel="icon" href="assets/logo.png">
+  <link rel="apple-touch-icon" href="assets/logo.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css?v=20260718q">
+</head>
+<body>
+  <a class="skip-link" href="#glavni">Preskoči na sadržaj</a>
+
+  <!-- Kopiraj NAV i STAGGERED MENI iz postojećeg blog-*.html -->
+
+  <main id="glavni">
+    <article class="post">
+      <header class="post-hero wrap">
+        <a class="post-back" href="blog.html">← Blog</a>
+        <span class="label">/ [KATEGORIJA]</span>
+        <!-- H1 = pitanje. Prvi pasus ispod = direktan odgovor (2–3 rečenice, samostalan). -->
+        <h1 class="post-title">[PITANJE KAO NASLOV]</h1>
+        <p class="post-meta">4 <span>min čitanja</span></p>
+      </header>
+      <div class="post-cover wrap"><img src="assets/[SLIKA].jpg" alt="[OPISNI ALT SA BEOGRAD]" width="1600" height="900" loading="eager" fetchpriority="high" decoding="async"></div>
+      <div class="post-body wrap reveal" lang="sr">
+        <p>[DIREKTAN ODGOVOR NA PITANJE IZ NASLOVA — 2–3 rečenice, konkretni brojevi/činjenice. AI čita samo vrh stranice.]</p>
+        <h2>[POTPITANJE 1]</h2>
+        <p>[Direktan odgovor ispod svakog H2.]</p>
+        <h2>[POTPITANJE 2]</h2>
+        <p>[Direktan odgovor. Interni linkovi opisnim tekstom: npr.
+          <a href="artist.html?id=lemson">realizam radovi umetnika Lemson</a>,
+          <a href="galerija.html">galerija radova</a>, ili
+          <a href="kontakt.html">besplatna konsultacija</a>.]</p>
+      </div>
+      <nav class="post-nav wrap" aria-label="Ostali blogovi">
+        <a class="post-nav__link" href="blog-[PREV].html">← [Naslov prethodnog]</a>
+        <a class="post-nav__link post-nav__link--next" href="blog-[NEXT].html">[Naslov sledećeg] →</a>
+      </nav>
+    </article>
+  </main>
+
+  <!-- Kopiraj FOOTER iz postojećeg blog-*.html (uključuje <address class="footer__nap">) -->
+
+  <!-- STRUCTURED DATA -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "[H1 POSTA]",
+    "description": "[PRVI PASUS, skraćen na ~155 znakova]",
+    "image": "https://randomtattoo.rs/assets/[SLIKA].jpg",
+    "datePublished": "[YYYY-MM-DD]",
+    "dateModified": "[YYYY-MM-DD]",
+    "author": { "@type": "Organization", "name": "Random Tattoo Studio", "url": "https://randomtattoo.rs/" },
+    "publisher": { "@type": "Organization", "name": "Random Tattoo Studio", "logo": { "@type": "ImageObject", "url": "https://randomtattoo.rs/assets/logo.png" } },
+    "mainEntityOfPage": { "@type": "WebPage", "@id": "https://randomtattoo.rs/blog-[SLUG].html" },
+    "inLanguage": "sr",
+    "timeRequired": "PT4M",
+    "articleSection": "[KATEGORIJA]",
+    "about": { "@id": "https://randomtattoo.rs/#business" },
+    "keywords": "[3–5 pojmova]"
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Početna", "item": "https://randomtattoo.rs/" },
+      { "@type": "ListItem", "position": 2, "name": "Blog", "item": "https://randomtattoo.rs/blog.html" },
+      { "@type": "ListItem", "position": 3, "name": "[NASLOV]", "item": "https://randomtattoo.rs/blog-[SLUG].html" }
+    ]
+  }
+  </script>
+  <!-- Ako post odgovara na konkretna pitanja, dodaj i FAQPage schema (tekst odgovora DOSLOVNO sa stranice). -->
+
+  <script src="vendor/lenis.min.js"></script>
+  <script src="vendor/gsap.min.js"></script>
+  <script src="i18n.js?v=20260718q"></script>
+  <script src="script.js?v=20260718q"></script>
+  <script src="cal.js?v=20260718q"></script>
+</body>
+</html>

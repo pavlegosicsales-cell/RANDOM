@@ -1161,6 +1161,11 @@ html.lenis, html.lenis body { height: auto; }
 .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
 .no-scroll { overflow: hidden; }
 .text-ash { color: var(--ash); }
+/* SEO: <address> ne sme biti italic (default); footer NAP linija — NOVI elementi, ne diraju postojeci dizajn */
+address { font-style: normal; }
+.footer__nap { margin-top: var(--sp-4); font-family: var(--font-mono); font-size: var(--fs-small); color: var(--ash); }
+.footer__nap a { color: var(--ash); transition: color var(--dur-fast) var(--ease); }
+.footer__nap a:hover { color: var(--bone); }
 
 /* =========================================================
    MEDIA QUERIES

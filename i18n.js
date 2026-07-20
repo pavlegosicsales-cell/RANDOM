@@ -119,6 +119,8 @@
                           en: 'Random Tattoo Studio is a small, artist-run studio in the heart of Belgrade. We believe every tattoo should be as unique as the person wearing it, which is why we only work custom.' },
     'home.about.p2':    { sr: 'Bez gotovih dizajna sa zida. Bez kopija. Samo originalna umetnost napravljena za tebe, od strane umetnika kojima je stalo do svog zanata.',
                           en: 'No flash off the wall. No copies. Just original art made for you, by artists who care about their craft.' },
+    'home.about.p3':    { sr: 'Studio se nalazi na Zvezdari, radi od 2018. godine, i prima i zakazane i walk-in klijente.',
+                          en: 'The studio is in Zvezdara, Belgrade, has been running since 2018, and takes both booked and walk-in clients.' },
 
     /* ---------- POČETNA, statement ---------- */
     'home.assemble1': { sr: 'Ovo ostaje', en: 'This stays' },
@@ -172,6 +174,14 @@
                  en: 'We explain everything before you leave and you get written instructions. In short: wash it, moisturise it, do not scratch, avoid sun, pools and saunas for the first two weeks. If anything looks off, call us, we are here.' },
     'faq.9.q': { sr: 'Od koliko godina?', en: 'What is the age limit?' },
     'faq.9.a': { sr: '18+. Bez izuzetaka.', en: '18+. No exceptions.' },
+    'faq.10.q': { sr: 'Gde se nalazi studio?', en: 'Where is the studio located?' },
+    'faq.10.a': { sr: 'Paje Jovanovića 33, na Zvezdari u Beogradu. Radimo sredom do petka od 12 do 21h, subotom od 12 do 18h. Ponedeljkom i utorkom samo po dogovoru.',
+                 en: 'Paje Jovanovića 33, in the Zvezdara area of Belgrade. We work Wednesday to Friday 12 to 21h, Saturday 12 to 18h. Monday and Tuesday by appointment only.' },
+    'faq.11.q': { sr: 'Koje stilove tetovaža radite?', en: 'What tattoo styles do you do?' },
+    'faq.11.a': { sr: 'Lemson radi crno-beli realizam, portrete i apstraktne radove u boji. Anja radi fine line i linework. Enco radi grafiti i urbani stil. Ako nisi siguran koji stil ti odgovara, dođi na besplatnu konsultaciju.',
+                 en: 'Lemson does black and grey realism, portraits and abstract colour work. Anja does fine line and linework. Enco does graffiti and urban style. If you are not sure which style suits you, come in for a free consultation.' },
+    'faq.12.q': { sr: 'Da li mogu da platim karticom?', en: 'Can I pay by card?' },
+    'faq.12.a': { sr: 'Da, primamo gotovinu i kartice.', en: 'Yes, we take cash and cards.' },
 
     /* ---------- KONTAKT / FORMA ---------- */
     'contact.label':     { sr: '/ Kontakt', en: '/ Contact' },
