@@ -238,9 +238,13 @@ strong { font-weight: 700; }
 .btn-secondary {
   background: linear-gradient(169.7deg, rgba(220, 220, 221, 0.055) -17.85%, rgba(220, 220, 221, 0) 117.02%);
   backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
-  color: var(--bone);
-  border-color: rgba(220, 220, 221, 0.14);
+  color: var(--teal);
+  --ink: var(--teal);
+  border-color: rgba(88, 197, 190, 0.22);
 }
+/* Zagrade takodje tirkizne. Specificnost 0,2,0 je NIZA od `.btn:hover .btn__corner`
+   (0,3,0), pa hover pravilo (crno) pobedjuje samo od sebe. */
+.btn-secondary .btn__corner { color: var(--teal); }
 .btn-secondary:hover { background: var(--teal); border-color: var(--teal); color: var(--soot); }
 .btn:disabled { opacity: 0.5; cursor: not-allowed; }
 .btn-row { display: flex; flex-wrap: wrap; gap: var(--sp-2); }
@@ -263,15 +267,7 @@ strong { font-weight: 700; }
 .btn__corner--br { bottom: -1px; right: -1px; border-left: none; border-top: none; }
 .btn__corner--bl { bottom: -1px; left: -1px; border-right: none; border-top: none; }
 .btn:hover .btn__corner { color: var(--soot); }
-/* Hero: coskovi sekundarnog dugmeta u tirkiz (ista boja koju dugme uzme na hover).
-   Na hover dugme se popuni tirkizom pa coskovi prelaze u crno — to hvata pravilo iznad. */
-.hero .btn-secondary .btn__corner,
-.gallery-hero .btn-secondary .btn__corner { color: var(--teal); }
-/* ...ali na hover nazad u crno. Bez ove linije tirkiz ostaje i na hover: gornje
-   pravilo ima istu specificnost (0,3,0) kao `.btn:hover .btn__corner`, a stoji
-   nize u fajlu pa ga gazi. */
-.hero .btn-secondary:hover .btn__corner,
-.gallery-hero .btn-secondary:hover .btn__corner { color: var(--soot); }
+
 /* Na hover coškovi ulaze UNUTAR dugmeta — 50% svoje veličine, kao kod hype-a */
 .btn:hover .btn__corner--tl { transform: translate(50%, 50%); }
 .btn:hover .btn__corner--tr { transform: translate(-50%, 50%); }
@@ -551,9 +547,14 @@ html[data-lang="en"] .post-body[lang="sr"] { display: none; }
   .gallery-hero__inner > .label,
   .artist-hero > .label { animation: heroRise 0.5s var(--ease) both; animation-delay: 0.04s; }
 
+  /* Staklena dugmad ulaze SAMO kroz opacity. heroRise animira transform, a predak
+     sa transformom pravi Backdrop Root — backdrop-filter tada nema sta da uzorkuje
+     i blur na dugmetu se uopste ne vidi. */
+  @keyframes heroFade { from { opacity: 0; } to { opacity: 1; } }
+
   .hero .btn-row,
   .gallery-hero__cta,
-  .artist-hero__actions { animation: heroRise 0.6s var(--ease) both; animation-delay: 0.5s; }
+  .artist-hero__actions { animation: heroFade 0.6s var(--ease) both; animation-delay: 0.5s; }
 
   .gallery-hero__bottom { animation: heroRise 0.6s var(--ease) both; animation-delay: 0.6s; }
 }
