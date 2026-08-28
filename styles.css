@@ -29,6 +29,7 @@ ul { list-style: none; padding: 0; }
   --clay-border: #2A201B;
   --surface: #141010;        /* kartice */
   --hair: rgba(244,238,231,0.09); /* tanke linije */
+  --invert-tint: #9FF3E6;    /* boja naslova u herou; kroz mix-blend-mode: exclusion daje plavo-zelenu inverziju */
 
   --font-display: 'Inter', sans-serif;   /* weight 900 */
   --font-body: 'Inter', sans-serif;
@@ -381,17 +382,16 @@ html[data-lang="en"] .post-body[lang="sr"] { display: none; }
 .hero::before {
   content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none;
   background-image:
-    linear-gradient(to bottom, rgba(14,11,10,0.72) 0%, rgba(14,11,10,0.32) 34%, rgba(14,11,10,0.34) 62%, rgba(14,11,10,0.68) 80%, var(--soot) 100%),
-    linear-gradient(to bottom, rgba(122,26,12,0) 6%, rgba(122,26,12,0.58) 34%, rgba(122,26,12,0.58) 60%, rgba(122,26,12,0) 86%),
+    linear-gradient(to bottom, rgba(14,11,10,0.76) 0%, rgba(14,11,10,0.42) 38%, rgba(14,11,10,0.66) 74%, var(--soot) 100%),
     url('assets/random-hero.jpg?v=20260828');
-  background-repeat: no-repeat, no-repeat, no-repeat;
-  background-position: center, center, center;
-  background-size: cover, cover, cover;
-  background-attachment: fixed, fixed, fixed;
-  filter: saturate(1.40);
+  background-repeat: no-repeat, no-repeat;
+  background-position: center, center;
+  background-size: cover, cover;
+  background-attachment: fixed, fixed;
+  filter: saturate(1.25);
 }
 /* Invert efekat na naslov — bela slova invertuju pozadinsku sliku (kao galerija/Hype) */
-.hero__title { mix-blend-mode: exclusion; color: #fff; }
+.hero__title { mix-blend-mode: exclusion; color: var(--invert-tint); }
 /* Prva sekcija posle heroja klizi PREKO fiksirane slike i prekriva je.
    margin -> padding: inace u margin procepu nema pozadine pa se vidi film-grain
    (body::before) i ispadne svetlija siva traka izmedju heroja i galerije. */
@@ -1218,10 +1218,9 @@ address { font-style: normal; }
   /* Telefon: svoja (uspravna) hero fotka + scroll umesto fixed (fixed je nepouzdan na telefonu) */
   .hero::before {
     background-image:
-      linear-gradient(to bottom, rgba(14,11,10,0.72) 0%, rgba(14,11,10,0.32) 34%, rgba(14,11,10,0.34) 62%, rgba(14,11,10,0.68) 80%, var(--soot) 100%),
-      linear-gradient(to bottom, rgba(122,26,12,0) 6%, rgba(122,26,12,0.50) 34%, rgba(122,26,12,0.50) 60%, rgba(122,26,12,0) 86%),
+      linear-gradient(to bottom, rgba(14,11,10,0.76) 0%, rgba(14,11,10,0.42) 38%, rgba(14,11,10,0.66) 74%, var(--soot) 100%),
       url('assets/random-hero-mobile.jpg?v=20260828');
-    background-attachment: scroll, scroll, scroll;
+    background-attachment: scroll, scroll;
   }
 
   /* Galerija: 2 kolone, ime umetnika uvek vidljivo (nema hover na telefonu) */
