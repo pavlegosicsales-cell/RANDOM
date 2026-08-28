@@ -378,8 +378,8 @@ html[data-lang="en"] .post-body[lang="sr"] { display: none; }
   padding: 120px 0 64px;
   /* Scroll-cover: slika fiksirana za viewport (ne pomera se), sekcija ispod je prekriva */
   background-image:
-    linear-gradient(to bottom, rgba(14,11,10,0.74) 0%, rgba(14,11,10,0.42) 38%, rgba(14,11,10,0.62) 74%, var(--soot) 100%),
-    url('assets/random-hero.jpg');
+    linear-gradient(to bottom, rgba(14,11,10,0.80) 0%, rgba(14,11,10,0.60) 38%, rgba(14,11,10,0.72) 74%, var(--soot) 100%),
+    url('assets/random-hero.jpg?v=20260828');
   background-repeat: no-repeat, no-repeat;
   background-position: center, center;
   background-size: cover, cover;
