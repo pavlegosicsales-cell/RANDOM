@@ -644,7 +644,7 @@ html[data-lang="en"] .post-body[lang="sr"] { display: none; }
 .gallery-hero--kontakt {
   background-image:
     linear-gradient(to bottom, rgba(0,0,0,0.68) 0%, rgba(0,0,0,0.40) 40%, rgba(0,0,0,0.66) 82%, var(--soot) 100%),
-    url('assets/kontakt-hero.jpg');
+    url('assets/kontakt-hero.jpg?v=20260829');
 }
 /* Kontakt sekcija prekriva fiksiranu hero sliku na skrol.
    Sekcija je .wrap (centrirana kolona), pa crnu pozadinu razvlačimo full-width
