@@ -318,7 +318,10 @@ strong { font-weight: 700; }
    pomera. Na hover svaki ::after prodje kroz "_" pa tri nasumicna glifa i vrati
    se na svoje slovo; kasnjenje po slovu (--index) pravi talas s leva na desno.
    steps(1, end) daje tvrdo preskakanje umesto mekog prelaza. */
-.btn--glyph .glyph-char { position: relative; display: inline-block; color: transparent; white-space: pre; }
+.btn--glyph .glyph-word { display: inline-block; white-space: nowrap; }
+.btn--glyph .glyph-char { position: relative; display: inline-block; color: transparent; }
+/* Kad tekst dugmeta predje u dva reda (usko dugme na telefonu) */
+.btn__label { text-align: center; }
 .btn--glyph .glyph-char::after {
   content: attr(data-char);
   position: absolute; inset: 0;

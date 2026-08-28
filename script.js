@@ -979,16 +979,27 @@
       var raw = (label.getAttribute('data-glyph-text') || label.textContent).trim();
       label.setAttribute('data-glyph-text', raw);
       label.textContent = '';
-      raw.split('').forEach(function (ch, i) {
-        var sp = document.createElement('span');
-        sp.className = 'glyph-char';
-        sp.setAttribute('data-char', ch);
-        sp.style.setProperty('--index', i);
-        sp.style.setProperty('--char-1', g());
-        sp.style.setProperty('--char-2', g());
-        sp.style.setProperty('--char-3', g());
-        sp.textContent = ch;
-        label.appendChild(sp);
+      // Slova idu u reci, reci u nowrap spanove. Bez toga svako slovo je zaseban
+      // inline-block, pa prelom moze da padne USRED reci ("ZAKAZI KONSULTA/CIJU").
+      var i = 0;
+      raw.split(' ').forEach(function (word, wi) {
+        if (wi) label.appendChild(document.createTextNode(' '));   // ovde je prelom dozvoljen
+        var w = document.createElement('span');
+        w.className = 'glyph-word';
+        word.split('').forEach(function (ch) {
+          var sp = document.createElement('span');
+          sp.className = 'glyph-char';
+          sp.setAttribute('data-char', ch);
+          sp.style.setProperty('--index', i);
+          sp.style.setProperty('--char-1', g());
+          sp.style.setProperty('--char-2', g());
+          sp.style.setProperty('--char-3', g());
+          sp.textContent = ch;
+          w.appendChild(sp);
+          i++;
+        });
+        label.appendChild(w);
+        i++;   // razmak takodje nosi korak, da talas ostane ravnomeran
       });
       var sr = document.createElement('span');
       sr.className = 'sr-only';
