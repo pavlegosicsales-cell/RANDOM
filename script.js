@@ -296,43 +296,81 @@
         c.style.transform = baseTransform(i);
         c.style.zIndex = String(50 - i * 10);
         c.style.pointerEvents = i === 0 ? 'auto' : 'none';
+        c.style.cursor = i === 0 ? 'grab' : '';   // DOM redosled se ne menja, pa ne moze :first-child
       });
     }
     layout();
 
     if (reduceMotion) return;   // bez prevlacenja: spil ostaje staticna slika
 
-    var MIN = 50, dragging = false, id = null, sx = 0, sy = 0, top = cards[0];
+    var MIN = 56;    // koliko treba povuci da karta ode na dno
+    var LOCK = 8;    // posle koliko piksela se odlucuje da li je swipe ili skrol
+    var FLY = 320;   // trajanje izletanja karte
+    // idle -> pending (prst spusten, smer jos nepoznat) -> drag -> fly -> idle
+    var state = 'idle', id = null, sx = 0, sy = 0, top = null;
+
+    function release() {
+      if (top && id !== null) { try { top.releasePointerCapture(id); } catch (err) {} }
+      if (top) top.classList.remove('is-dragging');
+      id = null;
+    }
+    function cancel() { release(); state = 'idle'; layout(); }
+
     function onDown(e) {
-      if (dragging) return;
+      if (state !== 'idle') return;
       top = cards[0];
-      if (!top.contains(e.target) && e.target !== top) return;
-      dragging = true; id = e.pointerId; sx = e.clientX; sy = e.clientY;
-      top.classList.add('is-dragging');
-      try { top.setPointerCapture(id); } catch (err) {}
+      if (e.target !== top && !top.contains(e.target)) return;
+      // Jos NE diramo kartu i NE gasimo transition — dok se ne zna da li je ovo
+      // prevlacenje ili obican dodir/skrol. Zato cist tap vise nista ne pomera.
+      state = 'pending'; id = e.pointerId; sx = e.clientX; sy = e.clientY;
     }
+
     function onMove(e) {
-      if (!dragging || e.pointerId !== id) return;
+      if (id === null || e.pointerId !== id) return;
       var dx = e.clientX - sx, dy = e.clientY - sy;
-      top.style.transform = 'translate(' + dx + 'px,' + dy + 'px) rotate(' + (dx * 0.05) + 'deg)';
+      if (state === 'pending') {
+        if (Math.abs(dx) < LOCK && Math.abs(dy) < LOCK) return;      // premalo, jos cekamo
+        if (Math.abs(dy) > Math.abs(dx)) { cancel(); return; }       // vertikalno = skrol strane
+        state = 'drag';
+        top.classList.add('is-dragging');                            // tek sad gasimo transition
+        try { top.setPointerCapture(id); } catch (err) {}
+      }
+      if (state !== 'drag') return;
+      top.style.transform = 'translate(' + (dx + ox) + 'px,' + (dy + oy) + 'px) rotate(' + (dx * 0.05) + 'deg)';
     }
+
     function onUp(e) {
-      if (!dragging || e.pointerId !== id) return;
-      dragging = false;
-      top.classList.remove('is-dragging');
-      try { top.releasePointerCapture(id); } catch (err) {}
+      if (id === null || e.pointerId !== id) return;
+      if (state !== 'drag') { cancel(); return; }                    // tap ili skrol — nista
       var dx = e.clientX - sx, dy = e.clientY - sy;
-      if (Math.sqrt(dx * dx + dy * dy) < MIN) { layout(); return; }   // premalo — vrati se
-      // odleti u smeru prevlacenja, pa se vrati na dno spila
-      top.style.transform = 'translate(' + (dx * 3) + 'px,' + (dy * 3) + 'px) rotate(' + (dx * 0.12) + 'deg)';
-      var moved = cards.shift();
-      cards.push(moved);
-      window.setTimeout(layout, 220);
+      var card = top;
+      release();
+      if (Math.abs(dx) < MIN) { state = 'idle'; layout(); return; }  // vrati se uz ease
+
+      // Karta izleti u smeru prevlacenja i utrne se. Redosled i z-index se menjaju
+      // TEK kad je nevidljiva — ranije se to desavalo odmah, pa je karta skakala iza
+      // ostalih dok je jos bila u letu. To je bio glitch.
+      state = 'fly';
+      var dir = dx > 0 ? 1 : -1;
+      var away = host.offsetWidth + 260;
+      card.style.transition = 'transform ' + FLY + 'ms cubic-bezier(0.32,0,0.67,0), opacity ' + FLY + 'ms linear';
+      card.style.transform = 'translate(' + (dir * away + ox) + 'px,' + (dy + oy) + 'px) rotate(' + (dir * 16) + 'deg)';
+      card.style.opacity = '0';
+      window.setTimeout(function () {
+        card.style.transition = 'none';        // premesti je bez animacije, dok se ne vidi
+        cards.shift(); cards.push(card);
+        layout();
+        void card.offsetWidth;                 // reflow, da fade krene sa nove pozicije
+        card.style.transition = '';            // nazad na CSS transition
+        card.style.opacity = '1';
+        state = 'idle';
+      }, FLY);
     }
+
     host.addEventListener('pointerdown', onDown);
     host.addEventListener('pointermove', onMove);
     host.addEventListener('pointerup', onUp);
-    host.addEventListener('pointercancel', onUp);
+    host.addEventListener('pointercancel', function () { if (state === 'fly') return; cancel(); });
   }
 
   function initGallery() {
