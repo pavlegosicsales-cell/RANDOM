@@ -572,11 +572,6 @@ html[data-lang="en"] .post-body[lang="sr"] { display: none; }
 .imgstack__card.is-dragging { transition: none; cursor: grabbing; }
 .imgstack__card:first-child { cursor: grab; }
 .imgstack__card img { width: 100%; height: 100%; object-fit: cover; display: block; pointer-events: none; }
-.imgstack__hint {
-  margin: var(--sp-3) auto 0; max-width: none; text-align: center;
-  font-family: var(--font-mono); font-size: var(--fs-label);
-  text-transform: uppercase; letter-spacing: 0.18em; color: var(--ash);
-}
 @media (prefers-reduced-motion: reduce) {
   .imgstack__card { transition: none; }
 }
