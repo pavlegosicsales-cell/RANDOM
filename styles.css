@@ -18,18 +18,20 @@ ul { list-style: none; padding: 0; }
 
 /* ---------- TOKENI --------------------------------------- */
 :root {
-  --soot:  #0E0B0A;          /* dublja, kinematičnija crna (i dalje topla, nikad #000) */
-  --soot-2: #151110;         /* sekundarna pozadina */
-  --bone:  #F4EEE7;
-  --ash:   #96877E;
-  --ember: #80190e;          /* dublja brend crvena (akcent, dugmad, ispune) */
-  --clay:  #211915;
-  --ember-hover: #962014;    /* hover: blago svetlija za feedback */
-  --ember-text: #962014;     /* akcent tekst/brojevi na tamnoj podlozi — citljiviji */
-  --clay-border: #2A201B;
-  --surface: #141010;        /* kartice */
-  --hair: rgba(244,238,231,0.09); /* tanke linije */
-  --invert-tint: #9FF3E6;    /* boja naslova u herou; kroz mix-blend-mode: exclusion daje plavo-zelenu inverziju */
+  /* PALETA (5 boja): CRNA #000000 · SIVA #595859 · CRVENA #ED1C1D · TIRKIZ #58C5BE · BELA #DCDCDD
+     Sve ostalo su te iste boje sa alfom ili blago podignuta crna za povrsine. */
+  --soot:  #000000;          /* CRNA — pozadina strane */
+  --soot-2: #0B0B0B;         /* sekundarna pozadina (crna, jedva podignuta) */
+  --bone:  #DCDCDD;          /* BELA — naslovi i primarni tekst */
+  --ash:   rgba(220,220,221,0.58);  /* sekundarni tekst = bela pritmuljena (siva #595859 pada na 3.4:1, necitljivo) */
+  --ember: #ED1C1D;          /* CRVENA — CTA, stanja, akcenti */
+  --teal:  #58C5BE;          /* TIRKIZ — mono labele i meta tekst */
+  --clay:  #101010;          /* tamna povrsina (kartice, razdelnici) */
+  --ember-hover: #FF3E3F;    /* hover: svetlija crvena za feedback */
+  --ember-text: #ED1C1D;     /* akcent tekst/brojevi na crnoj — puna crvena je citljiva (5.1:1) */
+  --clay-border: #595859;    /* SIVA — ivice i razdelnici */
+  --surface: #0E0E0E;        /* kartice */
+  --hair: rgba(89,88,89,0.55); /* tanke linije (siva) */
 
   --font-display: 'Inter', sans-serif;   /* weight 900 */
   --font-body: 'Inter', sans-serif;
@@ -139,15 +141,15 @@ strong { font-weight: 700; }
   padding: 7px 16px;
   border: 1px solid var(--clay-border);
   border-radius: 999px;
-  background: linear-gradient(180deg, rgba(244,238,231,0.05), rgba(20,16,16,0.55));
+  background: linear-gradient(180deg, rgba(220,220,221,0.05), rgba(14,14,14,0.55));
   backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
-  box-shadow: inset 0 1px 0 rgba(244,238,231,0.06), 0 6px 20px rgba(0,0,0,0.3);
+  box-shadow: inset 0 1px 0 rgba(220,220,221,0.06), 0 6px 20px rgba(0,0,0,0.3);
   font-family: var(--font-mono);
   font-weight: 400;
   font-size: var(--fs-label);
   text-transform: uppercase;
   letter-spacing: 0.16em;
-  color: var(--bone);
+  color: var(--teal);
   margin-bottom: var(--sp-4);
 }
 
@@ -169,9 +171,9 @@ strong { font-weight: 700; }
   padding: 9px 18px 9px 15px;
   border: 1px solid var(--clay-border);
   border-radius: 999px;               /* pill — jedini zaobljeni element (status), po TT */
-  background: linear-gradient(180deg, rgba(244,238,231,0.05), rgba(20,16,16,0.55));
+  background: linear-gradient(180deg, rgba(220,220,221,0.05), rgba(14,14,14,0.55));
   backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
-  box-shadow: inset 0 1px 0 rgba(244,238,231,0.06), 0 8px 30px rgba(0,0,0,0.35);
+  box-shadow: inset 0 1px 0 rgba(220,220,221,0.06), 0 8px 30px rgba(0,0,0,0.35);
   font-family: var(--font-mono);
   font-size: var(--fs-label);
   text-transform: uppercase;
@@ -184,7 +186,7 @@ strong { font-weight: 700; }
   position: absolute; inset: 0;
   border-radius: inherit;
   padding: 1px;
-  background: linear-gradient(180deg, rgba(244,238,231,0.28), transparent 60%);
+  background: linear-gradient(180deg, rgba(220,220,221,0.28), transparent 60%);
   -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
   -webkit-mask-composite: xor; mask-composite: exclude;
   pointer-events: none;
@@ -193,7 +195,7 @@ strong { font-weight: 700; }
   position: relative;
   width: 8px; height: 8px; border-radius: 50%;
   background: var(--ember);
-  box-shadow: 0 0 8px 1px rgba(128,25,14,0.7);
+  box-shadow: 0 0 8px 1px rgba(237,28,29,0.7);
   flex: none;
 }
 /* Pulsirajući prsten koji se širi iz tačke */
@@ -226,7 +228,7 @@ strong { font-weight: 700; }
 .btn-light { background: var(--bone); color: var(--soot); }
 .btn-light:hover { background: #fff; }
 /* Sekundarno: providno + blur → Ember na hover */
-.btn-secondary { background: rgba(244, 238, 231, 0.03); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); color: var(--bone); border-color: rgba(244, 238, 231, 0.38); }
+.btn-secondary { background: rgba(220, 220, 221, 0.03); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); color: var(--bone); border-color: rgba(220, 220, 221, 0.38); }
 .btn-secondary:hover { background: var(--ember); border-color: var(--ember); color: var(--bone); }
 .btn:disabled { opacity: 0.5; cursor: not-allowed; }
 .btn-row { display: flex; flex-wrap: wrap; gap: var(--sp-2); }
@@ -234,7 +236,7 @@ strong { font-weight: 700; }
 
 /* Frame ugaoni markeri — šire se na hover */
 .btn__label { display: inline-block; }
-.btn__corner { position: absolute; width: 15px; height: 15px; color: rgba(244, 238, 231, 0.85); pointer-events: none; transition: transform var(--dur-base) var(--ease), color var(--dur-fast) var(--ease); }
+.btn__corner { position: absolute; width: 15px; height: 15px; color: rgba(220, 220, 221, 0.85); pointer-events: none; transition: transform var(--dur-base) var(--ease), color var(--dur-fast) var(--ease); }
 .btn__corner svg { width: 100%; height: 100%; display: block; }
 .btn__corner--tl { top: -5px; left: -5px; }
 .btn__corner--tr { top: -5px; right: -5px; }
@@ -260,7 +262,7 @@ strong { font-weight: 700; }
   background: transparent; border-bottom: 1px solid transparent;
   transition: background var(--dur-base) ease-out, border-color var(--dur-base) ease-out;
 }
-.nav.scrolled { background: rgba(14,11,10,0.85); backdrop-filter: blur(8px); }
+.nav.scrolled { background: rgba(0,0,0,0.85); backdrop-filter: blur(8px); }
 /* Galerija: nav nije sticky — stoji na vrhu heroja i sklizne sa skrolom */
 .nav.nav--static { position: absolute; }
 .nav__inner { display: flex; align-items: center; justify-content: space-between; gap: var(--sp-4); height: 88px; }
@@ -300,7 +302,7 @@ html[data-lang="en"] .post-body[lang="sr"] { display: none; }
 .lang__btn {
   display: inline-flex; align-items: center; gap: 7px;
   padding: 9px 12px; border: 1px solid var(--clay-border); border-radius: 0;
-  background: rgba(244,238,231,0.04); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+  background: rgba(220,220,221,0.04); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
   font-family: var(--font-mono); font-size: 12px; font-weight: 700; letter-spacing: 0.12em;
   color: var(--bone); cursor: pointer;
   transition: border-color var(--dur-fast) var(--ease), color var(--dur-fast) var(--ease);
@@ -311,7 +313,7 @@ html[data-lang="en"] .post-body[lang="sr"] { display: none; }
 .lang__menu {
   position: absolute; top: calc(100% + 6px); right: 0; z-index: calc(var(--z-nav) + 5);
   min-width: 168px; margin: 0; padding: 0; list-style: none;
-  background: rgba(14,11,10,0.96); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+  background: rgba(0,0,0,0.96); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
   border: 1px solid var(--clay-border);
 }
 .lang__menu[hidden] { display: none; }
@@ -321,7 +323,7 @@ html[data-lang="en"] .post-body[lang="sr"] { display: none; }
   font-family: var(--font-mono); font-size: var(--fs-small); color: var(--bone);
   transition: background var(--dur-fast) var(--ease), color var(--dur-fast) var(--ease);
 }
-.lang__opt:hover { background: rgba(244,238,231,0.06); }
+.lang__opt:hover { background: rgba(220,220,221,0.06); }
 .lang__opt + .lang__opt { border-top: 1px solid var(--hair); }
 .lang__opt .lang__code { font-weight: 700; letter-spacing: 0.1em; color: var(--ash); min-width: 22px; }
 .lang__opt .lang__name { flex: 1; }
@@ -362,7 +364,7 @@ html[data-lang="en"] .post-body[lang="sr"] { display: none; }
 }
 .sm-cta { align-self: flex-start; margin-top: var(--sp-4); }
 .sm-socials { padding-top: var(--sp-5); display: flex; flex-direction: column; gap: var(--sp-3); }
-.sm-socials-title { margin: 0; font-family: var(--font-mono); font-size: var(--fs-label); text-transform: uppercase; letter-spacing: 0.16em; color: var(--ember-text); }
+.sm-socials-title { margin: 0; font-family: var(--font-mono); font-size: var(--fs-label); text-transform: uppercase; letter-spacing: 0.16em; color: var(--teal); }
 .sm-socials-list { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: var(--sp-3); }
 .sm-socials-link { font-family: var(--font-mono); font-size: var(--fs-small); color: var(--bone); text-decoration: none; transition: color var(--dur-fast) var(--ease); }
 .sm-socials-link:hover { color: var(--ember); }
@@ -382,16 +384,15 @@ html[data-lang="en"] .post-body[lang="sr"] { display: none; }
 .hero::before {
   content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none;
   background-image:
-    linear-gradient(to bottom, rgba(14,11,10,0.76) 0%, rgba(14,11,10,0.42) 38%, rgba(14,11,10,0.66) 74%, var(--soot) 100%),
+    linear-gradient(to bottom, rgba(0,0,0,0.28) 0%, rgba(0,0,0,0) 16%, rgba(0,0,0,0) 62%, rgba(0,0,0,0.55) 86%, var(--soot) 100%),
     url('assets/random-hero.jpg?v=20260828');
   background-repeat: no-repeat, no-repeat;
   background-position: center, center;
   background-size: cover, cover;
   background-attachment: fixed, fixed;
-  filter: saturate(1.25);
 }
 /* Invert efekat na naslov — bela slova invertuju pozadinsku sliku (kao galerija/Hype) */
-.hero__title { mix-blend-mode: exclusion; color: var(--invert-tint); }
+.hero__title { mix-blend-mode: exclusion; color: #DCDCDD; }
 /* Prva sekcija posle heroja klizi PREKO fiksirane slike i prekriva je.
    margin -> padding: inace u margin procepu nema pozadine pa se vidi film-grain
    (body::before) i ispadne svetlija siva traka izmedju heroja i galerije. */
@@ -471,7 +472,7 @@ html[data-lang="en"] .post-body[lang="sr"] { display: none; }
   display: flex; flex-direction: column; justify-content: center;
   padding: calc(88px + var(--sp-6)) 0 var(--sp-6);
   background-image:
-    linear-gradient(to bottom, rgba(14,11,10,0.68) 0%, rgba(14,11,10,0.40) 40%, rgba(14,11,10,0.66) 82%, var(--soot) 100%),
+    linear-gradient(to bottom, rgba(0,0,0,0.68) 0%, rgba(0,0,0,0.40) 40%, rgba(0,0,0,0.66) 82%, var(--soot) 100%),
     url('assets/hero-galerija.jpg');
   background-repeat: no-repeat, no-repeat;
   background-position: center, center;
@@ -501,8 +502,8 @@ html[data-lang="en"] .post-body[lang="sr"] { display: none; }
 /* Blog hero — ista sekcija, druga pozadinska slika */
 .gallery-hero--blog {
   background-image:
-    linear-gradient(to bottom, rgba(14,11,10,0.68) 0%, rgba(14,11,10,0.40) 40%, rgba(14,11,10,0.66) 82%, var(--soot) 100%),
-    url('assets/blog-hero.jpg');
+    linear-gradient(to bottom, rgba(0,0,0,0.68) 0%, rgba(0,0,0,0.40) 40%, rgba(0,0,0,0.66) 82%, var(--soot) 100%),
+    url('assets/blog-hero.jpg?v=20260828');
 }
 /* Blog sekcija: PROVIDNA. Most (blog-back) je jedan FIKSIRAN kompozitni sloj (.blog-bg)
    iza cele strane — umesto background-attachment: fixed, koji je treperio/bagovao pri
@@ -519,7 +520,7 @@ html[data-lang="en"] .post-body[lang="sr"] { display: none; }
 .blog-bg {
   position: fixed; inset: 0; z-index: -1; pointer-events: none;
   background:
-    linear-gradient(rgba(14,11,10,0.80), rgba(14,11,10,0.80)),
+    linear-gradient(rgba(0,0,0,0.80), rgba(0,0,0,0.80)),
     url('assets/blog-back.jpg') center / cover no-repeat;
 }
 /* gornji razmak na .wrap (naslov) */
@@ -539,7 +540,7 @@ html[data-lang="en"] .post-body[lang="sr"] { display: none; }
 /* Kontakt hero — ista sekcija, Anja.jpg pozadina */
 .gallery-hero--kontakt {
   background-image:
-    linear-gradient(to bottom, rgba(14,11,10,0.68) 0%, rgba(14,11,10,0.40) 40%, rgba(14,11,10,0.66) 82%, var(--soot) 100%),
+    linear-gradient(to bottom, rgba(0,0,0,0.68) 0%, rgba(0,0,0,0.40) 40%, rgba(0,0,0,0.66) 82%, var(--soot) 100%),
     url('assets/kontakt-hero.jpg');
 }
 /* Kontakt sekcija prekriva fiksiranu hero sliku na skrol.
@@ -554,7 +555,7 @@ html[data-lang="en"] .post-body[lang="sr"] { display: none; }
 .darkveil-host::before { content: ""; position: absolute; top: 0; bottom: 0; left: calc(50% - 50vw); width: 100vw; z-index: 0; background: var(--soot); pointer-events: none; }
 .darkveil { position: absolute; top: 0; bottom: 0; left: calc(50% - 50vw); width: 100vw; height: 100%; z-index: 1; display: block; opacity: 1; pointer-events: none; }
 .darkveil-host::after { content: ""; position: absolute; top: 0; bottom: 0; left: calc(50% - 50vw); width: 100vw; z-index: 2; pointer-events: none;
-  background: linear-gradient(to bottom, rgba(14,11,10,0.30) 0%, rgba(14,11,10,0) 14%, rgba(14,11,10,0) 86%, rgba(14,11,10,0.45) 100%); }
+  background: linear-gradient(to bottom, rgba(0,0,0,0.30) 0%, rgba(0,0,0,0) 14%, rgba(0,0,0,0) 86%, rgba(0,0,0,0.45) 100%); }
 .darkveil-host > .section-head,
 .darkveil-host > .btn-row,
 .darkveil-host > .contact__grid,
@@ -565,8 +566,8 @@ html[data-lang="en"] .post-body[lang="sr"] { display: none; }
 .bcard__media { position: absolute; inset: 0; }
 .bcard__media img { width: 100%; height: 100%; object-fit: cover; transition: transform var(--dur-slow) var(--ease); }
 .bcard:hover .bcard__media img { transform: scale(1.05); }
-.bcard__info { position: absolute; left: 0; right: 0; bottom: 0; z-index: 2; display: flex; flex-direction: column; gap: var(--sp-1); padding: var(--sp-4); background: linear-gradient(180deg, transparent 0%, rgba(14,11,10,0.5) 45%, rgba(14,11,10,0.94) 100%); }
-.bcard__cat { font-family: var(--font-mono); font-size: var(--fs-label); text-transform: uppercase; letter-spacing: 0.14em; color: var(--ember-text); }
+.bcard__info { position: absolute; left: 0; right: 0; bottom: 0; z-index: 2; display: flex; flex-direction: column; gap: var(--sp-1); padding: var(--sp-4); background: linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.5) 45%, rgba(0,0,0,0.94) 100%); }
+.bcard__cat { font-family: var(--font-mono); font-size: var(--fs-label); text-transform: uppercase; letter-spacing: 0.14em; color: var(--teal); }
 .bcard__title { font-family: var(--font-display); font-weight: 900; text-transform: uppercase; font-size: clamp(15px, 1.05vw, 18px); line-height: 1.12; letter-spacing: -0.01em; color: var(--bone); display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden; }
 .bcard__more { margin-top: var(--sp-1); font-family: var(--font-mono); font-size: var(--fs-small); color: var(--bone); opacity: 0; transform: translateY(6px); transition: opacity var(--dur-base) var(--ease), transform var(--dur-base) var(--ease), color var(--dur-fast) var(--ease); }
 .bcard:hover .bcard__more { opacity: 1; transform: translateY(0); color: var(--ember-text); }
@@ -637,7 +638,7 @@ html[data-lang="en"] .post-body[lang="sr"] { display: none; }
 .tile img.img_view_animation { opacity: 0; }
 .tile img.visible { opacity: 1; }
 /* donji gradijent na hover */
-.tile::before { content: ""; position: absolute; left: 0; bottom: 0; width: 100%; height: 30%; z-index: 2; opacity: 0; pointer-events: none; transition: opacity var(--dur-base) var(--ease); background: linear-gradient(180deg, rgba(14,11,10,0) 0%, rgba(14,11,10,0.82) 100%); }
+.tile::before { content: ""; position: absolute; left: 0; bottom: 0; width: 100%; height: 30%; z-index: 2; opacity: 0; pointer-events: none; transition: opacity var(--dur-base) var(--ease); background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.82) 100%); }
 .tile:hover::before { opacity: 1; }
 /* ime umetnika izranja odozdo */
 .master-name-overlay { position: absolute; left: 0; bottom: 8px; width: 100%; z-index: 3; text-align: center; pointer-events: none; color: var(--bone); font-family: var(--font-mono); font-size: var(--fs-small); letter-spacing: 0.14em; text-transform: uppercase; opacity: 0; transition: opacity var(--dur-base) var(--ease), bottom var(--dur-base) var(--ease); }
@@ -645,8 +646,16 @@ html[data-lang="en"] .post-body[lang="sr"] { display: none; }
 /* Kontakt na galeriji: forma levo, konsultacije desno */
 .gallery-contact { margin-top: var(--sp-7); display: grid; grid-template-columns: 1fr; gap: var(--sp-6); align-items: stretch; text-align: left; }
 .consult { position: relative; overflow: hidden; isolation: isolate; display: flex; flex-direction: column; justify-content: center; gap: var(--sp-3); padding: clamp(28px, 3vw, 48px); background: var(--clay); border: 1px solid var(--hair); }
-/* Prljavo žuto-crna shader pozadina, vidljivija (radi i na telefonu) */
-.consult { background: #14100c; }
+/* Fotografija bocice mastila umesto žuto-crnog shadera; veo drži tekst čitljivim */
+.consult {
+  background-color: #0E0E0E;
+  background-image:
+    linear-gradient(to right, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.74) 52%, rgba(0,0,0,0.52) 100%),
+    url('assets/consult-bg.jpg?v=20260828');
+  background-repeat: no-repeat, no-repeat;
+  background-position: center, center;
+  background-size: cover, cover;
+}
 .consult__bg { position: absolute; inset: 0; z-index: 0; pointer-events: none; }
 .consult__canvas { display: block; width: 100%; height: 100%; opacity: 0.8;
   -webkit-mask-image: radial-gradient(108% 76% at 50% 45%, #000 0%, rgba(0,0,0,0.6) 62%, transparent 100%);
@@ -664,7 +673,7 @@ html[data-lang="en"] .post-body[lang="sr"] { display: none; }
 
 .gallery-more-wrap { text-align: center; margin-top: var(--sp-6); padding: 0 var(--margin); }
 /* Veliko dugme preko cele sekcije: providno bez blura → belo sa crnim tekstom + scramble na hover */
-.gallery-more { width: 100%; padding: clamp(24px, 3vw, 44px); font-size: clamp(14px, 1.3vw, 18px); letter-spacing: 0.14em; background: transparent; backdrop-filter: none; -webkit-backdrop-filter: none; color: var(--bone); border-color: rgba(244, 238, 231, 0.38); }
+.gallery-more { width: 100%; padding: clamp(24px, 3vw, 44px); font-size: clamp(14px, 1.3vw, 18px); letter-spacing: 0.14em; background: transparent; backdrop-filter: none; -webkit-backdrop-filter: none; color: var(--bone); border-color: rgba(220, 220, 221, 0.38); }
 .gallery-more:hover { background: var(--bone); color: var(--soot); border-color: var(--bone); }
 /* Mekši prelaz boja (0.7s) — bez naglog glitcha */
 .gallery-more { transition: background 0.7s var(--ease), border-color 0.7s var(--ease), color 0.7s var(--ease); }
@@ -710,13 +719,19 @@ html[data-lang="en"] .post-body[lang="sr"] { display: none; }
 /* ---------- SCROLL-ASSEMBLE STATEMENT ------------------- */
 .assemble-stage { margin-top: var(--section-gap); padding-block: clamp(24px, 4vh, 64px); overflow: clip; }
 .assemble-sticky { display: grid; place-items: center; padding-inline: var(--margin); }
-.assemble-text { font-family: var(--font-display); font-weight: 900; text-transform: uppercase; letter-spacing: -0.02em; line-height: 1; text-align: center; color: var(--bone); font-size: clamp(40px, 9vw, 132px); perspective: 700px; }
-.assemble-text span { display: inline-block; will-change: transform; }
+.assemble-text { font-family: var(--font-display); font-weight: 900; text-transform: uppercase; letter-spacing: -0.02em; line-height: 1; text-align: center; color: var(--bone); font-size: clamp(40px, 9vw, 132px); }
+.assemble-text span { display: inline-block; }
 .assemble-text .sp { width: 0.28em; }
 /* Assemble na naslovu (o studiju) — dva reda, isti appear efekat */
-.assemble-head { perspective: 700px; font-size: clamp(20px, 6.4vw, 58px); }   /* jedan red — string je ~13em širok, mora da stane (nowrap) */
+.assemble-head { font-size: clamp(20px, 6.4vw, 58px); }   /* jedan red — string je ~13em širok, mora da stane (nowrap) */
 .assemble-line { display: block; white-space: nowrap; }   /* svaki red ostaje ceo (bez preloma između slova) */
-[data-assemble-text] span { display: inline-block; will-change: transform; }
+[data-assemble-text] span { display: inline-block; }
+/* Slova se samo upale, bez ijednog pomeranja — delay po slovu postavlja JS. */
+[data-assemble].is-armed [data-assemble-text] span { opacity: 0; will-change: opacity; }
+[data-assemble].is-armed.is-on [data-assemble-text] span {
+  opacity: 1;
+  transition: opacity 900ms cubic-bezier(0.22, 1, 0.36, 1);
+}
 [data-assemble-text] .sp { width: 0.28em; }
 
 /* ---------- PROGRESSIVE BOTTOM BLUR (kao Taylor) -------- */
@@ -746,13 +761,13 @@ html[data-lang="en"] .post-body[lang="sr"] { display: none; }
 .artist-row__body { text-align: left; padding-inline: var(--margin); }
 .artist-row__label { font-family: var(--font-mono); font-size: var(--fs-label); text-transform: uppercase; letter-spacing: 0.18em; color: var(--ash); display: block; margin-bottom: var(--sp-3); }
 .artist-row__name { margin: 0; font-family: var(--font-display); font-weight: 900; text-transform: uppercase; font-size: clamp(40px, 5.2vw, 92px); line-height: 0.95; letter-spacing: -0.03em; }
-.artist-row__style { display: block; margin-top: var(--sp-3); font-family: var(--font-mono); font-size: var(--fs-label); text-transform: uppercase; letter-spacing: 0.14em; color: var(--ember-text); }
+.artist-row__style { display: block; margin-top: var(--sp-3); font-family: var(--font-mono); font-size: var(--fs-label); text-transform: uppercase; letter-spacing: 0.14em; color: var(--teal); }
 .artist-row__desc { margin-top: var(--sp-4); color: var(--ash); max-width: 56ch; font-size: var(--fs-lead); line-height: 1.65; }
-.artist-row__rule { height: 1px; background: rgba(244, 238, 231, 0.18); margin: var(--sp-5) 0; }
+.artist-row__rule { height: 1px; background: rgba(220, 220, 221, 0.18); margin: var(--sp-5) 0; }
 .tags { display: flex; flex-wrap: wrap; gap: var(--sp-2); }
 .tag { font-family: var(--font-mono); font-size: var(--fs-label); text-transform: uppercase; letter-spacing: 0.1em; color: var(--bone); background: var(--surface); border: 1px solid var(--clay-border); border-radius: 999px; padding: 9px 16px; }  /* lepše zaobljene pilule, kao Taylor */
 .artist-row__link { position: relative; display: inline-flex; align-items: center; gap: 0.7em; margin-top: var(--sp-4); padding: 4px 0 10px; font-family: var(--font-mono); font-weight: 700; font-size: var(--fs-label); text-transform: uppercase; letter-spacing: 0.14em; color: var(--bone); transition: color var(--dur-base) var(--ease); }
-.artist-row__link::after { content: ""; position: absolute; left: 0; bottom: 0; height: 2px; width: 100%; background: linear-gradient(to right, var(--ember) 50%, rgba(244, 238, 231, 0.22) 50%); background-size: 200% 100%; background-position: 100% 0; transition: background-position var(--dur-base) var(--ease); }
+.artist-row__link::after { content: ""; position: absolute; left: 0; bottom: 0; height: 2px; width: 100%; background: linear-gradient(to right, var(--ember) 50%, rgba(220, 220, 221, 0.22) 50%); background-size: 200% 100%; background-position: 100% 0; transition: background-position var(--dur-base) var(--ease); }
 .artist-row__link .artist-row__arrow { width: 1.15em; height: 1.15em; flex: 0 0 auto; transition: transform var(--dur-base) var(--ease); }
 .artist-row__link:hover { color: var(--ember); }
 .artist-row__link:hover::after { background-position: 0 0; }
@@ -834,8 +849,8 @@ html.lenis, html.lenis body { height: auto; }
 .reviews-bg::before {
   content: ""; position: absolute; left: 0; right: 0; top: 0; bottom: 0; z-index: 0;
   background:
-    linear-gradient(to bottom, rgba(128,25,14,0.92) 0, rgba(128,25,14,0.5) 140px, rgba(128,25,14,0.22) 340px),
-    linear-gradient(to top, rgba(128,25,14,0.92) 0, rgba(128,25,14,0.5) 140px, rgba(128,25,14,0.22) 340px);
+    linear-gradient(to bottom, rgba(237,28,29,0.92) 0, rgba(237,28,29,0.5) 140px, rgba(237,28,29,0.22) 340px),
+    linear-gradient(to top, rgba(237,28,29,0.92) 0, rgba(237,28,29,0.5) 140px, rgba(237,28,29,0.22) 340px);
 }
 .reviews-bg__svg { position: absolute; width: 0; height: 0; }
 /* Original: puna boja maskirana „oblak" maskom + displacement undulacija */
@@ -937,7 +952,7 @@ html.lenis, html.lenis body { height: auto; }
 .lmap.is-open .lmap__bld:nth-of-type(6) { transition-delay: 0.18s; }
 /* pin */
 .lmap__pin { position: absolute; top: 50%; left: 50%; display: block;
-  transform: translate(-50%, -60%) scale(0); filter: drop-shadow(0 0 10px rgba(128,25,14,0.55));
+  transform: translate(-50%, -60%) scale(0); filter: drop-shadow(0 0 10px rgba(237,28,29,0.55));
   transition: transform 0.5s var(--ease) 0.22s; }
 .lmap.is-open .lmap__pin { transform: translate(-50%, -50%) scale(1); }
 .lmap__fade { position: absolute; inset: 0; background: linear-gradient(to top, var(--soot), transparent 60%); opacity: 0.6; }
@@ -955,7 +970,7 @@ html.lenis, html.lenis body { height: auto; }
 .lmap__coords { margin: 0; font-family: var(--font-mono); font-size: 11px; color: var(--ash);
   max-height: 0; opacity: 0; overflow: hidden; transition: max-height var(--dur-base) var(--ease), opacity var(--dur-base) var(--ease), margin var(--dur-base) var(--ease); }
 .lmap.is-open .lmap__coords { max-height: 20px; opacity: 1; margin-top: 4px; }
-.lmap__rule { height: 1px; margin-top: var(--sp-2); background: linear-gradient(90deg, rgba(128,25,14,0.5), rgba(128,25,14,0.2), transparent);
+.lmap__rule { height: 1px; margin-top: var(--sp-2); background: linear-gradient(90deg, rgba(237,28,29,0.5), rgba(237,28,29,0.2), transparent);
   transform: scaleX(0.3); transform-origin: 0 50%; transition: transform 0.4s var(--ease); }
 .lmap:hover .lmap__rule, .lmap.is-open .lmap__rule { transform: scaleX(1); }
 .lmap__hint { position: absolute; left: 50%; bottom: -20px; transform: translateX(-50%); white-space: nowrap;
@@ -1030,7 +1045,7 @@ html.lenis, html.lenis body { height: auto; }
 .field--auth:focus-within .field__icon { color: var(--bone); }
 .field--auth input, .field--auth textarea, .field--auth select {
   width: 100%;
-  background: rgba(244, 238, 231, 0.04);
+  background: rgba(220, 220, 221, 0.04);
   border: 1px solid var(--clay-border);
   border-radius: var(--radius);
   color: var(--bone); font-size: var(--fs-body);
@@ -1038,13 +1053,13 @@ html.lenis, html.lenis body { height: auto; }
   transition: border-color var(--dur-fast) var(--ease), background var(--dur-fast) var(--ease);
 }
 .field--auth textarea { min-height: 96px; resize: vertical; padding-top: 12px; }
-.field--auth input:focus, .field--auth textarea:focus, .field--auth select:focus { outline: none; border-color: var(--ash); background: rgba(244, 238, 231, 0.07); }
+.field--auth input:focus, .field--auth textarea:focus, .field--auth select:focus { outline: none; border-color: var(--ash); background: rgba(220, 220, 221, 0.07); }
 .field--auth.error input, .field--auth.error textarea, .field--auth.error select { border-color: var(--ember); }
 .field--auth .field__error { display: block; margin-top: 4px; font-size: var(--fs-small); color: var(--ember-text); }
 .auth-row2 { display: grid; grid-template-columns: 1fr; gap: 0 var(--sp-3); }
 @media (min-width: 600px) { .auth-row2 { grid-template-columns: 1fr 1fr; } }
 .auth-card__submit { width: 100%; margin-top: var(--sp-2); position: relative; overflow: hidden; }
-.auth-card__submit::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, transparent, rgba(244,238,231,0.35), transparent); transform: translateX(-100%); }
+.auth-card__submit::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, transparent, rgba(220,220,221,0.35), transparent); transform: translateX(-100%); }
 .auth-card[data-loading="1"] .auth-card__submit::after { animation: shimmer 1.4s linear infinite; }
 @keyframes shimmer { to { transform: translateX(100%); } }
 
@@ -1074,7 +1089,7 @@ html.lenis, html.lenis body { height: auto; }
   z-index: -1; pointer-events: none;
   font-family: var(--font-display); font-weight: 900; text-transform: uppercase;
   font-size: clamp(140px, 27vw, 520px); line-height: 0.8; letter-spacing: -0.05em;
-  white-space: nowrap; color: #1b1512;
+  white-space: nowrap; color: #0E0E0E;
 }
 /* Giant RANDOM: bela slova, a B&W slika samo kao mali prozor u sredini teksta */
 .footer__brand {
@@ -1112,7 +1127,7 @@ html.lenis, html.lenis body { height: auto; }
 .footer__bottom a:hover { color: var(--bone); }
 
 /* ---------- LIGHTBOX ------------------------------------- */
-.lightbox { position: fixed; inset: 0; z-index: var(--z-lightbox); background: rgba(14,11,10,0.97); display: none; align-items: center; justify-content: center; padding: var(--margin); }
+.lightbox { position: fixed; inset: 0; z-index: var(--z-lightbox); background: rgba(0,0,0,0.97); display: none; align-items: center; justify-content: center; padding: var(--margin); }
 .lightbox.open { display: flex; }
 .lightbox__img { max-width: 90vw; max-height: 90vh; width: auto; height: auto; }
 .lightbox__close { position: absolute; top: var(--sp-3); right: var(--sp-3); width: 48px; height: 48px; font-size: 28px; color: var(--bone); line-height: 1; }
@@ -1125,8 +1140,8 @@ html.lenis, html.lenis body { height: auto; }
 .artist-hero { position: relative; isolation: isolate; padding-top: calc(76px + var(--section-gap)); padding-bottom: var(--sp-6); text-align: center; overflow: hidden; }
 .artist-hero .aura { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0; display: block; pointer-events: none; }
 .artist-hero::after { content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none;
-  background: radial-gradient(120% 80% at 50% 30%, transparent 40%, rgba(14,11,10,0.55) 100%),
-              linear-gradient(to bottom, rgba(14,11,10,0.35), rgba(14,11,10,0) 22%, rgba(14,11,10,0) 70%, var(--soot) 100%); }
+  background: radial-gradient(120% 80% at 50% 30%, transparent 40%, rgba(0,0,0,0.55) 100%),
+              linear-gradient(to bottom, rgba(0,0,0,0.35), rgba(0,0,0,0) 22%, rgba(0,0,0,0) 70%, var(--soot) 100%); }
 .artist-hero__inner { position: relative; z-index: 2; }
 .artist-hero .status { margin-bottom: var(--sp-4); }
 .artist-hero__meta { font-family: var(--font-mono); font-size: var(--fs-label); text-transform: uppercase; letter-spacing: 0.16em; color: var(--bone); margin: var(--sp-3) auto 0; text-align: center; }
@@ -1144,21 +1159,21 @@ html.lenis, html.lenis body { height: auto; }
 .artist-row__media,
 .process__media,
 .reviews__media,
-.artist-portrait { position: relative; border: 1px solid rgba(244, 238, 231, 0.16); }
+.artist-portrait { position: relative; border: 1px solid rgba(220, 220, 221, 0.16); }
 .artist-row__media::after,
 .process__media::after,
 .reviews__media::after,
 .artist-portrait::after {
   content: ""; position: absolute; inset: 0; z-index: 3; pointer-events: none;
   background-image:
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23F4EEE7' stroke-width='2' stroke-linecap='round'%3E%3Cpath d='M12 5v14M5 12h14'/%3E%3C/svg%3E"),
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23F4EEE7' stroke-width='2' stroke-linecap='round'%3E%3Cpath d='M12 5v14M5 12h14'/%3E%3C/svg%3E"),
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23F4EEE7' stroke-width='2' stroke-linecap='round'%3E%3Cpath d='M12 5v14M5 12h14'/%3E%3C/svg%3E"),
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23F4EEE7' stroke-width='2' stroke-linecap='round'%3E%3Cpath d='M12 5v14M5 12h14'/%3E%3C/svg%3E");
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23DCDCDD' stroke-width='2' stroke-linecap='round'%3E%3Cpath d='M12 5v14M5 12h14'/%3E%3C/svg%3E"),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23DCDCDD' stroke-width='2' stroke-linecap='round'%3E%3Cpath d='M12 5v14M5 12h14'/%3E%3C/svg%3E"),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23DCDCDD' stroke-width='2' stroke-linecap='round'%3E%3Cpath d='M12 5v14M5 12h14'/%3E%3C/svg%3E"),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23DCDCDD' stroke-width='2' stroke-linecap='round'%3E%3Cpath d='M12 5v14M5 12h14'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: left 8px top 8px, right 8px top 8px, left 8px bottom 8px, right 8px bottom 8px;
   background-size: 14px 14px;
-  filter: drop-shadow(0 0 1.5px rgba(14, 11, 10, 0.55));
+  filter: drop-shadow(0 0 1.5px rgba(0, 0, 0, 0.55));
   opacity: 0.9;
 }
 
@@ -1218,17 +1233,23 @@ address { font-style: normal; }
   /* Telefon: svoja (uspravna) hero fotka + scroll umesto fixed (fixed je nepouzdan na telefonu) */
   .hero::before {
     background-image:
-      linear-gradient(to bottom, rgba(14,11,10,0.76) 0%, rgba(14,11,10,0.42) 38%, rgba(14,11,10,0.66) 74%, var(--soot) 100%),
+      linear-gradient(to bottom, rgba(0,0,0,0.28) 0%, rgba(0,0,0,0) 16%, rgba(0,0,0,0) 62%, rgba(0,0,0,0.55) 86%, var(--soot) 100%),
       url('assets/random-hero-mobile.jpg?v=20260828');
     background-attachment: scroll, scroll;
   }
 
   /* Galerija: 2 kolone, ime umetnika uvek vidljivo (nema hover na telefonu) */
   .gallery-hero { min-height: 100svh; background-attachment: scroll, scroll; }  /* fixed nepouzdan na telefonu */
+  /* Blog hero na telefonu: uspravna verzija iste fotke (IMG_0575) */
+  .gallery-hero--blog {
+    background-image:
+      linear-gradient(to bottom, rgba(0,0,0,0.68) 0%, rgba(0,0,0,0.40) 40%, rgba(0,0,0,0.66) 82%, var(--soot) 100%),
+      url('assets/blog-hero-mobile.jpg?v=20260828');
+  }
   /* Kontakt hero na telefonu: svoja uspravna fotka (IMG_0595) */
   .gallery-hero--kontakt {
     background-image:
-      linear-gradient(to bottom, rgba(14,11,10,0.68) 0%, rgba(14,11,10,0.40) 40%, rgba(14,11,10,0.66) 82%, var(--soot) 100%),
+      linear-gradient(to bottom, rgba(0,0,0,0.68) 0%, rgba(0,0,0,0.40) 40%, rgba(0,0,0,0.66) 82%, var(--soot) 100%),
       url('assets/kontakt-hero-mobile.jpg?v=20260828');
   }
   .tile { flex: 0 0 50%; max-width: 50%; }
@@ -1289,7 +1310,7 @@ address { font-style: normal; }
   /* Donji progresivni blur (6 backdrop slojeva) → jeftin gradijent */
   .bottom-blur { height: 130px; }
   .bottom-blur > div { display: none !important; }
-  .bottom-blur.show { background: linear-gradient(to top, var(--soot) 0%, rgba(14,11,10,0.7) 45%, transparent 100%); }
+  .bottom-blur.show { background: linear-gradient(to top, var(--soot) 0%, rgba(0,0,0,0.7) 45%, transparent 100%); }
   /* Footer: 1 slika umesto 5 (lakši paint) */
   .footer__brand {
     background-image: url('assets/footer-fill.png'), linear-gradient(var(--bone), var(--bone));

@@ -737,58 +737,42 @@
     });
   }
 
-  /* ---------- SCROLL-ASSEMBLE (slova se sklapaju) -------- */
-  // Radi na svim [data-assemble] stage-ovima; svaki može imati više
-  // [data-assemble-text] linija (svaka se sklapa oko svog centra).
+  /* ---------- ASSEMBLE (slova se pale, bez pomeranja) ----
+     Ranije su se slova razmicala i rotirala vezano za scroll poziciju. Na iPadu je
+     to delovalo cudno (momentum skrol daje krupne skokove, pa transform po slovu
+     poskakuje). Sada: nista se ne pomera — slova se samo redom upale, jednom, kad
+     naslov udje u kadar. Stagger ide neprekidno kroz sve redove, pa se cita kao
+     jedan prelaz s leva na desno. */
   function initAssemble() {
     var stages = $$('[data-assemble]');
     if (!stages.length) return;
     stages.forEach(function (stage) {
       var texts = $$('[data-assemble-text]', stage);
       if (!texts.length) return;
-      var lines = texts.map(function (textEl) {
+      var gi = 0;
+      var step = stage.classList.contains('assemble-head') ? 22 : 30;  // ms po slovu
+      texts.forEach(function (textEl) {
         var raw = textEl.textContent;
         textEl.textContent = '';
-        var chars = raw.split('');
-        var center = (chars.length - 1) / 2;
-        var spans = [];
-        chars.forEach(function (ch, i) {
+        raw.split('').forEach(function (ch) {
           var s = document.createElement('span');
           if (ch === ' ') { s.className = 'sp'; s.innerHTML = '&nbsp;'; }
           else s.textContent = ch;
-          s._d = i - center;
+          s.style.transitionDelay = (gi * step) + 'ms';
           textEl.appendChild(s);
-          spans.push(s);
+          gi++;
         });
-        return spans;
       });
-      if (reduceMotion) return;                 // ostaje složeno
-      // Naslovi (manji) = nežno slaganje bez preokretanja; veliki statement = jače
-      var soft = stage.classList.contains('assemble-head');
-      // Na telefonu naslov skoro puni širinu → bez horizontalnog razmicanja (inače curi van ekrana)
-      var AMT = soft ? (isMobile ? 0 : 14) : 50;   // horizontalni razmak po slovu
-      var ROT = soft ? 6 : 50;                     // rotacija po slovu
-      var ticking = false;
-      function update() {
-        ticking = false;
-        var rect = stage.getBoundingClientRect();
-        var vh = window.innerHeight;
-        // 0 = tek ulazi odozdo, 0.5 = centriran, 1 = izlazi na vrh
-        var progress = ((isMobile ? vh * 1.12 : vh) - rect.top) / (vh + rect.height);
-        progress = Math.max(0, Math.min(1, progress));
-        var inv = 1 - Math.min(1, progress / 0.5);   // složeno kad dođe do centra, pa ostaje
-        lines.forEach(function (spans) {
-          spans.forEach(function (s) {
-            var x = (s._d * AMT * inv).toFixed(1);
-            var rot = (s._d * ROT * inv).toFixed(1);
-            s.style.transform = 'translateX(' + x + 'px) rotateX(' + rot + 'deg)';
-          });
+      if (reduceMotion) { stage.classList.add('is-on'); return; }
+      stage.classList.add('is-armed');
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (!e.isIntersecting) return;
+          stage.classList.add('is-on');
+          io.disconnect();
         });
-      }
-      function onScroll() { if (!ticking) { ticking = true; requestAnimationFrame(update); } }
-      update();
-      window.addEventListener('scroll', onScroll, { passive: true });
-      window.addEventListener('resize', onScroll);
+      }, { threshold: 0, rootMargin: '0px 0px -18% 0px' });
+      io.observe(stage);
     });
   }
 
@@ -1243,7 +1227,7 @@
     var uRes = gl.getUniformLocation(prog, 'resolution');
     var uTime = gl.getUniformLocation(prog, 'time');
     var uColor = gl.getUniformLocation(prog, 'u_color');
-    var color = [0.75, 0.22, 0.17];   // default Ember (--ember #C0392B)
+    var color = [0.929, 0.110, 0.114];   // default: brend crvena (--ember #ED1C1D)
     if (canvas.dataset.color) { var cc = canvas.dataset.color.split(',').map(Number); if (cc.length === 3 && cc.every(function (n) { return !isNaN(n); })) color = cc; }
 
     function resize() {
@@ -1385,9 +1369,9 @@
       // --- BREND REKOLOR: struktura plazme -> soot→ember (bez ljubičaste) ---
       '  float l=dot(c.rgb,vec3(0.299,0.587,0.114));',
       '  l=smoothstep(0.12,0.86,clamp(l,0.0,1.0));',   // razvuci kontrast — plazma jasno vidljiva',
-      '  vec3 base=vec3(0.10,0.055,0.05);',            // tamno toplo (skoro soot)',
-      '  vec3 ember=vec3(0.82,0.26,0.19);',            // brend crvena',
-      '  vec3 emberHot=vec3(1.0,0.55,0.36);',          // uzareni vrh tokova',
+      '  vec3 base=vec3(0.0,0.0,0.0);',                // crna baza',
+      '  vec3 ember=vec3(0.929,0.110,0.114);',         // brend crvena #ED1C1D',
+      '  vec3 emberHot=vec3(0.345,0.773,0.745);',      // vrh tokova: tirkiz #58C5BE',
       '  vec3 col=mix(base,ember,l);',
       '  col=mix(col,emberHot,smoothstep(0.72,1.0,l));',
       '  gl_FragColor=vec4(clamp(col,0.0,1.0),1.0);',
@@ -1482,9 +1466,9 @@
       '  vec2 uv=vUv; float ratio=u_res.x/u_res.y; vec2 p=uv*vec2(ratio,1.0); float t=u_time*0.2;',
       '  float n1=snoise(p*0.5+t); float n2=snoise(p*0.9-t*0.5+n1);',
       '  float light=pow(abs(n2),2.5)*0.5;',
-      '  vec3 col=vec3(0.05,0.028,0.024);',              // topla soot baza',
-      '  vec3 c0=vec3(0.75,0.22,0.17);',                 // brend ember',
-      '  vec3 c1=vec3(0.95,0.42,0.24);',                 // uzareni vrh',
+      '  vec3 col=vec3(0.0,0.0,0.0);',                   // crna baza',
+      '  vec3 c0=vec3(0.929,0.110,0.114);',              // brend crvena #ED1C1D',
+      '  vec3 c1=vec3(0.345,0.773,0.745);',              // sjaj: tirkiz #58C5BE',
       '  col+=c0*smoothstep(0.1,1.0,n1)*0.55;',
       '  col+=c1*light;',
       '  float grain=fract(sin(dot(uv,vec2(12.9898,78.233)))*43758.5453+u_time);',

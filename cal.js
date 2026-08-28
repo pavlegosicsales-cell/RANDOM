@@ -8,7 +8,7 @@
 Cal("init", "konsultacije", { origin: "https://app.cal.eu" });
 Cal.config = Cal.config || {};
 Cal.config.forwardQueryParams = true;
-Cal.ns.konsultacije("ui", { "cssVarsPerTheme": { "light": { "cal-brand": "#0E0B0A" }, "dark": { "cal-brand": "#80190E" } }, "hideEventTypeDetails": false, "layout": "month_view" });
+Cal.ns.konsultacije("ui", { "cssVarsPerTheme": { "light": { "cal-brand": "#000000" }, "dark": { "cal-brand": "#ED1C1D" } }, "hideEventTypeDetails": false, "layout": "month_view" });
 
 /* Zakaci Cal atribute na svu "Zakazi konsultaciju" dugmad. Cal embed koristi
    delegaciju klika (globalni listener trazi [data-cal-link] predak), pa je dovoljno
