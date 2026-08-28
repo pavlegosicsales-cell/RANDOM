@@ -223,15 +223,24 @@ strong { font-weight: 700; }
   border: 1px solid transparent;
   transition: background var(--dur-fast) var(--ease), border-color var(--dur-fast) var(--ease), color var(--dur-fast) var(--ease);
 }
+.btn { --ink: var(--bone); }
+.btn:hover { --ink: var(--soot); }
 .btn-primary { background: var(--ember); color: var(--bone); }
 .btn-primary:hover { background: var(--ember-hover); }
-.btn-light { background: var(--bone); color: var(--soot); }
+.btn-light { background: var(--bone); color: var(--soot); --ink: var(--soot); }
 .btn-light:hover { background: #fff; }
 /* Sekundarno: providno + blur → TIRKIZ na hover.
    Crvena je rezervisana za primarnu akciju; da i sekundarno ide u crveno, oba
    dugmeta bi na hover izgledala identicno i hijerarhija bi se izgubila.
    Tekst/strelica/coskovi vec idu u soot (crno) na hover — crno na tirkizu je 9.6:1. */
-.btn-secondary { background: rgba(220, 220, 221, 0.03); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); color: var(--bone); border-color: rgba(220, 220, 221, 0.38); }
+/* Staklo kao kod hype "Book a consultation": blur 10px + jedva vidljiv
+   dijagonalni gradijent, ivica skoro neprimetna jer je nose L-zagrade. */
+.btn-secondary {
+  background: linear-gradient(169.7deg, rgba(220, 220, 221, 0.055) -17.85%, rgba(220, 220, 221, 0) 117.02%);
+  backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+  color: var(--bone);
+  border-color: rgba(220, 220, 221, 0.14);
+}
 .btn-secondary:hover { background: var(--teal); border-color: var(--teal); color: var(--soot); }
 .btn:disabled { opacity: 0.5; cursor: not-allowed; }
 .btn-row { display: flex; flex-wrap: wrap; gap: var(--sp-2); }
@@ -239,12 +248,20 @@ strong { font-weight: 700; }
 
 /* Frame ugaoni markeri — šire se na hover */
 .btn__label { display: inline-block; }
-.btn__corner { position: absolute; width: 15px; height: 15px; color: rgba(220, 220, 221, 0.85); pointer-events: none; transition: transform var(--dur-base) var(--ease), color var(--dur-fast) var(--ease); }
-.btn__corner svg { width: 100%; height: 100%; display: block; }
-.btn__corner--tl { top: -5px; left: -5px; }
-.btn__corner--tr { top: -5px; right: -5px; }
-.btn__corner--br { bottom: -5px; right: -5px; }
-.btn__corner--bl { bottom: -5px; left: -5px; }
+/* L-zagrade u uglovima: kvadrat sa samo dve ivice, kao kod hype-a (nije SVG).
+   Sede na -1px da poklope 1px border dugmeta, a na hover se uvuku za pola svoje
+   velicine ka centru. */
+.btn__corner {
+  position: absolute; width: 16px; height: 16px;
+  border: 2px solid currentColor;
+  color: rgba(220, 220, 221, 0.85);
+  pointer-events: none;
+  transition: transform 0.5s var(--ease), color var(--dur-fast) var(--ease);
+}
+.btn__corner--tl { top: -1px; left: -1px; border-right: none; border-bottom: none; }
+.btn__corner--tr { top: -1px; right: -1px; border-left: none; border-bottom: none; }
+.btn__corner--br { bottom: -1px; right: -1px; border-left: none; border-top: none; }
+.btn__corner--bl { bottom: -1px; left: -1px; border-right: none; border-top: none; }
 .btn:hover .btn__corner { color: var(--soot); }
 /* Hero: coskovi sekundarnog dugmeta u tirkiz (ista boja koju dugme uzme na hover).
    Na hover dugme se popuni tirkizom pa coskovi prelaze u crno — to hvata pravilo iznad. */
@@ -255,11 +272,11 @@ strong { font-weight: 700; }
    nize u fajlu pa ga gazi. */
 .hero .btn-secondary:hover .btn__corner,
 .gallery-hero .btn-secondary:hover .btn__corner { color: var(--soot); }
-/* Na hover coškovi ulaze UNUTAR dugmeta (umesto da se šire spolja) */
-.btn:hover .btn__corner--tl { transform: translate(6px, 6px); }
-.btn:hover .btn__corner--tr { transform: translate(-6px, 6px); }
-.btn:hover .btn__corner--br { transform: translate(-6px, -6px); }
-.btn:hover .btn__corner--bl { transform: translate(6px, -6px); }
+/* Na hover coškovi ulaze UNUTAR dugmeta — 50% svoje veličine, kao kod hype-a */
+.btn:hover .btn__corner--tl { transform: translate(50%, 50%); }
+.btn:hover .btn__corner--tr { transform: translate(-50%, 50%); }
+.btn:hover .btn__corner--br { transform: translate(-50%, -50%); }
+.btn:hover .btn__corner--bl { transform: translate(50%, -50%); }
 /* Tekst i strelica menjaju boju na hover (tamno mastilo na Ember pozadini) */
 .btn:hover .btn__label,
 .btn:hover .btn__arrow { color: var(--soot); }
@@ -276,10 +293,9 @@ strong { font-weight: 700; }
   display: inline-block;
   /* Ne moze currentColor: roditeljski span je transparent, pa bi se i ::after
      ugasio. Boja se zato navodi eksplicitno, kao i kod hype-a. */
-  color: var(--bone);
+  color: var(--ink);
   transition: color var(--dur-fast) var(--ease);
 }
-.btn--glyph:hover .glyph-char::after { color: var(--soot); }
 .btn--glyph:hover .glyph-char::after {
   animation: glyphFlash var(--glyph-speed, 0.24s) calc(var(--index, 0) * 0.045s) steps(1, end);
 }

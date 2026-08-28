@@ -962,11 +962,10 @@
     render();
   }
 
-  /* ---------- FRAME DUGMAD + scramble (otkucavanje) ----- */
+  /* ---------- FRAME DUGMAD + glyph efekat --------------- */
   function initButtons() {
-    var CORNERS = [['tl', 'M8 16v-8h8'], ['tr', 'M16 16v-8h-8'], ['br', 'M16 8v8h-8'], ['bl', 'M8 8v8h8']];
-    function cornerSVG(d) { return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="' + d + '"/></svg>'; }
-    var SC = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    var CORNERS = ['tl', 'tr', 'br', 'bl'];   // L-zagrade su CSS borderi, ne SVG (metod sa hype-a)
+
     // Glyph dugme (metod sa hype-tattoo.com): svako slovo ide u svoj span sa
     // data-char, tri nasumicna glifa i rednim brojem. Sam prelaz je CSS keyframe
     // koji preko ::after menja `content` — slovo se ne pomera jer pravi karakter
@@ -993,14 +992,12 @@
       sr.textContent = raw;
       label.appendChild(sr);
     }
-    function isGlyphBtn(btn) {
-      return btn.classList.contains('btn-secondary') && !btn.classList.contains('gallery-hero__cta');
-    }
+    function isGlyphBtn() { return true; }   // glyph efekat ide na svu dugmad
     // Promena jezika prepisuje .btn__label preko textContent — spanove treba vratiti.
     document.addEventListener('langchange', function () {
       $$('.btn').forEach(function (btn) {
         var l = btn.querySelector('.btn__label');
-        if (l && isGlyphBtn(btn)) { l.removeAttribute('data-glyph-text'); glyphSplit(l); }
+        if (l) { l.removeAttribute('data-glyph-text'); glyphSplit(l); }
       });
     });
     $$('.btn').forEach(function (btn) {
@@ -1018,29 +1015,9 @@
       if (!isSubmit) {
         CORNERS.forEach(function (c) {
           var s = document.createElement('span');
-          s.className = 'btn__corner btn__corner--' + c[0];
+          s.className = 'btn__corner btn__corner--' + c;
           s.setAttribute('aria-hidden', 'true');
-          s.innerHTML = cornerSVG(c[1]);
           btn.appendChild(s);
-        });
-      }
-      // scramble na hover — primarno/light dugme
-      if (!reduceMotion && (btn.classList.contains('btn-primary') || btn.classList.contains('btn-light') || btn.classList.contains('gallery-more') || btn.classList.contains('gallery-hero__cta')) && !isSubmit) {
-        btn.addEventListener('mouseenter', function () {
-          var original = label.textContent;   // citaj trenutni tekst (jezik moze biti promenjen)
-          if (!label.style.minWidth) label.style.minWidth = label.offsetWidth + 'px';
-          var frame = 0;
-          clearInterval(label._t);
-          label._t = setInterval(function () {
-            var out = '';
-            for (var i = 0; i < original.length; i++) {
-              var ch = original[i];
-              out += (ch === ' ') ? ' ' : (i <= frame ? original[i] : SC[Math.floor(Math.random() * 26)]);
-            }
-            label.textContent = out;
-            frame += 0.5;
-            if (frame >= original.length) { label.textContent = original; clearInterval(label._t); }
-          }, 35);
         });
       }
     });
