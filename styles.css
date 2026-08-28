@@ -224,9 +224,11 @@ strong { font-weight: 700; }
   transition: background var(--dur-fast) var(--ease), border-color var(--dur-fast) var(--ease), color var(--dur-fast) var(--ease);
 }
 .btn { --ink: var(--bone); }
-.btn:hover { --ink: var(--soot); }
+.btn:hover,
+.cta-pair:hover > .btn { --ink: var(--soot); }
 .btn-primary { background: var(--ember); color: var(--bone); }
-.btn-primary:hover { background: var(--ember-hover); }
+.btn-primary:hover,
+.cta-pair:hover > .btn-primary { background: var(--ember-hover); }
 .btn-light { background: var(--bone); color: var(--soot); --ink: var(--soot); }
 .btn-light:hover { background: #fff; }
 /* Sekundarno: providno + blur → TIRKIZ na hover.
@@ -272,7 +274,9 @@ strong { font-weight: 700; }
 .consult .cta-pair > .consult__cta { margin-top: 0; }   /* razmak nosi par, ne dugme */
 .gallery-hero__inner .cta-pair { margin-top: var(--sp-4); }
 .gallery-hero__inner .cta-pair > .gallery-hero__cta { margin-top: 0; }
-.btn-secondary:hover { background: var(--teal); border-color: var(--teal); color: var(--soot); }
+.btn-secondary:hover,
+.cta-pair:hover > .btn-secondary { background: var(--teal); border-color: var(--teal); color: var(--soot); }
+.btn--lg { padding: clamp(18px, 2vw, 26px) clamp(30px, 3.6vw, 52px); font-size: clamp(14px, 1.05vw, 16px); }
 .btn:disabled { opacity: 0.5; cursor: not-allowed; }
 .btn-row { display: flex; flex-wrap: wrap; gap: var(--sp-2); }
 .btn-row.center { justify-content: center; }
@@ -293,16 +297,21 @@ strong { font-weight: 700; }
 .btn__corner--tr { top: -1px; right: -1px; border-left: none; border-bottom: none; }
 .btn__corner--br { bottom: -1px; right: -1px; border-left: none; border-top: none; }
 .btn__corner--bl { bottom: -1px; left: -1px; border-right: none; border-top: none; }
-.btn:hover .btn__corner { color: var(--soot); }
+.btn:hover .btn__corner,
+.cta-pair:hover > .btn .btn__corner { color: var(--soot); }
 
 /* Na hover coškovi ulaze UNUTAR dugmeta — 50% svoje veličine, kao kod hype-a */
-.btn:hover .btn__corner--tl { transform: translate(50%, 50%); }
-.btn:hover .btn__corner--tr { transform: translate(-50%, 50%); }
-.btn:hover .btn__corner--br { transform: translate(-50%, -50%); }
-.btn:hover .btn__corner--bl { transform: translate(50%, -50%); }
+.btn:hover .btn__corner--tl,
+.cta-pair:hover > .btn .btn__corner--tl { transform: translate(50%, 50%); }
+.btn:hover .btn__corner--tr,
+.cta-pair:hover > .btn .btn__corner--tr { transform: translate(-50%, 50%); }
+.btn:hover .btn__corner--br,
+.cta-pair:hover > .btn .btn__corner--br { transform: translate(-50%, -50%); }
+.btn:hover .btn__corner--bl,
+.cta-pair:hover > .btn .btn__corner--bl { transform: translate(50%, -50%); }
 /* Tekst i strelica menjaju boju na hover (tamno mastilo na Ember pozadini) */
 .btn:hover .btn__label,
-.btn:hover .btn__arrow { color: var(--soot); }
+.cta-pair:hover > .btn .btn__label { color: var(--soot); }
 /* GLYPH DUGME (metod sa hype-tattoo.com "Book a consultation")
    Svako slovo je span sa data-char; vidljivo slovo crta ::after, dok pravi
    karakter ostaje u toku providan i drzi sirinu — zato se na hover nista ne
@@ -319,7 +328,8 @@ strong { font-weight: 700; }
   color: var(--ink);
   transition: color var(--dur-fast) var(--ease);
 }
-.btn--glyph:hover .glyph-char::after {
+.btn--glyph:hover .glyph-char::after,
+.cta-pair:hover > .btn--glyph .glyph-char::after {
   animation: glyphFlash var(--glyph-speed, 0.24s) calc(var(--index, 0) * 0.045s) steps(1, end);
 }
 @keyframes glyphFlash {

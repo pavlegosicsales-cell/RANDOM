@@ -1014,17 +1014,21 @@
       label.textContent = text;
       btn.appendChild(label);
       if (isGlyphBtn(btn) && !reduceMotion) { btn.classList.add('btn--glyph'); glyphSplit(label); }
-      // Kockica sa strelicom — samo na sekundarnom dugmetu koje stoji SAMO
-      // (u istom roditelju nema primarnog dugmeta).
-      if (btn.classList.contains('btn-secondary') && !isSubmit) {
+      // Kockica sa strelicom — na svako dugme (primarno ili sekundarno) koje stoji
+      // SAMO. Izuzeci: submit u formi i dugmad u navigaciji/meniju.
+      // .gallery-more je traka preko cele sirine ("Prikazi jos radova"), ne CTA —
+      // kockica bi joj visila van kontejnera.
+      var noSquare = isSubmit || btn.classList.contains('nav__cta') ||
+        btn.classList.contains('sm-cta') || btn.classList.contains('gallery-more');
+      if (!noSquare) {
         var par = btn.parentElement;
         // Brace, ne potomci: .circular-cta se izmesta na <body>, pa bi
-        // par.querySelector('.btn-primary') tamo nasao nav dugme i pogresno
-        // zakljucio da dugme nije samo.
-        var hasPrimary = par && Array.prototype.some.call(par.children, function (c) {
-          return c !== btn && c.classList && c.classList.contains('btn-primary');
+        // par.querySelector('.btn') tamo nasao nav dugme i pogresno zakljucio
+        // da dugme nije samo.
+        var hasSibling = par && Array.prototype.some.call(par.children, function (c) {
+          return c !== btn && c.classList && c.classList.contains('btn');
         });
-        if (!hasPrimary) {
+        if (!hasSibling) {
           var pair = document.createElement('span');
           pair.className = 'cta-pair';
           par.insertBefore(pair, btn);
