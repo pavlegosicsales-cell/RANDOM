@@ -1225,6 +1225,12 @@ address { font-style: normal; }
 
   /* Galerija: 2 kolone, ime umetnika uvek vidljivo (nema hover na telefonu) */
   .gallery-hero { min-height: 100svh; background-attachment: scroll, scroll; }  /* fixed nepouzdan na telefonu */
+  /* Kontakt hero na telefonu: svoja uspravna fotka (IMG_0595) */
+  .gallery-hero--kontakt {
+    background-image:
+      linear-gradient(to bottom, rgba(14,11,10,0.68) 0%, rgba(14,11,10,0.40) 40%, rgba(14,11,10,0.66) 82%, var(--soot) 100%),
+      url('assets/kontakt-hero-mobile.jpg?v=20260828');
+  }
   .tile { flex: 0 0 50%; max-width: 50%; }
   .tile::before { opacity: 1; height: 34%; }
   .master-name-overlay { opacity: 1; bottom: 12px; }
