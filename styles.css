@@ -227,9 +227,12 @@ strong { font-weight: 700; }
 .btn-primary:hover { background: var(--ember-hover); }
 .btn-light { background: var(--bone); color: var(--soot); }
 .btn-light:hover { background: #fff; }
-/* Sekundarno: providno + blur → Ember na hover */
+/* Sekundarno: providno + blur → TIRKIZ na hover.
+   Crvena je rezervisana za primarnu akciju; da i sekundarno ide u crveno, oba
+   dugmeta bi na hover izgledala identicno i hijerarhija bi se izgubila.
+   Tekst/strelica/coskovi vec idu u soot (crno) na hover — crno na tirkizu je 9.6:1. */
 .btn-secondary { background: rgba(220, 220, 221, 0.03); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); color: var(--bone); border-color: rgba(220, 220, 221, 0.38); }
-.btn-secondary:hover { background: var(--ember); border-color: var(--ember); color: var(--bone); }
+.btn-secondary:hover { background: var(--teal); border-color: var(--teal); color: var(--soot); }
 .btn:disabled { opacity: 0.5; cursor: not-allowed; }
 .btn-row { display: flex; flex-wrap: wrap; gap: var(--sp-2); }
 .btn-row.center { justify-content: center; }
@@ -667,7 +670,7 @@ html[data-lang="en"] .post-body[lang="sr"] { display: none; }
 .consult__text { color: var(--ash); max-width: 46ch; }
 .consult__list { display: flex; flex-direction: column; gap: var(--sp-2); margin-top: var(--sp-1); }
 .consult__list li { position: relative; padding-left: 22px; color: var(--bone); }
-.consult__list li::before { content: ""; position: absolute; left: 0; top: 0.6em; width: 8px; height: 8px; background: var(--ember); }
+.consult__list li::before { content: ""; position: absolute; left: 0; top: 0.6em; width: 8px; height: 8px; background: var(--teal); }
 .consult__cta { align-self: flex-start; margin-top: var(--sp-3); padding: clamp(16px, 1.6vw, 22px) clamp(28px, 3vw, 44px); }
 @media (min-width: 900px) { .gallery-contact { grid-template-columns: 1.05fr 0.95fr; gap: var(--sp-7); } }
 
@@ -822,7 +825,7 @@ html.lenis, html.lenis body { height: auto; }
 .step__desc { margin-top: var(--sp-3); color: var(--ash); max-width: 56ch; }
 .step__list { margin-top: var(--sp-4); display: flex; flex-direction: column; gap: var(--sp-2); }
 .step__list li { position: relative; padding-left: var(--sp-3); color: var(--bone); max-width: 56ch; }
-.step__list li::before { content: "—"; position: absolute; left: 0; color: var(--ember-text); }
+.step__list li::before { content: "—"; position: absolute; left: 0; color: var(--teal); }
 
 /* ---------- O STUDIJU ------------------------------------ */
 /* Isti razmak gore (do „/ O studiju" pill-a) i dole (od kraja teksta do sledeće sekcije) */
