@@ -967,6 +967,42 @@
     var CORNERS = [['tl', 'M8 16v-8h8'], ['tr', 'M16 16v-8h-8'], ['br', 'M16 8v8h-8'], ['bl', 'M8 8v8h8']];
     function cornerSVG(d) { return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="' + d + '"/></svg>'; }
     var SC = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    // Glyph dugme (metod sa hype-tattoo.com): svako slovo ide u svoj span sa
+    // data-char, tri nasumicna glifa i rednim brojem. Sam prelaz je CSS keyframe
+    // koji preko ::after menja `content` — slovo se ne pomera jer pravi karakter
+    // ostaje u toku i drzi sirinu, a ::after je apsolutan preko njega.
+    var GLYPHS = '0123456789!@#$%^&*()_+ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    function g() { return '"' + GLYPHS[Math.floor(Math.random() * GLYPHS.length)] + '"'; }
+    function glyphSplit(label) {
+      var raw = (label.getAttribute('data-glyph-text') || label.textContent).trim();
+      label.setAttribute('data-glyph-text', raw);
+      label.textContent = '';
+      raw.split('').forEach(function (ch, i) {
+        var sp = document.createElement('span');
+        sp.className = 'glyph-char';
+        sp.setAttribute('data-char', ch);
+        sp.style.setProperty('--index', i);
+        sp.style.setProperty('--char-1', g());
+        sp.style.setProperty('--char-2', g());
+        sp.style.setProperty('--char-3', g());
+        sp.textContent = ch;
+        label.appendChild(sp);
+      });
+      var sr = document.createElement('span');
+      sr.className = 'sr-only';
+      sr.textContent = raw;
+      label.appendChild(sr);
+    }
+    function isGlyphBtn(btn) {
+      return btn.classList.contains('btn-secondary') && !btn.classList.contains('gallery-hero__cta');
+    }
+    // Promena jezika prepisuje .btn__label preko textContent — spanove treba vratiti.
+    document.addEventListener('langchange', function () {
+      $$('.btn').forEach(function (btn) {
+        var l = btn.querySelector('.btn__label');
+        if (l && isGlyphBtn(btn)) { l.removeAttribute('data-glyph-text'); glyphSplit(l); }
+      });
+    });
     $$('.btn').forEach(function (btn) {
       if (btn.hasAttribute('data-fb')) return;
       btn.setAttribute('data-fb', '1');
@@ -977,13 +1013,7 @@
       label.className = 'btn__label';
       label.textContent = text;
       btn.appendChild(label);
-      // strelica (sekundarno) — osim galerija hero dugmeta (bez strelice, sa scramble-om)
-      if (btn.classList.contains('btn-secondary') && !btn.classList.contains('gallery-hero__cta')) {
-        var arrow = document.createElement('span');
-        arrow.className = 'btn__arrow'; arrow.setAttribute('aria-hidden', 'true');
-        arrow.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
-        btn.appendChild(arrow);
-      }
+      if (isGlyphBtn(btn) && !reduceMotion) { btn.classList.add('btn--glyph'); glyphSplit(label); }
       // ugaoni markeri (ne na submit — ima overflow hidden zbog shimmer-a)
       if (!isSubmit) {
         CORNERS.forEach(function (c) {

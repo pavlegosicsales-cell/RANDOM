@@ -250,6 +250,11 @@ strong { font-weight: 700; }
    Na hover dugme se popuni tirkizom pa coskovi prelaze u crno — to hvata pravilo iznad. */
 .hero .btn-secondary .btn__corner,
 .gallery-hero .btn-secondary .btn__corner { color: var(--teal); }
+/* ...ali na hover nazad u crno. Bez ove linije tirkiz ostaje i na hover: gornje
+   pravilo ima istu specificnost (0,3,0) kao `.btn:hover .btn__corner`, a stoji
+   nize u fajlu pa ga gazi. */
+.hero .btn-secondary:hover .btn__corner,
+.gallery-hero .btn-secondary:hover .btn__corner { color: var(--soot); }
 /* Na hover coškovi ulaze UNUTAR dugmeta (umesto da se šire spolja) */
 .btn:hover .btn__corner--tl { transform: translate(6px, 6px); }
 .btn:hover .btn__corner--tr { transform: translate(-6px, 6px); }
@@ -258,10 +263,40 @@ strong { font-weight: 700; }
 /* Tekst i strelica menjaju boju na hover (tamno mastilo na Ember pozadini) */
 .btn:hover .btn__label,
 .btn:hover .btn__arrow { color: var(--soot); }
-/* Strelica koja se pojavljuje na hover (sekundarno) */
-.btn__arrow { display: inline-flex; align-items: center; width: 0; opacity: 0; overflow: hidden; transition: width var(--dur-base) var(--ease), opacity var(--dur-base) var(--ease), margin-left var(--dur-base) var(--ease); }
-.btn__arrow svg { width: 16px; height: 16px; display: block; }
-.btn-secondary:hover .btn__arrow { width: 16px; opacity: 1; margin-left: 8px; }
+/* GLYPH DUGME (metod sa hype-tattoo.com "Book a consultation")
+   Svako slovo je span sa data-char; vidljivo slovo crta ::after, dok pravi
+   karakter ostaje u toku providan i drzi sirinu — zato se na hover nista ne
+   pomera. Na hover svaki ::after prodje kroz "_" pa tri nasumicna glifa i vrati
+   se na svoje slovo; kasnjenje po slovu (--index) pravi talas s leva na desno.
+   steps(1, end) daje tvrdo preskakanje umesto mekog prelaza. */
+.btn--glyph .glyph-char { position: relative; display: inline-block; color: transparent; white-space: pre; }
+.btn--glyph .glyph-char::after {
+  content: attr(data-char);
+  position: absolute; inset: 0;
+  display: inline-block;
+  /* Ne moze currentColor: roditeljski span je transparent, pa bi se i ::after
+     ugasio. Boja se zato navodi eksplicitno, kao i kod hype-a. */
+  color: var(--bone);
+  transition: color var(--dur-fast) var(--ease);
+}
+.btn--glyph:hover .glyph-char::after { color: var(--soot); }
+.btn--glyph:hover .glyph-char::after {
+  animation: glyphFlash var(--glyph-speed, 0.24s) calc(var(--index, 0) * 0.045s) steps(1, end);
+}
+@keyframes glyphFlash {
+  0%, 20% { content: "_"; }
+  40%     { content: var(--char-1); }
+  60%     { content: var(--char-2); }
+  80%     { content: var(--char-3); }
+}
+.sr-only {
+  position: absolute !important; width: 1px; height: 1px;
+  padding: 0; margin: -1px; overflow: hidden;
+  clip: rect(0, 0, 0, 0); white-space: nowrap; border-width: 0;
+}
+@media (prefers-reduced-motion: reduce) {
+  .btn--glyph:hover .glyph-char::after { animation: none; }
+}
 
 /* ---------- NAV ------------------------------------------ */
 .nav {
