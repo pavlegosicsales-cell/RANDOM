@@ -882,7 +882,7 @@ html.lenis, html.lenis body { height: auto; }
 .review { flex: 0 0 auto; width: 340px; background: var(--surface); border: 1px solid var(--hair); padding: var(--sp-4); display: flex; flex-direction: column; gap: var(--sp-3); }
 .review__head { display: flex; align-items: center; justify-content: space-between; gap: var(--sp-2); }
 .review__who { font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em; font-size: var(--fs-small); }
-.review__stars { color: var(--ember-text); letter-spacing: 2px; font-size: var(--fs-small); margin-top: 2px; }
+.review__stars { color: var(--teal); letter-spacing: 2px; font-size: var(--fs-small); margin-top: 2px; }
 .review__g { width: 22px; height: 22px; flex: none; border: 1px solid var(--clay-border); border-radius: 50%; display: grid; place-items: center; font-family: var(--font-mono); font-size: 12px; color: var(--ash); }
 .review__text { font-family: var(--font-display); font-weight: 900; text-transform: uppercase; font-size: var(--fs-h3); line-height: 1.2; letter-spacing: -0.01em; color: var(--bone); }
 
