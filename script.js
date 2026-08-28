@@ -263,6 +263,78 @@
     return fig;
   }
 
+  /* ---------- IMGSTACK (telefon: spil radova) ------------
+     Vanilla prepev React/framer-motion "image stack" komponente. Parametri
+     slaganja su isti kao u originalu: -12px po X, -8px po Y i -(2 + i*3) stepeni
+     po karti, gornja karta uspravna. Prevlacenje preko 50px salje gornju kartu
+     na dno spila. */
+  function initImgStack() {
+    var host = $('[data-imgstack]');
+    if (!host) return;
+    var limit = parseInt(host.getAttribute('data-limit'), 10) || 5;
+    var cards = WORKS.slice(0, limit).map(function (it) {
+      var d = document.createElement('div');
+      d.className = 'imgstack__card';
+      var img = document.createElement('img');
+      img.src = it.src; img.alt = it.alt || '';
+      img.loading = 'lazy'; img.decoding = 'async'; img.draggable = false;
+      d.appendChild(img);
+      host.appendChild(d);
+      return d;
+    });
+    if (!cards.length) return;
+
+    // Lepeza ide gore-levo, pa se ceo spil pomeri za pola svoje sirine nazad —
+    // inace je gornja karta centrirana, a masa spila visi levo od sredine.
+    var ox = (cards.length - 1) * 12 / 2, oy = (cards.length - 1) * 8 / 2;
+    function baseTransform(i) {
+      var rot = i === 0 ? 0 : -(2 + i * 3);
+      return 'translate(' + (i * -12 + ox) + 'px,' + (i * -8 + oy) + 'px) rotate(' + rot + 'deg)';
+    }
+    function layout() {
+      cards.forEach(function (c, i) {
+        c.style.transform = baseTransform(i);
+        c.style.zIndex = String(50 - i * 10);
+        c.style.pointerEvents = i === 0 ? 'auto' : 'none';
+      });
+    }
+    layout();
+
+    if (reduceMotion) return;   // bez prevlacenja: spil ostaje staticna slika
+
+    var MIN = 50, dragging = false, id = null, sx = 0, sy = 0, top = cards[0];
+    function onDown(e) {
+      if (dragging) return;
+      top = cards[0];
+      if (!top.contains(e.target) && e.target !== top) return;
+      dragging = true; id = e.pointerId; sx = e.clientX; sy = e.clientY;
+      top.classList.add('is-dragging');
+      try { top.setPointerCapture(id); } catch (err) {}
+    }
+    function onMove(e) {
+      if (!dragging || e.pointerId !== id) return;
+      var dx = e.clientX - sx, dy = e.clientY - sy;
+      top.style.transform = 'translate(' + dx + 'px,' + dy + 'px) rotate(' + (dx * 0.05) + 'deg)';
+    }
+    function onUp(e) {
+      if (!dragging || e.pointerId !== id) return;
+      dragging = false;
+      top.classList.remove('is-dragging');
+      try { top.releasePointerCapture(id); } catch (err) {}
+      var dx = e.clientX - sx, dy = e.clientY - sy;
+      if (Math.sqrt(dx * dx + dy * dy) < MIN) { layout(); return; }   // premalo — vrati se
+      // odleti u smeru prevlacenja, pa se vrati na dno spila
+      top.style.transform = 'translate(' + (dx * 3) + 'px,' + (dy * 3) + 'px) rotate(' + (dx * 0.12) + 'deg)';
+      var moved = cards.shift();
+      cards.push(moved);
+      window.setTimeout(layout, 220);
+    }
+    host.addEventListener('pointerdown', onDown);
+    host.addEventListener('pointermove', onMove);
+    host.addEventListener('pointerup', onUp);
+    host.addEventListener('pointercancel', onUp);
+  }
+
   function initGallery() {
     $$('[data-gallery]').forEach(function (grid) {
       if (grid.closest('[data-artist-page]')) return; // artist stranicu puni initArtistPage
@@ -1615,6 +1687,7 @@
     initNav();
     initStaggeredMenu();
     initGallery();
+    initImgStack();
     initHypeGallery();
     initBlogWheel();
     initScroller();

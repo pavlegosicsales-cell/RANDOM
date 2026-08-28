@@ -45,6 +45,7 @@
     'home.gal.lead':  { sr: 'Bez filtera, bez ulepšavanja. Ovako izgleda kad zaraste.',
                         en: 'No filters, no touch-ups. This is how it looks once healed.' },
     'home.gal.all':   { sr: 'Cela galerija →', en: 'Full gallery →' },
+    'home.gal.swipe': { sr: 'Prevuci za sledeći rad', en: 'Swipe for the next piece' },
     'home.gal.hint':  { sr: 'Skroluj, kroz sve radove', en: 'Scroll, through all works' },
     'home.gal.empty': { sr: 'Nema radova u ovoj kategoriji', en: 'No works in this category' },
 
