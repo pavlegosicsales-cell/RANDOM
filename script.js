@@ -15,7 +15,7 @@
       style: { sr: 'REALIZAM · APSTRAKTNE BOJE', en: 'REALISM · ABSTRACT COLOUR' },
       ig: '@mr_lemson',
       igUrl: 'https://instagram.com/mr_lemson',
-      portrait: 'assets/artists/lemson.jpg?v=20260828',
+      portrait: 'assets/artists/lemson.jpg?v=20260828b',
       count: 31,
       lead: { sr: 'Lemson radi u dva sveta koja mali broj umetnika može da premosti, hiperprecizna preciznost crno-belog realizma i slobodna, izražajna energija apstraktnih boja.',
               en: 'Lemson works across two worlds few artists can bridge, the razor precision of black and grey realism and the loose, expressive energy of abstract colour.' },
