@@ -246,6 +246,10 @@ strong { font-weight: 700; }
 .btn__corner--br { bottom: -5px; right: -5px; }
 .btn__corner--bl { bottom: -5px; left: -5px; }
 .btn:hover .btn__corner { color: var(--soot); }
+/* Hero: coskovi sekundarnog dugmeta u tirkiz (ista boja koju dugme uzme na hover).
+   Na hover dugme se popuni tirkizom pa coskovi prelaze u crno — to hvata pravilo iznad. */
+.hero .btn-secondary .btn__corner,
+.gallery-hero .btn-secondary .btn__corner { color: var(--teal); }
 /* Na hover coškovi ulaze UNUTAR dugmeta (umesto da se šire spolja) */
 .btn:hover .btn__corner--tl { transform: translate(6px, 6px); }
 .btn:hover .btn__corner--tr { transform: translate(-6px, 6px); }
