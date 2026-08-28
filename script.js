@@ -1014,12 +1014,12 @@
       label.textContent = text;
       btn.appendChild(label);
       if (isGlyphBtn(btn) && !reduceMotion) { btn.classList.add('btn--glyph'); glyphSplit(label); }
-      // Kockica sa strelicom — na svako dugme (primarno ili sekundarno) koje stoji
-      // SAMO. Izuzeci: submit u formi i dugmad u navigaciji/meniju.
-      // .gallery-more je traka preko cele sirine ("Prikazi jos radova"), ne CTA —
-      // kockica bi joj visila van kontejnera.
-      var noSquare = isSubmit || btn.classList.contains('nav__cta') ||
-        btn.classList.contains('sm-cta') || btn.classList.contains('gallery-more');
+      // Kockica sa strelicom — samo na SEKUNDARNOM dugmetu koje stoji samo.
+      // Izuzeci: submit u formi, dugmad u navigaciji/meniju i .gallery-more
+      // (traka preko cele sirine, kockica bi joj visila van kontejnera).
+      var noSquare = isSubmit || !btn.classList.contains('btn-secondary') ||
+        btn.classList.contains('nav__cta') || btn.classList.contains('sm-cta') ||
+        btn.classList.contains('gallery-more');
       if (!noSquare) {
         var par = btn.parentElement;
         // Brace, ne potomci: .circular-cta se izmesta na <body>, pa bi
