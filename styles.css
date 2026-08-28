@@ -245,6 +245,33 @@ strong { font-weight: 700; }
 /* Zagrade takodje tirkizne. Specificnost 0,2,0 je NIZA od `.btn:hover .btn__corner`
    (0,3,0), pa hover pravilo (crno) pobedjuje samo od sebe. */
 .btn-secondary .btn__corner { color: var(--teal); }
+
+/* Kockica sa strelicom (hype `.join-link-arrow`): tirkizni kvadrat visine dugmeta,
+   odvojen sitnim procepom, crna strelica koja se na hover okrene za 405deg
+   (pun krug + 45, pa iz dijagonale sleti u vodoravnu). Ide samo na sekundarna
+   dugmad koja stoje SAMA — kad je pored primarno, para bi imala dva tezista. */
+.cta-pair { display: inline-flex; align-items: stretch; gap: 4px; vertical-align: top; }
+/* Sirinu (= visina dugmeta) postavlja JS preko --sq. Cist CSS ovde ne prolazi:
+   aspect-ratio ne preuzima visinu koju flex item dobije kroz align-self: stretch,
+   pa kutija ispadne tanka. */
+.cta-arrow {
+  flex: 0 0 auto; align-self: stretch; width: var(--sq, 3.4em);
+  display: grid; place-items: center; cursor: pointer;
+  background: var(--teal); color: var(--soot);
+  transition: background var(--dur-base) var(--ease);
+}
+/* Ikonica u em, ne u %: procenat bi zavisio od sirine kutije koju aspect-ratio
+   tek treba da izracuna iz visine — kruzna zavisnost, kutija ispadne tanka. */
+.cta-arrow svg { width: 1.15em; height: 1.15em; display: block; transition: transform 0.5s var(--ease); }
+.cta-pair:hover .cta-arrow svg { transform: rotate(405deg); }
+.cta-arrow:focus-visible { outline: 2px solid var(--ember); outline-offset: 2px; }
+
+/* Kontekstualni razmaci: posle omotaca flex/margin pravila ciljaju .cta-pair,
+   ne vise samo dugme. */
+.consult .cta-pair { align-self: flex-start; margin-top: var(--sp-3); }
+.consult .cta-pair > .consult__cta { margin-top: 0; }   /* razmak nosi par, ne dugme */
+.gallery-hero__inner .cta-pair { margin-top: var(--sp-4); }
+.gallery-hero__inner .cta-pair > .gallery-hero__cta { margin-top: 0; }
 .btn-secondary:hover { background: var(--teal); border-color: var(--teal); color: var(--soot); }
 .btn:disabled { opacity: 0.5; cursor: not-allowed; }
 .btn-row { display: flex; flex-wrap: wrap; gap: var(--sp-2); }
@@ -552,9 +579,16 @@ html[data-lang="en"] .post-body[lang="sr"] { display: none; }
      i blur na dugmetu se uopste ne vidi. */
   @keyframes heroFade { from { opacity: 0; } to { opacity: 1; } }
 
-  .hero .btn-row,
+  /* Animira se SAMO dugme, nikad njegov roditelj: predak sa opacity < 1 (a
+     `both` drzi animaciju u efektu i posle kraja) pravi Backdrop Root, pa
+     backdrop-filter na dugmetu nema sta da uzorkuje. Zato je blur radio na
+     galeriji (animacija je na samom dugmetu) a na pocetnoj nije (bila je na
+     .btn-row). */
+  .hero .btn-row > .btn,
+  .hero .btn-row > .cta-pair,
   .gallery-hero__cta,
-  .artist-hero__actions { animation: heroFade 0.6s var(--ease) both; animation-delay: 0.5s; }
+  .artist-hero__actions > .btn,
+  .artist-hero__actions > .cta-pair { animation: heroFade 0.6s var(--ease) both; animation-delay: 0.5s; }
 
   .gallery-hero__bottom { animation: heroRise 0.6s var(--ease) both; animation-delay: 0.6s; }
 }
@@ -763,6 +797,8 @@ html[data-lang="en"] .post-body[lang="sr"] { display: none; }
 .circular-progress--fixed { position: fixed; left: 50%; bottom: 44px; transform: translateX(-50%); z-index: 95; opacity: 0; pointer-events: none; transition: opacity var(--dur-base) var(--ease); }
 .circular-progress--fixed.show { opacity: 1; }
 .circular-cta { position: absolute; bottom: 36px; right: var(--margin); }
+/* Kad je dugme u paru sa kockicom, pozicioniranje preuzima par. */
+.cta-pair > .circular-cta { position: static; bottom: auto; right: auto; }
 /* Kad je premešten na <body> (JS) — fiksiran iznad donjeg blura */
 .circular-cta--fixed { position: fixed; bottom: 36px; right: var(--margin); z-index: 95; opacity: 0; pointer-events: none; transition: opacity var(--dur-base) var(--ease); }
 .circular-cta--fixed.show { opacity: 1; pointer-events: auto; }

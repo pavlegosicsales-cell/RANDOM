@@ -700,7 +700,10 @@
     var bar = $('[data-hprogress]');
     // Dugme + progress liniju premesti na <body> da budu iznad donjeg blura
     var cta = $('.circular-cta'), prog = $('.circular-progress');
-    if (cta) { document.body.appendChild(cta); cta.classList.add('circular-cta--fixed'); }
+    // Ako je dugme dobilo kockicu sa strelicom, na body ide ceo par (i on nosi
+    // fixed pozicioniranje) — inace bi dugme odletelo, a kockica ostala u toku.
+    var ctaHost = cta ? (cta.closest('.cta-pair') || cta) : null;
+    if (ctaHost) { document.body.appendChild(ctaHost); ctaHost.classList.add('circular-cta--fixed'); }
     if (prog) { document.body.appendChild(prog); prog.classList.add('circular-progress--fixed'); }
     var ticking = false;
     function update() {
@@ -713,7 +716,7 @@
       ring.style.transform = 'rotateY(' + (-rotation) + 'deg)';   // radovi dolaze redom
       if (bar) bar.style.width = (progress * 100).toFixed(1) + '%';
       var pinned = -top > 0 && -top < total;                      // vidljivi samo dok galerija drži ekran
-      if (cta) cta.classList.toggle('show', pinned);
+      if (ctaHost) ctaHost.classList.toggle('show', pinned);
       if (prog) prog.classList.toggle('show', pinned);
       nodes.forEach(function (n) {
         var rel = (n.angle - rotation) % 360; if (rel < 0) rel += 360;
@@ -1011,6 +1014,38 @@
       label.textContent = text;
       btn.appendChild(label);
       if (isGlyphBtn(btn) && !reduceMotion) { btn.classList.add('btn--glyph'); glyphSplit(label); }
+      // Kockica sa strelicom — samo na sekundarnom dugmetu koje stoji SAMO
+      // (u istom roditelju nema primarnog dugmeta).
+      if (btn.classList.contains('btn-secondary') && !isSubmit) {
+        var par = btn.parentElement;
+        // Brace, ne potomci: .circular-cta se izmesta na <body>, pa bi
+        // par.querySelector('.btn-primary') tamo nasao nav dugme i pogresno
+        // zakljucio da dugme nije samo.
+        var hasPrimary = par && Array.prototype.some.call(par.children, function (c) {
+          return c !== btn && c.classList && c.classList.contains('btn-primary');
+        });
+        if (!hasPrimary) {
+          var pair = document.createElement('span');
+          pair.className = 'cta-pair';
+          par.insertBefore(pair, btn);
+          pair.appendChild(btn);
+          var sq = document.createElement('span');
+          sq.className = 'cta-arrow';
+          sq.setAttribute('aria-hidden', 'true');
+          sq.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M8 7h9v9"/></svg>';
+          sq.addEventListener('click', function () { btn.click(); });
+          pair.appendChild(sq);
+          // kvadrat = visina dugmeta (aspect-ratio ne hvata stretch visinu)
+          var sizeSq = function () {
+            var h = btn.offsetHeight;
+            if (h) sq.style.setProperty('--sq', h + 'px');
+          };
+          requestAnimationFrame(sizeSq);
+          window.addEventListener('resize', sizeSq);
+          if (window.ResizeObserver) new ResizeObserver(sizeSq).observe(btn);
+          if (document.fonts && document.fonts.ready) document.fonts.ready.then(sizeSq);
+        }
+      }
       // ugaoni markeri (ne na submit — ima overflow hidden zbog shimmer-a)
       if (!isSubmit) {
         CORNERS.forEach(function (c) {
@@ -1567,13 +1602,13 @@
     initGallery();
     initHypeGallery();
     initBlogWheel();
-    initCircular();
     initScroller();
     initReviewsMarquee();
     initArtistPage();
     initAccordion();
     initForm();
     initButtons();
+    initCircular();
     initBlurReveal();
     initInkCursor();
     initTilt();
