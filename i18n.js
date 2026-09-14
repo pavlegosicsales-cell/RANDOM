@@ -93,7 +93,7 @@
     'home.proc.title': { sr: 'Proces',   en: 'Process' },
     'home.proc.lead':  { sr: 'Bez iznenađenja. Evo tačno šta te čeka od prve poruke do zarastanja.',
                          en: 'No surprises. Here is exactly what to expect, from first message to healed.' },
-    'proc.1.title': { sr: 'Reci šta hoćeš', en: 'Tell us what you want' },
+    'proc.1.title': { sr: 'Reci šta želiš', en: 'Tell us what you want' },
     'proc.1.desc':  { sr: 'Zakaži konsultaciju ili nam napiši poruku. Ne moraš da imaš gotovu ideju, dovoljno je da znaš otprilike šta te vuče. Zajedno ćemo iskristalisati.',
                       en: 'Book a consultation or just message us. You do not need a finished idea, knowing roughly what pulls you is enough. We will shape it together.' },
     'proc.1.li1':   { sr: 'Zakaži konsultaciju ili pošalji ideju i reference', en: 'Book a consultation or send your idea and references' },

@@ -100,6 +100,9 @@
 
   var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var isMobile = window.matchMedia('(max-width: 711px)').matches;
+  // Touch uredjaj siri od telefona (tablet/iPad) — tamo CSS gasi SVG displacement
+  // filter, pa nema svrhe animirati hue koji vise niko ne cita.
+  var isTabletTouch = window.matchMedia('(pointer: coarse) and (min-width: 712px)').matches;
   var $ = function (s, c) { return (c || document).querySelector(s); };
   var $$ = function (s, c) { return Array.prototype.slice.call((c || document).querySelectorAll(s)); };
 
@@ -284,6 +287,13 @@
     });
     if (!cards.length) return;
 
+    // Cist dodir na kartu vodi na celu galeriju — link uzimamo iz "Cela galerija"
+    // dugmeta iste sekcije, da postoji samo na jednom mestu.
+    var sec = host.closest('section');
+    var ctaLink = sec && sec.querySelector('.gallery-cta a[href]');
+    var galleryHref = ctaLink ? ctaLink.getAttribute('href') : 'galerija.html';
+    function openGallery() { if (galleryHref) window.location.href = galleryHref; }
+
     // Lepeza ide gore-levo, pa se ceo spil pomeri za pola svoje sirine nazad —
     // inace je gornja karta centrirana, a masa spila visi levo od sredine.
     var ox = (cards.length - 1) * 12 / 2, oy = (cards.length - 1) * 8 / 2;
@@ -301,7 +311,12 @@
     }
     layout();
 
-    if (reduceMotion) return;   // bez prevlacenja: spil ostaje staticna slika
+    if (reduceMotion) {         // bez prevlacenja: spil ostaje staticna slika, ali klik i dalje vodi u galeriju
+      host.addEventListener('click', function (e) {
+        if (e.target === cards[0] || cards[0].contains(e.target)) openGallery();
+      });
+      return;
+    }
 
     var MIN = 56;    // koliko treba povuci da karta ode na dno
     var LOCK = 8;    // posle koliko piksela se odlucuje da li je swipe ili skrol
@@ -341,7 +356,14 @@
 
     function onUp(e) {
       if (id === null || e.pointerId !== id) return;
-      if (state !== 'drag') { cancel(); return; }                    // tap ili skrol — nista
+      if (state !== 'drag') {                                        // nije prevlacenje
+        var tx = e.clientX - sx, ty = e.clientY - sy;
+        cancel();
+        // ispod praga u oba smera = cist tap na rad -> cela galerija. Swipe nikad
+        // ne stigne dovde (on je state 'drag'), pa prevlacenje ne otvara stranicu.
+        if (Math.abs(tx) < LOCK && Math.abs(ty) < LOCK) openGallery();
+        return;
+      }
       var dx = e.clientX - sx, dy = e.clientY - sy;
       var card = top;
       release();
@@ -1436,7 +1458,7 @@
   // Uvijanje mekog bloba: rotiramo hue turbulencije koja hrani displacement.
   function initReviewsShadow() {
     var hue = $('[data-ethereal-hue]');
-    if (!hue || reduceMotion || isMobile) return;        // reduce/telefon → statična pozadina (perf)
+    if (!hue || reduceMotion || isMobile || isTabletTouch) return;   // reduce/telefon/tablet → statična pozadina
     var bg = $('.reviews-bg');
     var visible = true;
     if (bg && 'IntersectionObserver' in window) {
