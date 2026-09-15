@@ -12,3 +12,4 @@ studio/dist/
 .env.local
 studio/.env
 studio/fixture.json
+studio/.sanity/
