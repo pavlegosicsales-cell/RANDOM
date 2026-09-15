@@ -73,7 +73,10 @@ async function fetchContent() {
     log('SANITY_PROJECT_ID nije postavljen — dist ostaje kopija repozitorijuma');
     return null;
   }
-  const url = `https://${PROJECT}.apicdn.sanity.io/v2024-01-01/data/query/${DATASET}?query=${encodeURIComponent(GROQ)}`;
+  // NAMERNO api, a ne apicdn: build ide odmah posle klijentovog "Publish" (webhook),
+  // a kesirani apicdn ume da vrati stari tekst tih par sekundi. Build se vrti jednom
+  // po deployu, pa nam kes ne treba — treba nam sveze stanje.
+  const url = `https://${PROJECT}.api.sanity.io/v2024-01-01/data/query/${DATASET}?query=${encodeURIComponent(GROQ)}`;
   const res = await fetch(url, { signal: AbortSignal.timeout(20000) });
   if (!res.ok) throw new Error('Sanity ' + res.status + ' ' + (await res.text()).slice(0, 200));
   const json = await res.json();

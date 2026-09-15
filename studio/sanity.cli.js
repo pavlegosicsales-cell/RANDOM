@@ -5,5 +5,6 @@ export default defineCliConfig({
     projectId: process.env.SANITY_STUDIO_PROJECT_ID,
     dataset: process.env.SANITY_STUDIO_DATASET || 'production'
   },
-  studioHost: 'random'   // -> https://random.sanity.studio
+  deployment: { appId: 'e0cfglre50gmer2uos2zslk9' },
+  studioHost: 'randomtattoo'   // -> https://randomtattoo.sanity.studio ('random' je zauzet, hostname je globalan za ceo Sanity)
 });

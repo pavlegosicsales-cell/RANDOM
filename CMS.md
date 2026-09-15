@@ -74,10 +74,15 @@ dodati token u `cms/build.mjs` — reci pa ubacim.
 
 ### 5. Objavi Studio klijentu
 
+Za ovo treba token sa ulogom **Deploy Studio (Token only)** — Editor token nema
+pravo da objavi panel:
+
 ```bash
 cd studio
-npx sanity deploy          # -> https://random.sanity.studio
+SANITY_AUTH_TOKEN=<deploy_token> npx sanity deploy
 ```
+
+Hostname je globalan za ceo Sanity, `random` je zauzet, zato `randomtattoo`.
 
 Zatim u `sanity.io/manage` → **Members** → pozovi klijenta mejlom.
 Besplatan plan nosi 3 korisnika.
