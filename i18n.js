@@ -15,6 +15,7 @@
   var STORE = 'random-lang';
   var DEFAULT = 'sr';
 
+  /* CMS:DICT:START — sadrzaj iz Sanityja; ne menjati rucno posle povezivanja CMS-a */
   var T = {
     /* ---------- NAV ---------- */
     'nav.home':      { sr: 'Početna',   en: 'Home' },
@@ -289,6 +290,7 @@
     'lang.sr': { sr: 'Srpski',  en: 'Serbian' },
     'lang.en': { sr: 'Engleski', en: 'English' }
   };
+  /* CMS:DICT:END */
 
   function get(key, lang) {
     var e = T[key];

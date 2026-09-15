@@ -8,86 +8,608 @@
 
   /* ---------- PODACI ------------------------------------- */
   // Kategorije: realizam (Lemson), fine-line (Anja), blackwork (Enco)
+  /* CMS:DATA:START — sadrzaj iz Sanityja; ne menjati rucno posle povezivanja CMS-a */
   var ARTISTS = {
-    lemson: {
-      name: 'Lemson',
-      cat: 'realizam',
-      style: { sr: 'REALIZAM · APSTRAKTNE BOJE', en: 'REALISM · ABSTRACT COLOUR' },
-      ig: '@mr_lemson',
-      igUrl: 'https://instagram.com/mr_lemson',
-      portrait: 'assets/artists/lemson.jpg?v=20260828b',
-      count: 31,
-      lead: { sr: 'Lemson radi u dva sveta koja mali broj umetnika može da premosti, hiperprecizna preciznost crno-belog realizma i slobodna, izražajna energija apstraktnih boja.',
-              en: 'Lemson works across two worlds few artists can bridge, the razor precision of black and grey realism and the loose, expressive energy of abstract colour.' },
-      desc: { sr: 'Bez obzira na stil, svaki komad nosi isti kvalitet: izgleda živo.',
-              en: 'Whatever the style, every piece carries the same quality: it looks alive.' }
+    "lemson": {
+      "name": "Lemson",
+      "cat": "realizam",
+      "style": {
+        "sr": "REALIZAM · APSTRAKTNE BOJE",
+        "en": "REALISM · ABSTRACT COLOUR"
+      },
+      "ig": "@mr_lemson",
+      "igUrl": "https://instagram.com/mr_lemson",
+      "portrait": "assets/artists/lemson.jpg?v=20260828b",
+      "lead": {
+        "sr": "Lemson radi u dva sveta koja mali broj umetnika može da premosti, hiperprecizna preciznost crno-belog realizma i slobodna, izražajna energija apstraktnih boja.",
+        "en": "Lemson works across two worlds few artists can bridge, the razor precision of black and grey realism and the loose, expressive energy of abstract colour."
+      },
+      "desc": {
+        "sr": "Bez obzira na stil, svaki komad nosi isti kvalitet: izgleda živo.",
+        "en": "Whatever the style, every piece carries the same quality: it looks alive."
+      },
+      "works": [
+        {
+          "src": "assets/works/lemson-1.jpg",
+          "cat": "realizam",
+          "w": 1440,
+          "h": 1918,
+          "alt": "Realistična crno-bela tetovaža, Lemson, Random Tattoo Studio Beograd (br. 1)"
+        },
+        {
+          "src": "assets/works/lemson-2.jpg",
+          "cat": "realizam",
+          "w": 1638,
+          "h": 2031,
+          "alt": "Realistična crno-bela tetovaža, Lemson, Random Tattoo Studio Beograd (br. 2)"
+        },
+        {
+          "src": "assets/works/lemson-3.jpg",
+          "cat": "realizam",
+          "w": 1440,
+          "h": 1919,
+          "alt": "Realistična crno-bela tetovaža, Lemson, Random Tattoo Studio Beograd (br. 3)"
+        },
+        {
+          "src": "assets/works/lemson-4.jpg",
+          "cat": "realizam",
+          "w": 1440,
+          "h": 1440,
+          "alt": "Realistična crno-bela tetovaža, Lemson, Random Tattoo Studio Beograd (br. 4)"
+        },
+        {
+          "src": "assets/works/lemson-5.jpg",
+          "cat": "realizam",
+          "w": 1365,
+          "h": 1820,
+          "alt": "Realistična crno-bela tetovaža, Lemson, Random Tattoo Studio Beograd (br. 5)"
+        },
+        {
+          "src": "assets/works/lemson-6.jpg",
+          "cat": "realizam",
+          "w": 1440,
+          "h": 1800,
+          "alt": "Realistična crno-bela tetovaža, Lemson, Random Tattoo Studio Beograd (br. 6)"
+        },
+        {
+          "src": "assets/works/lemson-7.jpg",
+          "cat": "realizam",
+          "w": 1440,
+          "h": 1800,
+          "alt": "Realistična crno-bela tetovaža, Lemson, Random Tattoo Studio Beograd (br. 7)"
+        },
+        {
+          "src": "assets/works/lemson-8.jpg",
+          "cat": "realizam",
+          "w": 1440,
+          "h": 1440,
+          "alt": "Realistična crno-bela tetovaža, Lemson, Random Tattoo Studio Beograd (br. 8)"
+        },
+        {
+          "src": "assets/works/lemson-9.jpg",
+          "cat": "realizam",
+          "w": 1440,
+          "h": 1440,
+          "alt": "Realistična crno-bela tetovaža, Lemson, Random Tattoo Studio Beograd (br. 9)"
+        },
+        {
+          "src": "assets/works/lemson-10.jpg",
+          "cat": "realizam",
+          "w": 1440,
+          "h": 1800,
+          "alt": "Realistična crno-bela tetovaža, Lemson, Random Tattoo Studio Beograd (br. 10)"
+        },
+        {
+          "src": "assets/works/lemson-11.jpg",
+          "cat": "realizam",
+          "w": 1350,
+          "h": 1687,
+          "alt": "Realistična crno-bela tetovaža, Lemson, Random Tattoo Studio Beograd (br. 11)"
+        },
+        {
+          "src": "assets/works/lemson-12.jpg",
+          "cat": "realizam",
+          "w": 1440,
+          "h": 1440,
+          "alt": "Realistična crno-bela tetovaža, Lemson, Random Tattoo Studio Beograd (br. 12)"
+        },
+        {
+          "src": "assets/works/lemson-13.jpg",
+          "cat": "realizam",
+          "w": 1440,
+          "h": 1440,
+          "alt": "Realistična crno-bela tetovaža, Lemson, Random Tattoo Studio Beograd (br. 13)"
+        },
+        {
+          "src": "assets/works/lemson-14.jpg",
+          "cat": "realizam",
+          "w": 1440,
+          "h": 1918,
+          "alt": "Realistična crno-bela tetovaža, Lemson, Random Tattoo Studio Beograd (br. 14)"
+        },
+        {
+          "src": "assets/works/lemson-15.jpg",
+          "cat": "realizam",
+          "w": 1440,
+          "h": 1439,
+          "alt": "Realistična crno-bela tetovaža, Lemson, Random Tattoo Studio Beograd (br. 15)"
+        },
+        {
+          "src": "assets/works/lemson-16.jpg",
+          "cat": "realizam",
+          "w": 1440,
+          "h": 1920,
+          "alt": "Realistična crno-bela tetovaža, Lemson, Random Tattoo Studio Beograd (br. 16)"
+        },
+        {
+          "src": "assets/works/lemson-17.jpg",
+          "cat": "realizam",
+          "w": 1440,
+          "h": 1920,
+          "alt": "Realistična crno-bela tetovaža, Lemson, Random Tattoo Studio Beograd (br. 17)"
+        },
+        {
+          "src": "assets/works/lemson-18.jpg",
+          "cat": "realizam",
+          "w": 1440,
+          "h": 1918,
+          "alt": "Realistična crno-bela tetovaža, Lemson, Random Tattoo Studio Beograd (br. 18)"
+        },
+        {
+          "src": "assets/works/lemson-19.jpg",
+          "cat": "realizam",
+          "w": 1440,
+          "h": 1800,
+          "alt": "Realistična crno-bela tetovaža, Lemson, Random Tattoo Studio Beograd (br. 19)"
+        },
+        {
+          "src": "assets/works/lemson-20.jpg",
+          "cat": "realizam",
+          "w": 1440,
+          "h": 1800,
+          "alt": "Realistična crno-bela tetovaža, Lemson, Random Tattoo Studio Beograd (br. 20)"
+        },
+        {
+          "src": "assets/works/lemson-21.jpg",
+          "cat": "realizam",
+          "w": 1440,
+          "h": 1440,
+          "alt": "Realistična crno-bela tetovaža, Lemson, Random Tattoo Studio Beograd (br. 21)"
+        },
+        {
+          "src": "assets/works/lemson-22.jpg",
+          "cat": "realizam",
+          "w": 1440,
+          "h": 1440,
+          "alt": "Realistična crno-bela tetovaža, Lemson, Random Tattoo Studio Beograd (br. 22)"
+        },
+        {
+          "src": "assets/works/lemson-23.jpg",
+          "cat": "realizam",
+          "w": 1440,
+          "h": 1920,
+          "alt": "Realistična crno-bela tetovaža, Lemson, Random Tattoo Studio Beograd (br. 23)"
+        },
+        {
+          "src": "assets/works/lemson-24.jpg",
+          "cat": "realizam",
+          "w": 1440,
+          "h": 1800,
+          "alt": "Realistična crno-bela tetovaža, Lemson, Random Tattoo Studio Beograd (br. 24)"
+        },
+        {
+          "src": "assets/works/lemson-25.jpg",
+          "cat": "realizam",
+          "w": 1440,
+          "h": 1920,
+          "alt": "Realistična crno-bela tetovaža, Lemson, Random Tattoo Studio Beograd (br. 25)"
+        },
+        {
+          "src": "assets/works/lemson-26.jpg",
+          "cat": "realizam",
+          "w": 1440,
+          "h": 1800,
+          "alt": "Realistična crno-bela tetovaža, Lemson, Random Tattoo Studio Beograd (br. 26)"
+        },
+        {
+          "src": "assets/works/lemson-27.jpg",
+          "cat": "realizam",
+          "w": 1440,
+          "h": 1800,
+          "alt": "Realistična crno-bela tetovaža, Lemson, Random Tattoo Studio Beograd (br. 27)"
+        },
+        {
+          "src": "assets/works/lemson-28.jpg",
+          "cat": "realizam",
+          "w": 1440,
+          "h": 1920,
+          "alt": "Realistična crno-bela tetovaža, Lemson, Random Tattoo Studio Beograd (br. 28)"
+        },
+        {
+          "src": "assets/works/lemson-29.jpg",
+          "cat": "realizam",
+          "w": 1440,
+          "h": 1799,
+          "alt": "Realistična crno-bela tetovaža, Lemson, Random Tattoo Studio Beograd (br. 29)"
+        },
+        {
+          "src": "assets/works/lemson-30.jpg",
+          "cat": "realizam",
+          "w": 1440,
+          "h": 1796,
+          "alt": "Realistična crno-bela tetovaža, Lemson, Random Tattoo Studio Beograd (br. 30)"
+        },
+        {
+          "src": "assets/works/lemson-31.jpg",
+          "cat": "realizam",
+          "w": 1440,
+          "h": 1918,
+          "alt": "Realistična crno-bela tetovaža, Lemson, Random Tattoo Studio Beograd (br. 31)"
+        }
+      ]
     },
-    anja: {
-      name: 'Anja',
-      cat: 'fine-line',
-      style: { sr: 'FINA LINIJA · LINEWORK', en: 'FINE LINE · LINEWORK' },
-      ig: '@alex.anja.tattoo',
-      igUrl: 'https://instagram.com/alex.anja.tattoo',
-      portrait: 'assets/artists/anja.jpg?v=20260828',
-      count: 11,
-      lead: { sr: 'Anjin rad je tih i precizan, i upravo zbog toga je toliko moćan. Njene tetovaže fine linije su elegantne, promišljene i napravljene da lepo stare.',
-              en: 'Anja\'s work is quiet and precise, and that is exactly why it hits so hard. Her fine line tattoos are elegant, considered and built to age well.' },
-      desc: { sr: 'Savršeno za one koji žele nešto rafinirano i duboko lično.',
-              en: 'Perfect for anyone who wants something refined and deeply personal.' }
+    "anja": {
+      "name": "Anja",
+      "cat": "fine-line",
+      "style": {
+        "sr": "FINA LINIJA · LINEWORK",
+        "en": "FINE LINE · LINEWORK"
+      },
+      "ig": "@alex.anja.tattoo",
+      "igUrl": "https://instagram.com/alex.anja.tattoo",
+      "portrait": "assets/artists/anja.jpg?v=20260828",
+      "lead": {
+        "sr": "Anjin rad je tih i precizan, i upravo zbog toga je toliko moćan. Njene tetovaže fine linije su elegantne, promišljene i napravljene da lepo stare.",
+        "en": "Anja's work is quiet and precise, and that is exactly why it hits so hard. Her fine line tattoos are elegant, considered and built to age well."
+      },
+      "desc": {
+        "sr": "Savršeno za one koji žele nešto rafinirano i duboko lično.",
+        "en": "Perfect for anyone who wants something refined and deeply personal."
+      },
+      "works": [
+        {
+          "src": "assets/works/anja-1.jpg",
+          "cat": "fine-line",
+          "w": 1170,
+          "h": 1560,
+          "alt": "Fine line tetovaža tankih linija, Anja, Random Tattoo Studio Beograd (br. 1)"
+        },
+        {
+          "src": "assets/works/anja-2.jpg",
+          "cat": "fine-line",
+          "w": 1170,
+          "h": 1560,
+          "alt": "Fine line tetovaža tankih linija, Anja, Random Tattoo Studio Beograd (br. 2)"
+        },
+        {
+          "src": "assets/works/anja-3.jpg",
+          "cat": "fine-line",
+          "w": 1170,
+          "h": 1170,
+          "alt": "Fine line tetovaža tankih linija, Anja, Random Tattoo Studio Beograd (br. 3)"
+        },
+        {
+          "src": "assets/works/anja-4.jpg",
+          "cat": "fine-line",
+          "w": 1170,
+          "h": 1560,
+          "alt": "Fine line tetovaža tankih linija, Anja, Random Tattoo Studio Beograd (br. 4)"
+        },
+        {
+          "src": "assets/works/anja-5.jpg",
+          "cat": "fine-line",
+          "w": 1170,
+          "h": 1552,
+          "alt": "Fine line tetovaža tankih linija, Anja, Random Tattoo Studio Beograd (br. 5)"
+        },
+        {
+          "src": "assets/works/anja-6.jpg",
+          "cat": "fine-line",
+          "w": 1170,
+          "h": 1463,
+          "alt": "Fine line tetovaža tankih linija, Anja, Random Tattoo Studio Beograd (br. 6)"
+        },
+        {
+          "src": "assets/works/anja-7.jpg",
+          "cat": "fine-line",
+          "w": 1170,
+          "h": 1552,
+          "alt": "Fine line tetovaža tankih linija, Anja, Random Tattoo Studio Beograd (br. 7)"
+        },
+        {
+          "src": "assets/works/anja-8.jpg",
+          "cat": "fine-line",
+          "w": 1170,
+          "h": 1560,
+          "alt": "Fine line tetovaža tankih linija, Anja, Random Tattoo Studio Beograd (br. 8)"
+        },
+        {
+          "src": "assets/works/anja-9.jpg",
+          "cat": "fine-line",
+          "w": 1170,
+          "h": 1560,
+          "alt": "Fine line tetovaža tankih linija, Anja, Random Tattoo Studio Beograd (br. 9)"
+        },
+        {
+          "src": "assets/works/anja-10.jpg",
+          "cat": "fine-line",
+          "w": 1170,
+          "h": 1560,
+          "alt": "Fine line tetovaža tankih linija, Anja, Random Tattoo Studio Beograd (br. 10)"
+        },
+        {
+          "src": "assets/works/anja-11.jpg",
+          "cat": "fine-line",
+          "w": 1170,
+          "h": 1416,
+          "alt": "Fine line tetovaža tankih linija, Anja, Random Tattoo Studio Beograd (br. 11)"
+        }
+      ]
     },
-    enco: {
-      name: 'Enco',
-      cat: 'blackwork',
-      style: { sr: 'GRAFITI · URBANI STIL', en: 'GRAFFITI · URBAN STYLE' },
-      ig: '@enco_enco.tattoo',
-      igUrl: 'https://instagram.com/enco_enco.tattoo',
-      portrait: 'assets/artists/enco.jpg?v=20260828',
-      count: 34,
-      lead: { sr: 'Enco prenosi ulične zidove na tvoju kožu. Ukorenjen u grafiti kulturu, njegov rad je smeo, izražajan i pun karaktera.',
-              en: 'Enco brings the street walls onto your skin. Rooted in graffiti culture, his work is bold, expressive and full of character.' },
-      desc: { sr: 'Ako želiš nešto što privlači pažnju, Enco je tvoj umetnik.',
-              en: 'If you want something that turns heads, Enco is your artist.' }
+    "enco": {
+      "name": "Enco",
+      "cat": "blackwork",
+      "style": {
+        "sr": "GRAFITI · URBANI STIL",
+        "en": "GRAFFITI · URBAN STYLE"
+      },
+      "ig": "@enco_enco.tattoo",
+      "igUrl": "https://instagram.com/enco_enco.tattoo",
+      "portrait": "assets/artists/enco.jpg?v=20260828",
+      "lead": {
+        "sr": "Enco prenosi ulične zidove na tvoju kožu. Ukorenjen u grafiti kulturu, njegov rad je smeo, izražajan i pun karaktera.",
+        "en": "Enco brings the street walls onto your skin. Rooted in graffiti culture, his work is bold, expressive and full of character."
+      },
+      "desc": {
+        "sr": "Ako želiš nešto što privlači pažnju, Enco je tvoj umetnik.",
+        "en": "If you want something that turns heads, Enco is your artist."
+      },
+      "works": [
+        {
+          "src": "assets/works/enco-1.jpg",
+          "cat": "blackwork",
+          "w": 1170,
+          "h": 1463,
+          "alt": "Blackwork / grafiti tetovaža, Enco, Random Tattoo Studio Beograd (br. 1)"
+        },
+        {
+          "src": "assets/works/enco-2.jpg",
+          "cat": "blackwork",
+          "w": 1170,
+          "h": 1463,
+          "alt": "Blackwork / grafiti tetovaža, Enco, Random Tattoo Studio Beograd (br. 2)"
+        },
+        {
+          "src": "assets/works/enco-3.jpg",
+          "cat": "blackwork",
+          "w": 1440,
+          "h": 1918,
+          "alt": "Blackwork / grafiti tetovaža, Enco, Random Tattoo Studio Beograd (br. 3)"
+        },
+        {
+          "src": "assets/works/enco-4.jpg",
+          "cat": "blackwork",
+          "w": 1440,
+          "h": 1918,
+          "alt": "Blackwork / grafiti tetovaža, Enco, Random Tattoo Studio Beograd (br. 4)"
+        },
+        {
+          "src": "assets/works/enco-5.jpg",
+          "cat": "blackwork",
+          "w": 1170,
+          "h": 1170,
+          "alt": "Blackwork / grafiti tetovaža, Enco, Random Tattoo Studio Beograd (br. 5)"
+        },
+        {
+          "src": "assets/works/enco-6.jpg",
+          "cat": "blackwork",
+          "w": 1170,
+          "h": 1462,
+          "alt": "Blackwork / grafiti tetovaža, Enco, Random Tattoo Studio Beograd (br. 6)"
+        },
+        {
+          "src": "assets/works/enco-7.jpg",
+          "cat": "blackwork",
+          "w": 1170,
+          "h": 1170,
+          "alt": "Blackwork / grafiti tetovaža, Enco, Random Tattoo Studio Beograd (br. 7)"
+        },
+        {
+          "src": "assets/works/enco-8.jpg",
+          "cat": "blackwork",
+          "w": 1170,
+          "h": 1463,
+          "alt": "Blackwork / grafiti tetovaža, Enco, Random Tattoo Studio Beograd (br. 8)"
+        },
+        {
+          "src": "assets/works/enco-9.jpg",
+          "cat": "blackwork",
+          "w": 1170,
+          "h": 1463,
+          "alt": "Blackwork / grafiti tetovaža, Enco, Random Tattoo Studio Beograd (br. 9)"
+        },
+        {
+          "src": "assets/works/enco-10.jpg",
+          "cat": "blackwork",
+          "w": 1170,
+          "h": 1463,
+          "alt": "Blackwork / grafiti tetovaža, Enco, Random Tattoo Studio Beograd (br. 10)"
+        },
+        {
+          "src": "assets/works/enco-11.jpg",
+          "cat": "blackwork",
+          "w": 1170,
+          "h": 1463,
+          "alt": "Blackwork / grafiti tetovaža, Enco, Random Tattoo Studio Beograd (br. 11)"
+        },
+        {
+          "src": "assets/works/enco-12.jpg",
+          "cat": "blackwork",
+          "w": 1170,
+          "h": 1500,
+          "alt": "Blackwork / grafiti tetovaža, Enco, Random Tattoo Studio Beograd (br. 12)"
+        },
+        {
+          "src": "assets/works/enco-13.jpg",
+          "cat": "blackwork",
+          "w": 1170,
+          "h": 1463,
+          "alt": "Blackwork / grafiti tetovaža, Enco, Random Tattoo Studio Beograd (br. 13)"
+        },
+        {
+          "src": "assets/works/enco-14.jpg",
+          "cat": "blackwork",
+          "w": 1170,
+          "h": 1463,
+          "alt": "Blackwork / grafiti tetovaža, Enco, Random Tattoo Studio Beograd (br. 14)"
+        },
+        {
+          "src": "assets/works/enco-15.jpg",
+          "cat": "blackwork",
+          "w": 1170,
+          "h": 1463,
+          "alt": "Blackwork / grafiti tetovaža, Enco, Random Tattoo Studio Beograd (br. 15)"
+        },
+        {
+          "src": "assets/works/enco-16.jpg",
+          "cat": "blackwork",
+          "w": 1170,
+          "h": 1170,
+          "alt": "Blackwork / grafiti tetovaža, Enco, Random Tattoo Studio Beograd (br. 16)"
+        },
+        {
+          "src": "assets/works/enco-17.jpg",
+          "cat": "blackwork",
+          "w": 1170,
+          "h": 1463,
+          "alt": "Blackwork / grafiti tetovaža, Enco, Random Tattoo Studio Beograd (br. 17)"
+        },
+        {
+          "src": "assets/works/enco-18.jpg",
+          "cat": "blackwork",
+          "w": 1170,
+          "h": 1463,
+          "alt": "Blackwork / grafiti tetovaža, Enco, Random Tattoo Studio Beograd (br. 18)"
+        },
+        {
+          "src": "assets/works/enco-19.jpg",
+          "cat": "blackwork",
+          "w": 1170,
+          "h": 1557,
+          "alt": "Blackwork / grafiti tetovaža, Enco, Random Tattoo Studio Beograd (br. 19)"
+        },
+        {
+          "src": "assets/works/enco-20.jpg",
+          "cat": "blackwork",
+          "w": 1170,
+          "h": 1463,
+          "alt": "Blackwork / grafiti tetovaža, Enco, Random Tattoo Studio Beograd (br. 20)"
+        },
+        {
+          "src": "assets/works/enco-21.jpg",
+          "cat": "blackwork",
+          "w": 1170,
+          "h": 1463,
+          "alt": "Blackwork / grafiti tetovaža, Enco, Random Tattoo Studio Beograd (br. 21)"
+        },
+        {
+          "src": "assets/works/enco-22.jpg",
+          "cat": "blackwork",
+          "w": 1170,
+          "h": 1463,
+          "alt": "Blackwork / grafiti tetovaža, Enco, Random Tattoo Studio Beograd (br. 22)"
+        },
+        {
+          "src": "assets/works/enco-23.jpg",
+          "cat": "blackwork",
+          "w": 1170,
+          "h": 1463,
+          "alt": "Blackwork / grafiti tetovaža, Enco, Random Tattoo Studio Beograd (br. 23)"
+        },
+        {
+          "src": "assets/works/enco-24.jpg",
+          "cat": "blackwork",
+          "w": 1170,
+          "h": 1463,
+          "alt": "Blackwork / grafiti tetovaža, Enco, Random Tattoo Studio Beograd (br. 24)"
+        },
+        {
+          "src": "assets/works/enco-25.jpg",
+          "cat": "blackwork",
+          "w": 1170,
+          "h": 1463,
+          "alt": "Blackwork / grafiti tetovaža, Enco, Random Tattoo Studio Beograd (br. 25)"
+        },
+        {
+          "src": "assets/works/enco-26.jpg",
+          "cat": "blackwork",
+          "w": 1170,
+          "h": 1463,
+          "alt": "Blackwork / grafiti tetovaža, Enco, Random Tattoo Studio Beograd (br. 26)"
+        },
+        {
+          "src": "assets/works/enco-27.jpg",
+          "cat": "blackwork",
+          "w": 1080,
+          "h": 1350,
+          "alt": "Blackwork / grafiti tetovaža, Enco, Random Tattoo Studio Beograd (br. 27)"
+        },
+        {
+          "src": "assets/works/enco-28.jpg",
+          "cat": "blackwork",
+          "w": 1170,
+          "h": 1170,
+          "alt": "Blackwork / grafiti tetovaža, Enco, Random Tattoo Studio Beograd (br. 28)"
+        },
+        {
+          "src": "assets/works/enco-29.jpg",
+          "cat": "blackwork",
+          "w": 1170,
+          "h": 1499,
+          "alt": "Blackwork / grafiti tetovaža, Enco, Random Tattoo Studio Beograd (br. 29)"
+        },
+        {
+          "src": "assets/works/enco-30.jpg",
+          "cat": "blackwork",
+          "w": 1170,
+          "h": 1463,
+          "alt": "Blackwork / grafiti tetovaža, Enco, Random Tattoo Studio Beograd (br. 30)"
+        },
+        {
+          "src": "assets/works/enco-31.jpg",
+          "cat": "blackwork",
+          "w": 1170,
+          "h": 1462,
+          "alt": "Blackwork / grafiti tetovaža, Enco, Random Tattoo Studio Beograd (br. 31)"
+        },
+        {
+          "src": "assets/works/enco-32.jpg",
+          "cat": "blackwork",
+          "w": 1170,
+          "h": 1460,
+          "alt": "Blackwork / grafiti tetovaža, Enco, Random Tattoo Studio Beograd (br. 32)"
+        },
+        {
+          "src": "assets/works/enco-33.jpg",
+          "cat": "blackwork",
+          "w": 1170,
+          "h": 1463,
+          "alt": "Blackwork / grafiti tetovaža, Enco, Random Tattoo Studio Beograd (br. 33)"
+        },
+        {
+          "src": "assets/works/enco-34.jpg",
+          "cat": "blackwork",
+          "w": 1170,
+          "h": 1499,
+          "alt": "Blackwork / grafiti tetovaža, Enco, Random Tattoo Studio Beograd (br. 34)"
+        }
+      ]
     }
   };
+  /* CMS:DATA:END */
 
-  // Dimenzije slika (za width/height — sprečava layout shift)
-  var DIMS = {
-    'lemson-1': [1440, 1918], 'lemson-2': [1638, 2031], 'lemson-3': [1440, 1919],
-    'lemson-4': [1440, 1440], 'lemson-5': [1365, 1820], 'lemson-6': [1440, 1800],
-    'lemson-7': [1440, 1800], 'lemson-8': [1440, 1440], 'lemson-9': [1440, 1440],
-    'lemson-10': [1440, 1800], 'lemson-11': [1350, 1687],
-    'anja-1': [1170, 1560], 'anja-2': [1170, 1560], 'anja-3': [1170, 1170],
-    'anja-4': [1170, 1560], 'anja-5': [1170, 1552], 'anja-6': [1170, 1463], 'anja-7': [1170, 1552],
-    'enco-1': [1170, 1463], 'enco-2': [1170, 1463], 'enco-3': [1440, 1918], 'enco-4': [1440, 1918],
-    'enco-5': [1170, 1170], 'enco-6': [1170, 1462], 'enco-7': [1170, 1170], 'enco-8': [1170, 1463],
-    'enco-9': [1170, 1463], 'enco-10': [1170, 1463], 'enco-11': [1170, 1463],
-    'lemson-12': [1440, 1440], 'lemson-13': [1440, 1440], 'lemson-14': [1440, 1918], 'lemson-15': [1440, 1439], 'lemson-16': [1440, 1920], 'lemson-17': [1440, 1920], 'lemson-18': [1440, 1918], 'lemson-19': [1440, 1800], 'lemson-20': [1440, 1800], 'lemson-21': [1440, 1440], 'lemson-22': [1440, 1440], 'lemson-23': [1440, 1920], 'lemson-24': [1440, 1800], 'lemson-25': [1440, 1920], 'lemson-26': [1440, 1800], 'lemson-27': [1440, 1800], 'lemson-28': [1440, 1920], 'lemson-29': [1440, 1799], 'lemson-30': [1440, 1796], 'lemson-31': [1440, 1918],
-    'anja-8': [1170, 1560], 'anja-9': [1170, 1560], 'anja-10': [1170, 1560], 'anja-11': [1170, 1416],
-    'enco-12': [1170, 1500], 'enco-13': [1170, 1463], 'enco-14': [1170, 1463], 'enco-15': [1170, 1463], 'enco-16': [1170, 1170], 'enco-17': [1170, 1463], 'enco-18': [1170, 1463], 'enco-19': [1170, 1557], 'enco-20': [1170, 1463], 'enco-21': [1170, 1463], 'enco-22': [1170, 1463], 'enco-23': [1170, 1463], 'enco-24': [1170, 1463], 'enco-25': [1170, 1463], 'enco-26': [1170, 1463], 'enco-27': [1080, 1350], 'enco-28': [1170, 1170], 'enco-29': [1170, 1499], 'enco-30': [1170, 1463], 'enco-31': [1170, 1462], 'enco-32': [1170, 1460], 'enco-33': [1170, 1463], 'enco-34': [1170, 1499]
-  };
-
-  var CAT_ALT = {
-    'realizam': 'Realistična crno-bela tetovaža',
-    'fine-line': 'Fine line tetovaža tankih linija',
-    'blackwork': 'Blackwork / grafiti tetovaža'
-  };
-
-  // Sastavi radove po umetniku, pa interleave za "SVI" prikaz
-  function worksFor(id) {
-    var a = ARTISTS[id], list = [];
-    for (var i = 1; i <= a.count; i++) {
-      var key = id + '-' + i, d = DIMS[key] || [1170, 1463];
-      list.push({
-        src: 'assets/works/' + key + '.jpg',
-        cat: a.cat,
-        w: d[0], h: d[1],
-        // Jedinstven, opisni alt (stil + umetnik + Beograd + redni broj) — bez izmišljanja motiva
-        alt: CAT_ALT[a.cat] + ', ' + a.name + ', Random Tattoo Studio Beograd (br. ' + i + ')'
-      });
-    }
-    return list;
-  }
-  // Nasumično mešanje (Fisher–Yates) — galerija NE ide redom po umetniku
+  // Radovi po umetniku; galerija ih mesa da ne idu redom po umetniku
+  function worksFor(id) { return (ARTISTS[id] && ARTISTS[id].works || []).slice(); }
   function shuffle(arr) {
     var a = arr.slice();
     for (var i = a.length - 1; i > 0; i--) {

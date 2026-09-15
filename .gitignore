@@ -2,3 +2,13 @@
 Thumbs.db
 *.log
 _test.html
+
+# CMS
+dist/
+node_modules/
+studio/node_modules/
+studio/dist/
+.env
+.env.local
+studio/.env
+studio/fixture.json

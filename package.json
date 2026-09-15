@@ -1,0 +1,10 @@
+{
+  "name": "random-tattoo-site",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "build": "node cms/build.mjs",
+    "extract": "node cms/extract.mjs"
+  }
+}
