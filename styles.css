@@ -1476,4 +1476,64 @@ address { font-style: normal; }
   .reveal { opacity: 1; transform: none; }
 }
 
+/* ---------- IZBOR UMETNIKA PRI ZAKAZIVANJU --------------- */
+.calpick {
+  position: fixed; inset: 0; z-index: var(--z-lightbox);
+  display: grid; place-items: center;
+  padding: var(--margin);
+  background: rgba(0,0,0,0.82);
+  -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
+  animation: calpickIn var(--dur-fast) var(--ease);
+}
+@keyframes calpickIn { from { opacity: 0; } to { opacity: 1; } }
+body.calpick-open { overflow: hidden; }
+.calpick__card {
+  position: relative;
+  width: min(760px, 100%);
+  padding: clamp(28px, 5vw, 56px);
+  background: var(--surface);
+  border: 1px solid var(--clay-border);
+  border-radius: 0;                      /* sharp brend */
+}
+.calpick__label { margin-bottom: var(--sp-3); }
+.calpick__title {
+  font-family: var(--font-display); font-weight: 900; text-transform: uppercase;
+  font-size: clamp(26px, 4vw, 42px); line-height: 1.02; letter-spacing: -0.02em;
+  color: var(--bone); margin: 0 0 var(--sp-2);
+}
+.calpick__lead { color: var(--ash); font-size: var(--fs-small); line-height: 1.7; margin: 0 0 var(--sp-5); max-width: 46ch; }
+.calpick__row { display: grid; grid-template-columns: 1fr; gap: var(--sp-2); }
+@media (min-width: 640px) { .calpick__row { grid-template-columns: repeat(3, 1fr); } }
+.calpick__artist {
+  display: flex; flex-direction: column; gap: 6px; align-items: flex-start;
+  padding: var(--sp-3) var(--sp-3) calc(var(--sp-3) + 2px);
+  background: transparent; color: var(--bone);
+  border: 1px solid var(--clay-border); border-radius: 0;
+  cursor: pointer; text-align: left;
+  transition: border-color var(--dur-fast) var(--ease), background var(--dur-fast) var(--ease), transform var(--dur-fast) var(--ease);
+}
+.calpick__artist:hover, .calpick__artist:focus-visible {
+  border-color: var(--ember); background: rgba(237,28,29,0.06); transform: translateY(-2px);
+}
+.calpick__name {
+  font-family: var(--font-display); font-weight: 900; text-transform: uppercase;
+  font-size: 20px; letter-spacing: -0.01em;
+}
+.calpick__style {
+  font-family: var(--font-mono); font-size: 11px; text-transform: uppercase;
+  letter-spacing: 0.14em; color: var(--teal);
+}
+.calpick__close {
+  position: absolute; top: 10px; right: 14px;
+  width: 40px; height: 40px; line-height: 1;
+  font-size: 28px; color: var(--ash);
+  background: transparent; border: 0; cursor: pointer;
+  transition: color var(--dur-fast) var(--ease);
+}
+.calpick__close:hover { color: var(--bone); }
+@media (prefers-reduced-motion: reduce) {
+  .calpick { animation: none; }
+  .calpick__artist:hover, .calpick__artist:focus-visible { transform: none; }
+}
+
 /* CMS:IMAGES — build ovde upisuje slike iz Sanityja (hero i sl.) */

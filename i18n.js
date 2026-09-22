@@ -288,7 +288,14 @@
 
     /* ---------- PREKIDAČ ---------- */
     'lang.sr': { sr: 'Srpski',  en: 'Serbian' },
-    'lang.en': { sr: 'Engleski', en: 'English' }
+    'lang.en': { sr: 'Engleski', en: 'English' },
+
+    /* ---------- IZBOR UMETNIKA (zakazivanje) ---------- */
+    'common.close':   { sr: 'Zatvori', en: 'Close' },
+    'cal.pick.label': { sr: '/ Konsultacija', en: '/ Consultation' },
+    'cal.pick.title': { sr: 'Kod koga zakazuješ?', en: 'Who are you booking with?' },
+    'cal.pick.lead':  { sr: 'Svako od nas radi svojim danima. Izaberi umetnika pa ti otvaramo njegove slobodne termine.',
+                        en: 'Each of us works their own days. Pick an artist and we will open their free slots.' }
   };
   /* CMS:DICT:END */
 

@@ -44,7 +44,7 @@ const exists = (f) => fs.existsSync(path.join(OUT, f));
 const GROQ = `{
   "texts": *[_type == "textSection"]{section, items[]{key, sr, en}},
   "artists": *[_type == "artist"]|order(order asc){
-    artistId, name, cat, styleSr, styleEn, ig, igUrl, leadSr, leadEn, descSr, descEn,
+    artistId, name, cat, styleSr, styleEn, ig, igUrl, calLink, leadSr, leadEn, descSr, descEn,
     portraitLocal, "portraitUrl": portrait.asset->url,
     works[]{alt, localPath, width, height,
             "url": image.asset->url,
@@ -202,6 +202,7 @@ async function main() {
         style: { sr: a.styleSr || '', en: a.styleEn || a.styleSr || '' },
         ig: a.ig || '',
         igUrl: a.igUrl || '',
+        calLink: a.calLink || 'randomtattoo/konsultacije',
         portrait: a.portraitUrl || a.portraitLocal || '',
         lead: { sr: a.leadSr || '', en: a.leadEn || a.leadSr || '' },
         desc: { sr: a.descSr || '', en: a.descEn || a.descSr || '' },

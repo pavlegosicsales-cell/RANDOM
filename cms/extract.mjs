@@ -57,7 +57,8 @@ const SECTION_TITLES = {
   blog:    'Blog',
   tag:     'Oznake',
   lmap:    'Lokacija / mapa',
-  lang:    'Prekidac jezika'
+  lang:    'Prekidac jezika',
+  cal:     'Zakazivanje (izbor umetnika)'
 };
 
 /* Ljudske etikete za polja koja klijent stvarno dira. Sve ostalo dobija
@@ -160,7 +161,6 @@ function readBlogPosts(dict) {
 const dict = readDict();
 const script = read('script.js');
 const ARTISTS = readJsObject(script, 'ARTISTS');
-const DIMS = readJsObject(script, 'DIMS');
 
 const docs = [];
 
@@ -191,18 +191,15 @@ for (const [sec, items] of Object.entries(sections)) {
 let artistOrder = 0;
 for (const [id, a] of Object.entries(ARTISTS)) {
   artistOrder++;
-  const works = [];
-  for (let i = 1; i <= a.count; i++) {
-    const k = id + '-' + i;
-    const d = DIMS[k] || [1170, 1463];
-    works.push({
-      _type: 'work',
-      _key: k,
-      localPath: 'assets/works/' + k + '.jpg',
-      width: d[0],
-      height: d[1]
-    });
-  }
+  // Radovi su u script.js eksplicitna lista (posle cms/patch-source.mjs)
+  const works = (a.works || []).map((w, i) => ({
+    _type: 'work',
+    _key: (w.src || '').replace(/^.*\/|\.jpg$/g, '') || (id + '-' + (i + 1)),
+    localPath: w.src,
+    alt: w.alt || '',
+    width: w.w,
+    height: w.h
+  }));
   docs.push({
     _id: 'artist-' + id,
     _type: 'artist',
@@ -211,7 +208,7 @@ for (const [id, a] of Object.entries(ARTISTS)) {
     name: a.name,
     cat: a.cat,
     styleSr: a.style.sr, styleEn: a.style.en,
-    ig: a.ig, igUrl: a.igUrl,
+    ig: a.ig, igUrl: a.igUrl, calLink: a.calLink || 'randomtattoo/konsultacije',
     portraitLocal: a.portrait,
     leadSr: a.lead.sr, leadEn: a.lead.en,
     descSr: a.desc.sr, descEn: a.desc.en,

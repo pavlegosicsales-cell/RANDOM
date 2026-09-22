@@ -130,8 +130,10 @@ SANITY_PROJECT_ID=xxx node cms/build.mjs
 
 - **Tekstovi po sekcijama** — sve sto je tekst na sajtu, srpski i engleski.
   Ako engleski ostavi prazan, prikazuje se srpski.
-- **Umetnici** — ime, stil, Instagram, portret, uvodni tekst, i lista radova
-  (dodavanje, brisanje, redosled, zamena slike).
+- **Umetnici** — ime, stil, Instagram, portret, uvodni tekst, lista radova
+  (dodavanje, brisanje, redosled, zamena slike) i **link za zakazivanje**.
+  Polje `calLink` je oblika `randomtattoo/konsultacija-mile` i odredjuje koji
+  se kalendar otvara kad neko zakazuje kod tog umetnika. Menja se bez koda.
 - **Recenzije** — ime, broj zvezdica, tekst.
 - **Blog** — postojecih 6 clanaka i novi clanci. Nov clanak dobija svoju stranu
   automatski pri sledecem deployu.

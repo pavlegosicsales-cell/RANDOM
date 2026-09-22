@@ -19,6 +19,7 @@
       },
       "ig": "@mr_lemson",
       "igUrl": "https://instagram.com/mr_lemson",
+      "calLink": "randomtattoo/konsultacije",
       "portrait": "assets/artists/lemson.jpg?v=20260828b",
       "lead": {
         "sr": "Lemson radi u dva sveta koja mali broj umetnika može da premosti, hiperprecizna preciznost crno-belog realizma i slobodna, izražajna energija apstraktnih boja.",
@@ -257,6 +258,7 @@
       },
       "ig": "@alex.anja.tattoo",
       "igUrl": "https://instagram.com/alex.anja.tattoo",
+      "calLink": "randomtattoo/konsultacije",
       "portrait": "assets/artists/anja.jpg?v=20260828",
       "lead": {
         "sr": "Anjin rad je tih i precizan, i upravo zbog toga je toliko moćan. Njene tetovaže fine linije su elegantne, promišljene i napravljene da lepo stare.",
@@ -355,6 +357,7 @@
       },
       "ig": "@enco_enco.tattoo",
       "igUrl": "https://instagram.com/enco_enco.tattoo",
+      "calLink": "randomtattoo/konsultacije",
       "portrait": "assets/artists/enco.jpg?v=20260828",
       "lead": {
         "sr": "Enco prenosi ulične zidove na tvoju kožu. Ukorenjen u grafiti kulturu, njegov rad je smeo, izražajan i pun karaktera.",
@@ -607,6 +610,9 @@
     }
   };
   /* CMS:DATA:END */
+
+  // cal.js cita umetnike odavde (izbor umetnika pri zakazivanju)
+  window.RANDOM_ARTISTS = ARTISTS;
 
   // Radovi po umetniku; galerija ih mesa da ne idu redom po umetniku
   function worksFor(id) { return (ARTISTS[id] && ARTISTS[id].works || []).slice(); }

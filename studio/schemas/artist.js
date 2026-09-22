@@ -56,6 +56,12 @@ export const artist = defineType({
     }),
     defineField({ name: 'styleSr', title: 'Stil (srpski)', type: 'string', description: 'Npr. REALIZAM · APSTRAKTNE BOJE' }),
     defineField({ name: 'styleEn', title: 'Stil (engleski)', type: 'string' }),
+    defineField({
+      name: 'calLink',
+      title: 'Link za zakazivanje (Cal)',
+      type: 'string',
+      description: 'Oblik: randomtattoo/konsultacija-mile. Ovo je termin koji se otvara kad neko klikne Zakazi konsultaciju kod ovog umetnika.'
+    }),
     defineField({ name: 'ig', title: 'Instagram korisnicko ime', type: 'string' }),
     defineField({ name: 'igUrl', title: 'Instagram adresa', type: 'url' }),
     defineField({
