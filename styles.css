@@ -1479,8 +1479,11 @@ address { font-style: normal; }
 /* ---------- IZBOR UMETNIKA PRI ZAKAZIVANJU --------------- */
 .calpick {
   position: fixed; inset: 0; z-index: var(--z-lightbox);
-  display: grid; place-items: center;
-  padding: var(--margin);
+  /* flex + safe center: kad je kartica visa od ekrana, ne odsece joj se vrh
+     (sa grid centriranjem X gore desno zavrsi iznad vidljivog dela i ne moze da se klikne) */
+  display: flex; justify-content: center; align-items: center; align-items: safe center;
+  overflow-y: auto; overscroll-behavior: contain;
+  padding: max(16px, 4vh) var(--margin);
   background: rgba(0,0,0,0.82);
   -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
   animation: calpickIn var(--dur-fast) var(--ease);
@@ -1489,6 +1492,7 @@ address { font-style: normal; }
 body.calpick-open { overflow: hidden; }
 .calpick__card {
   position: relative;
+  flex: 0 0 auto;
   width: min(760px, 100%);
   padding: clamp(28px, 5vw, 56px);
   background: var(--surface);
@@ -1524,13 +1528,20 @@ body.calpick-open { overflow: hidden; }
   letter-spacing: 0.14em; color: var(--teal);
 }
 .calpick__close {
-  position: absolute; top: 10px; right: 14px;
-  width: 40px; height: 40px; line-height: 1;
-  font-size: 28px; color: var(--ash);
-  background: transparent; border: 0; cursor: pointer;
-  transition: color var(--dur-fast) var(--ease);
+  position: absolute; top: 8px; right: 8px; z-index: 2;
+  display: grid; place-items: center;
+  width: 48px; height: 48px; line-height: 1;
+  font-size: 30px; color: var(--bone);
+  background: rgba(220,220,221,0.06);
+  border: 1px solid var(--clay-border); border-radius: 0;
+  cursor: pointer;
+  transition: color var(--dur-fast) var(--ease), background var(--dur-fast) var(--ease), border-color var(--dur-fast) var(--ease);
 }
-.calpick__close:hover { color: var(--bone); }
+.calpick__close:hover, .calpick__close:focus-visible {
+  color: var(--bone); background: var(--ember); border-color: var(--ember);
+}
+/* Naslov ne sme da zalazi pod dugme za zatvaranje */
+.calpick__head { padding-right: 56px; }
 @media (prefers-reduced-motion: reduce) {
   .calpick { animation: none; }
   .calpick__artist:hover, .calpick__artist:focus-visible { transform: none; }
