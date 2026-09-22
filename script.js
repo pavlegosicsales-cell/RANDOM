@@ -1291,7 +1291,14 @@
         window.setTimeout(showSuccess, 700);
         return;
       }
-      fetch(FORM_ENDPOINT, { method: 'POST', body: new FormData(form) })
+      /* GET sa parametrima, ne POST: Apps Script svaki POST preusmerava i
+         pretvara u GET, pa se telo zahteva izgubi. Uz no-cors ne mozemo da
+         procitamo odgovor, zato se poruka o uspehu prikazuje u oba slucaja. */
+      var data = new FormData(form);
+      data.append('strana', window.location.pathname);
+      var qs = new URLSearchParams();
+      data.forEach(function (v, k) { qs.append(k, v); });
+      fetch(FORM_ENDPOINT + '?' + qs.toString(), { method: 'GET', mode: 'no-cors' })
         .then(function () { showSuccess(); })
         .catch(function () {
           btn.disabled = false;
