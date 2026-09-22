@@ -13,7 +13,10 @@ sa obavestenjem.
    - Execute as: **Me**
    - Who has access: **Anyone**
 6. Kopiraj `/exec` adresu i upisi je u `FORM_ENDPOINT` u `script.js`
-   (oko linije 1195, blok "FORMA (wizard)").
+   (blok "FORMA (wizard)").
+
+**Stanje:** deployovano i ukljuceno na sajtu 22.09.2026. `NOTIFY_TO` je jos
+uvek Pavlov mejl, sto je namerno dok se ne potvrdi da sve radi.
 
 ## Kad se nesto menja u skripti
 

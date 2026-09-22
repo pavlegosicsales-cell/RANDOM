@@ -1192,7 +1192,7 @@
   /* ---------- FORMA (wizard) ----------------------------- */
   // Gde se salje upit. Prazno = nema backenda, forma samo simulira slanje.
   // Kad se odradi Apps Script (Skill 03), ovde ide njegov URL.
-  var FORM_ENDPOINT = '';
+  var FORM_ENDPOINT = 'https://script.google.com/macros/s/AKfycbzvmrLJsUrQx_WiHT3I8EFDXABIlPAWlCgzZfW8IMF9gCNUU-P8Uue3Umeh5MhKmu4L/exec';
 
   function initForm() {
     var form = $('#kontakt-forma');
