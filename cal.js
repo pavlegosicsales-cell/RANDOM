@@ -109,6 +109,17 @@ Cal.ns.konsultacije("ui", { "cssVarsPerTheme": { "light": { "cal-brand": "#00000
     x.addEventListener('click', close);
     card.appendChild(x);
 
+    /* Drugi izlaz, u samom toku kartice. X je apsolutno pozicioniran gore desno,
+       pa zavisi od visine ekrana i od toga da li je CSS svez; ovo dugme ne zavisi
+       ni od cega i uvek je dohvatljivo. */
+    var bye = document.createElement('button');
+    bye.type = 'button';
+    bye.className = 'calpick__cancel';
+    bye.setAttribute('data-i18n', 'common.close');
+    bye.textContent = t('common.close', 'Zatvori');
+    bye.addEventListener('click', close);
+    card.appendChild(bye);
+
     wrap.appendChild(card);
     wrap.addEventListener('click', function (e) { if (e.target === wrap) close(); });
     document.body.appendChild(wrap);
