@@ -258,7 +258,7 @@
       },
       "ig": "@alex.anja.tattoo",
       "igUrl": "https://instagram.com/alex.anja.tattoo",
-      "calLink": "randomtattoo/konsultacije",
+      "calLink": "randomtattoo/konsultacije-anja",
       "portrait": "assets/artists/anja.jpg?v=20260828",
       "lead": {
         "sr": "Anjin rad je tih i precizan, i upravo zbog toga je toliko moćan. Njene tetovaže fine linije su elegantne, promišljene i napravljene da lepo stare.",
@@ -357,7 +357,7 @@
       },
       "ig": "@enco_enco.tattoo",
       "igUrl": "https://instagram.com/enco_enco.tattoo",
-      "calLink": "randomtattoo/konsultacije",
+      "calLink": "randomtattoo/konsultacije-enco",
       "portrait": "assets/artists/enco.jpg?v=20260828",
       "lead": {
         "sr": "Enco prenosi ulične zidove na tvoju kožu. Ukorenjen u grafiti kulturu, njegov rad je smeo, izražajan i pun karaktera.",
