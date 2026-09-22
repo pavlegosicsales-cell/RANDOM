@@ -1547,4 +1547,64 @@ body.calpick-open { overflow: hidden; }
   .calpick__artist:hover, .calpick__artist:focus-visible { transform: none; }
 }
 
+/* ---------- WIZARD FORMA --------------------------------- */
+/* Vizuelno se ne razlikuje od dosadasnje forme: iste povrsine, iste ivice,
+   isti radius, isti prelazi. Menja se samo to sto se pitanja smenjuju. */
+.wiz { display: block; }
+.wiz__progress { display: flex; gap: 6px; margin-bottom: var(--sp-4); }
+.wiz__dot {
+  flex: 1 1 0; height: 2px; background: var(--clay-border);
+  transition: background var(--dur-base) var(--ease);
+}
+.wiz__dot.is-active { background: var(--ember); }
+
+.wiz__step { display: none; }
+.wiz__step.is-active { display: block; animation: wizIn var(--dur-base) var(--ease); }
+@keyframes wizIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+
+.wiz__q {
+  margin: 0 0 var(--sp-3);
+  font-family: var(--font-mono); font-size: var(--fs-label);
+  text-transform: uppercase; letter-spacing: 0.16em; color: var(--teal);
+}
+.wiz__choices { display: grid; grid-template-columns: 1fr; gap: var(--sp-2); }
+
+.wiz__choice {
+  /* iste vrednosti kao .field--auth input */
+  width: 100%; text-align: left;
+  background: rgba(220, 220, 221, 0.04);
+  border: 1px solid var(--clay-border);
+  border-radius: var(--radius);
+  color: var(--bone); font-family: var(--font-body); font-size: var(--fs-body);
+  padding: 14px 16px;
+  cursor: pointer;
+  transition: border-color var(--dur-fast) var(--ease), background var(--dur-fast) var(--ease), transform var(--dur-fast) var(--ease);
+}
+.wiz__choice:hover, .wiz__choice:focus-visible {
+  border-color: var(--ash); background: rgba(220, 220, 221, 0.07); outline: none;
+}
+/* "ulubljenje" na pritisak */
+.wiz__choice:active { transform: scale(0.985); }
+.wiz__choice.is-picked { border-color: var(--ember); background: rgba(237, 28, 29, 0.08); }
+
+.wiz__back {
+  display: inline-flex; align-items: center; gap: 8px;
+  margin-top: var(--sp-3); padding: 8px 0;
+  background: transparent; border: 0; cursor: pointer;
+  font-family: var(--font-mono); font-size: var(--fs-small);
+  text-transform: uppercase; letter-spacing: 0.12em; color: var(--ash);
+  transition: color var(--dur-fast) var(--ease);
+}
+.wiz__back:hover { color: var(--bone); }
+.wiz__back[hidden] { display: none; }
+
+/* Poruka posle slanja: ista kartica, samo drugi sadrzaj */
+.form__success { display: block; }
+.form__success .auth-card__submit { margin-top: var(--sp-3); }
+
+@media (prefers-reduced-motion: reduce) {
+  .wiz__step.is-active { animation: none; }
+  .wiz__choice:active { transform: none; }
+}
+
 /* CMS:IMAGES — build ovde upisuje slike iz Sanityja (hero i sl.) */

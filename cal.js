@@ -157,6 +157,10 @@ Cal.ns.konsultacije("ui", { "cssVarsPerTheme": { "light": { "cal-brand": "#00000
     });
   }
 
+  // Forma posle slanja nudi zakazivanje, a to dugme nastaje tek tada,
+  // pa joj treba nacin da otvori izbor bez ponovnog kacenja.
+  window.RandomCal = { pick: open, openFor: openCal };
+
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', wire);
   } else {

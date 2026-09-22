@@ -290,6 +290,39 @@
     'lang.sr': { sr: 'Srpski',  en: 'Serbian' },
     'lang.en': { sr: 'Engleski', en: 'English' },
 
+    /* ---------- WIZARD FORMA ---------- */
+    'wiz.step':      { sr: 'Korak',          en: 'Step' },
+    'wiz.back':      { sr: 'Nazad',          en: 'Back' },
+    'wiz.of':        { sr: 'od',             en: 'of' },
+
+    'wiz.q1':        { sr: 'Šta te zanima?', en: 'What are you after?' },
+    'wiz.q1.a1':     { sr: 'Nova tetovaža',  en: 'A new tattoo' },
+    'wiz.q1.a2':     { sr: 'Dorada postojeće', en: 'Reworking an existing one' },
+    'wiz.q1.a3':     { sr: 'Prekrivanje stare', en: 'Covering an old one' },
+    'wiz.q1.a4':     { sr: 'Još ne znam',    en: 'Not sure yet' },
+
+    'wiz.q2':        { sr: 'Kod koga bi?',   en: 'Who would you go to?' },
+    'wiz.q2.any':    { sr: 'Svejedno kod koga', en: 'No preference' },
+
+    'wiz.q3':        { sr: 'Koliko je veliko?', en: 'How big is it?' },
+    'wiz.q3.a1':     { sr: 'Sitno, do dlana', en: 'Small, palm size or less' },
+    'wiz.q3.a2':     { sr: 'Srednje, podlaktica ili list', en: 'Medium, forearm or calf' },
+    'wiz.q3.a3':     { sr: 'Veliki projekat, rukav ili leđa', en: 'Big project, sleeve or back' },
+    'wiz.q3.a4':     { sr: 'Ne znam još',    en: 'Not sure yet' },
+
+    'wiz.q4':        { sr: 'Kada bi?',       en: 'When would you come?' },
+    'wiz.q4.a1':     { sr: 'Što pre',        en: 'As soon as possible' },
+    'wiz.q4.a2':     { sr: 'U narednih mesec dana', en: 'Within a month' },
+    'wiz.q4.a3':     { sr: 'Samo se raspitujem', en: 'Just asking around' },
+
+    'wiz.q5':        { sr: 'Tvoji podaci',   en: 'Your details' },
+
+    'form.failed':   { sr: 'Slanje nije uspelo. Pokušaj ponovo ili nas pozovi.',
+                       en: 'Sending failed. Please try again or give us a call.' },
+    'form.successTitle': { sr: 'Hvala što si nam pisao', en: 'Thanks for reaching out' },
+    'form.successText':  { sr: 'Javljamo ti se u roku od 24h. Ako hoćeš da ubrzaš stvar, zakaži besplatnu konsultaciju odmah.',
+                           en: 'We will get back to you within 24 hours. If you want to speed things up, book a free consultation now.' },
+
     /* ---------- IZBOR UMETNIKA (zakazivanje) ---------- */
     'common.close':   { sr: 'Zatvori', en: 'Close' },
     'cal.pick.label': { sr: '/ Konsultacija', en: '/ Consultation' },

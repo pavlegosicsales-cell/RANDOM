@@ -488,46 +488,87 @@
               <p class="auth-card__sub" data-i18n="form.sub">Piši nam ideju, javljamo se u roku od 24h.</p>
             </div>
 
-            <div class="auth-row2">
-              <div class="field field--auth">
-                <label class="sr-only" for="ime">Ime</label>
-                <span class="field__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6.2 8-6.2S20 17 20 21"/></svg></span>
-                <input type="text" id="ime" name="ime" placeholder="Ime" data-i18n-attr="placeholder:form.name" data-required autocomplete="name">
-                <span class="field__error" aria-live="polite"></span>
+            <div class="wiz" data-wiz>
+              <div class="wiz__progress" role="progressbar" aria-valuemin="1" aria-valuemax="5" aria-valuenow="1">
+                <span class="wiz__dot is-active"></span><span class="wiz__dot"></span><span class="wiz__dot"></span><span class="wiz__dot"></span><span class="wiz__dot"></span>
               </div>
-              <div class="field field--auth">
-                <label class="sr-only" for="kontakt-info">Email adresa</label>
-                <span class="field__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7.5 9 6 9-6"/></svg></span>
-                <input type="email" id="kontakt-info" name="email" placeholder="Email adresa" data-i18n-attr="placeholder:form.email" data-required autocomplete="email">
-                <span class="field__error" aria-live="polite"></span>
+
+              <div class="wiz__step is-active" data-step="1" data-name="tip">
+                <p class="wiz__q" data-i18n="wiz.q1">Šta te zanima?</p>
+                <div class="wiz__choices">
+                  <button type="button" class="wiz__choice" data-value="nova" data-i18n="wiz.q1.a1">Nova tetovaža</button>
+                  <button type="button" class="wiz__choice" data-value="dorada" data-i18n="wiz.q1.a2">Dorada postojeće</button>
+                  <button type="button" class="wiz__choice" data-value="prekrivanje" data-i18n="wiz.q1.a3">Prekrivanje stare</button>
+                  <button type="button" class="wiz__choice" data-value="ne-znam" data-i18n="wiz.q1.a4">Još ne znam</button>
+                </div>
               </div>
-            </div>
 
-            <div class="field field--auth">
-              <label class="sr-only" for="umetnik">Kod koga bi?</label>
-              <span class="field__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.2"/><path d="M2.5 20c0-3.3 3-5.2 6.5-5.2s6.5 1.9 6.5 5.2"/><path d="M16.5 5.3a3 3 0 0 1 0 5.6"/><path d="M21.5 20c0-2.4-1.3-4-3.2-4.7"/></svg></span>
-              <select id="umetnik" name="umetnik">
-                <option value="svejedno" data-i18n="form.artist">Svejedno kod koga</option>
-                <option value="lemson">Lemson</option>
-                <option value="anja">Anja</option>
-                <option value="enco">Enco</option>
-              </select>
-            </div>
+              <div class="wiz__step" data-step="2" data-name="umetnik">
+                <p class="wiz__q" data-i18n="wiz.q2">Kod koga bi?</p>
+                <div class="wiz__choices">
+                  <button type="button" class="wiz__choice" data-value="lemson">Lemson</button>
+                  <button type="button" class="wiz__choice" data-value="anja">Anja</button>
+                  <button type="button" class="wiz__choice" data-value="enco">Enco</button>
+                  <button type="button" class="wiz__choice" data-value="svejedno" data-i18n="wiz.q2.any">Svejedno kod koga</button>
+                </div>
+              </div>
 
-            <div class="field field--auth">
-              <label class="sr-only" for="ideja">Ispričaj nam ideju</label>
-              <span class="field__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H8l-4 4V5a2 2 0 0 1 2-2h13a2 2 0 0 1 2 2z"/></svg></span>
-              <textarea id="ideja" name="ideja" placeholder="Ispričaj nam ideju" data-i18n-attr="placeholder:form.idea" data-required></textarea>
-              <span class="field__error" aria-live="polite"></span>
-            </div>
+              <div class="wiz__step" data-step="3" data-name="velicina">
+                <p class="wiz__q" data-i18n="wiz.q3">Koliko je veliko?</p>
+                <div class="wiz__choices">
+                  <button type="button" class="wiz__choice" data-value="sitno" data-i18n="wiz.q3.a1">Sitno, do dlana</button>
+                  <button type="button" class="wiz__choice" data-value="srednje" data-i18n="wiz.q3.a2">Srednje, podlaktica ili list</button>
+                  <button type="button" class="wiz__choice" data-value="veliko" data-i18n="wiz.q3.a3">Veliki projekat, rukav ili leđa</button>
+                  <button type="button" class="wiz__choice" data-value="ne-znam" data-i18n="wiz.q3.a4">Ne znam još</button>
+                </div>
+              </div>
 
-            <div class="field field--auth">
-              <label class="sr-only" for="reference">Reference (opciono)</label>
-              <span class="field__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.1 0l2.8-2.8a5 5 0 0 0-7.1-7.1L11.4 4.5"/><path d="M14 11a5 5 0 0 0-7.1 0L4.1 13.8a5 5 0 0 0 7.1 7.1l1.3-1.3"/></svg></span>
-              <input type="text" id="reference" name="reference" placeholder="Reference, link ka slici (opciono)" data-i18n-attr="placeholder:form.ref">
-            </div>
+              <div class="wiz__step" data-step="4" data-name="rok">
+                <p class="wiz__q" data-i18n="wiz.q4">Kada bi?</p>
+                <div class="wiz__choices">
+                  <button type="button" class="wiz__choice" data-value="odmah" data-i18n="wiz.q4.a1">Što pre</button>
+                  <button type="button" class="wiz__choice" data-value="mesec" data-i18n="wiz.q4.a2">U narednih mesec dana</button>
+                  <button type="button" class="wiz__choice" data-value="raspitujem" data-i18n="wiz.q4.a3">Samo se raspitujem</button>
+                </div>
+              </div>
 
-            <button type="submit" class="btn btn-primary auth-card__submit" data-i18n="form.submit">Pošalji Svoju Ideju</button>
+              <div class="wiz__step" data-step="5" data-name="podaci">
+                <p class="wiz__q" data-i18n="wiz.q5">Tvoji podaci</p>
+                <div class="auth-row2">
+                  <div class="field field--auth">
+                    <label class="sr-only" for="ime">Ime</label>
+                    <span class="field__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6.2 8-6.2S20 17 20 21"/></svg></span>
+                    <input type="text" id="ime" name="ime" placeholder="Ime" data-i18n-attr="placeholder:form.name" data-required autocomplete="name">
+                    <span class="field__error" aria-live="polite"></span>
+                  </div>
+                  <div class="field field--auth">
+                    <label class="sr-only" for="kontakt-info">Email adresa</label>
+                    <span class="field__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7.5 9 6 9-6"/></svg></span>
+                    <input type="email" id="kontakt-info" name="email" placeholder="Email adresa" data-i18n-attr="placeholder:form.email" data-required autocomplete="email">
+                    <span class="field__error" aria-live="polite"></span>
+                  </div>
+                </div>
+
+                <div class="field field--auth">
+                  <label class="sr-only" for="ideja">Ispričaj nam ideju</label>
+                  <span class="field__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H8l-4 4V5a2 2 0 0 1 2-2h13a2 2 0 0 1 2 2z"/></svg></span>
+                  <textarea id="ideja" name="ideja" placeholder="Ispričaj nam ideju" data-i18n-attr="placeholder:form.idea" data-required></textarea>
+                  <span class="field__error" aria-live="polite"></span>
+                </div>
+
+                <div class="field field--auth">
+                  <label class="sr-only" for="reference">Reference (opciono)</label>
+                  <span class="field__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.1 0l2.8-2.8a5 5 0 0 0-7.1-7.1L11.4 4.5"/><path d="M14 11a5 5 0 0 0-7.1 0L4.1 13.8a5 5 0 0 0 7.1 7.1l1.3-1.3"/></svg></span>
+                  <input type="text" id="reference" name="reference" placeholder="Reference, link ka slici (opciono)" data-i18n-attr="placeholder:form.ref">
+                </div>
+
+                <button type="submit" class="btn btn-primary auth-card__submit" data-i18n="form.submit">Pošalji Svoju Ideju</button>
+              </div>
+
+              <button type="button" class="wiz__back" data-wiz-back hidden><span aria-hidden="true">←</span> <span data-i18n="wiz.back">Nazad</span></button>
+
+              <input type="hidden" name="tip"><input type="hidden" name="umetnik"><input type="hidden" name="velicina"><input type="hidden" name="rok">
+            </div>
           </div>
         </form>
         <p class="contact__note text-ash" data-i18n="contact.note">Nisi siguran odakle da počneš? To je sasvim u redu. Svrati na konsultaciju, besplatna je, bez obaveza, i možda ćeš otići sa idejom na koju nisi ni pomislio.</p>

@@ -1189,29 +1189,95 @@
     });
   }
 
-  /* ---------- FORMA -------------------------------------- */
+  /* ---------- FORMA (wizard) ----------------------------- */
+  // Gde se salje upit. Prazno = nema backenda, forma samo simulira slanje.
+  // Kad se odradi Apps Script (Skill 03), ovde ide njegov URL.
+  var FORM_ENDPOINT = '';
+
   function initForm() {
     var form = $('#kontakt-forma');
     if (!form) return;
-    var fields = $$('[data-required]', form);
+    var wiz = $('[data-wiz]', form);
+    if (!wiz) return;
 
+    var steps = $$('.wiz__step', wiz);
+    var dots = $$('.wiz__dot', wiz);
+    var back = $('[data-wiz-back]', wiz);
+    var progress = $('.wiz__progress', wiz);
+    var at = 0;
+
+    function show(n, focus) {
+      at = Math.max(0, Math.min(steps.length - 1, n));
+      steps.forEach(function (st, k) { st.classList.toggle('is-active', k === at); });
+      dots.forEach(function (d, k) { d.classList.toggle('is-active', k <= at); });
+      if (progress) progress.setAttribute('aria-valuenow', String(at + 1));
+      if (back) back.hidden = at === 0;
+      if (focus) {
+        var f = steps[at].querySelector('.wiz__choice, input, textarea');
+        if (f) try { f.focus({ preventScroll: true }); } catch (e) { f.focus(); }
+      }
+    }
+
+    // Izbor: zapamti odgovor u skriveno polje i idi dalje
+    $$('.wiz__choice', wiz).forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var step = btn.closest('.wiz__step');
+        var name = step && step.getAttribute('data-name');
+        var hidden = name && $('input[type="hidden"][name="' + name + '"]', wiz);
+        if (hidden) hidden.value = btn.getAttribute('data-value') || '';
+        $$('.wiz__choice', step).forEach(function (b) { b.classList.toggle('is-picked', b === btn); });
+        window.setTimeout(function () { show(at + 1, true); }, reduceMotion ? 0 : 140);
+      });
+    });
+
+    if (back) back.addEventListener('click', function () { show(at - 1, true); });
+
+    // Validacija samo za poslednji korak (polja sa data-required)
+    var fields = $$('[data-required]', form);
     function validate(field) {
       var wrap = field.closest('.field'),
           err = $('.field__error', wrap),
           ok = field.value.trim() !== '';
+      if (ok && field.type === 'email') ok = /.+@.+\..+/.test(field.value.trim());
       wrap.classList.toggle('error', !ok);
       if (err) err.textContent = ok ? '' : tr('form.required', 'Ovo polje je obavezno.');
       return ok;
     }
     fields.forEach(function (f) {
-      f.addEventListener('blur', function () { validate(f); }); // validacija na blur
+      f.addEventListener('blur', function () { validate(f); });
     });
+
+    /* Uspeh: ostaje ista kartica, menja se samo sadrzaj — naslov, poruka
+       i dugme za zakazivanje (otvara izbor umetnika kao i svuda drugde). */
+    function showSuccess() {
+      var head = $('.auth-card__head', form);
+      var title = head && $('.auth-card__title', head);
+      var sub = head && $('.auth-card__sub', head);
+      if (title) { title.textContent = tr('form.successTitle', 'Hvala što si nam pisao'); title.removeAttribute('data-i18n'); }
+      if (sub) { sub.textContent = tr('form.successText', 'Javljamo ti se u roku od 24h. Ako hoćeš da ubrzaš stvar, zakaži besplatnu konsultaciju odmah.'); sub.removeAttribute('data-i18n'); }
+
+      var box = document.createElement('div');
+      box.className = 'form__success';
+      box.setAttribute('role', 'status');
+
+      var cta = document.createElement('button');
+      cta.type = 'button';
+      cta.className = 'btn btn-primary auth-card__submit';
+      cta.textContent = tr('nav.cta', 'Zakaži Konsultaciju');
+      cta.addEventListener('click', function () {
+        if (window.RandomCal && window.RandomCal.pick) window.RandomCal.pick();
+      });
+      box.appendChild(cta);
+
+      wiz.replaceWith(box);
+    }
 
     form.addEventListener('submit', function (e) {
       e.preventDefault();
       var valid = true;
       fields.forEach(function (f) { if (!validate(f)) valid = false; });
       if (!valid) {
+        show(steps.length - 1, false);
         var firstErr = $('.field.error [data-required]', form);
         if (firstErr) firstErr.focus();
         return;
@@ -1220,15 +1286,23 @@
       btn.disabled = true;
       btn.textContent = tr('form.sending', 'ŠALJEM…');
       form.setAttribute('data-loading', '1');
-      // Bez backend-a: simuliraj slanje, pa zameni formu porukom
-      window.setTimeout(function () {
-        var msg = document.createElement('p');
-        msg.className = 'form__success';
-        msg.setAttribute('role', 'status');
-        msg.textContent = tr('form.success', 'Javićemo ti se u roku od 24h.');
-        form.replaceWith(msg);
-      }, 700);
+
+      if (!FORM_ENDPOINT) {                      // bez backenda: simuliraj
+        window.setTimeout(showSuccess, 700);
+        return;
+      }
+      fetch(FORM_ENDPOINT, { method: 'POST', body: new FormData(form) })
+        .then(function () { showSuccess(); })
+        .catch(function () {
+          btn.disabled = false;
+          btn.textContent = tr('form.submit', 'Pošalji Svoju Ideju');
+          form.removeAttribute('data-loading');
+          var err = $('.field.error .field__error', form) || $('.field__error', form);
+          if (err) err.textContent = tr('form.failed', 'Slanje nije uspelo. Pokušaj ponovo ili nas pozovi.');
+        });
     });
+
+    show(0, false);
   }
 
   /* ---------- ARTIST STRANICA ---------------------------- */
