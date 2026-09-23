@@ -1477,6 +1477,9 @@ address { font-style: normal; }
 }
 
 /* ---------- IZBOR UMETNIKA PRI ZAKAZIVANJU --------------- */
+/* display:flex ispod je jace od podrazumevanog pravila za [hidden], pa bi prozor
+   ostao na ekranu i hvatao klikove i posle zatvaranja. Ovo pravilo mora da ostane. */
+.calpick[hidden] { display: none !important; }
 .calpick {
   position: fixed; inset: 0; z-index: var(--z-lightbox);
   /* flex + safe center: kad je kartica visa od ekrana, ne odsece joj se vrh
