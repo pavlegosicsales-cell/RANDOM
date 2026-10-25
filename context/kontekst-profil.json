@@ -1,0 +1,231 @@
+{
+  "_meta": {
+    "svrha": "Brifing za novu Claude sesiju na Random Tattoo Studio projektu. Procitaj pre prvog odgovora.",
+    "azurirano": "2026-10-25",
+    "jezik_komunikacije": "srpski",
+    "korisnik": "Pavle, vlasnik web agencije PATO; radi sam, klijent je Random Tattoo Studio iz Beograda",
+    "tajne_nisu_ovde": "Tokeni stoje u site/studio/.env koji je gitignore-ovan. Repo je JAVAN, nikad ne upisuj tajne u fajlove."
+  },
+
+  "projekat": {
+    "sta_je": "Sajt tattoo studija iz Beograda, tri umetnika pod jednim brendom",
+    "repo": "github.com/pavlegosicsales-cell/RANDOM (javan)",
+    "sajt_uzivo": "https://randomtattoo.rs",
+    "struktura_repoa": {
+      "koren": "ceo projekat (od 25.10.2026, ranije je repo bio samo folder sajta)",
+      "site/": "sam sajt; statican HTML, bez framework-a",
+      "site/cms/": "build koji spaja Sanity sa sajtom",
+      "site/studio/": "Sanity Studio, seme sadrzaja",
+      "site/apps-script/": "backend forme, Google Apps Script",
+      "assets/": "originalne fotke sa telefona, oko 630 MB",
+      "brand_assets/": "logotipi, portreti umetnika, brend smernice",
+      "context/": "brifing o klijentu, ovaj fajl",
+      "research/": "teardown analize drugih sajtova",
+      "START.md": "uputstvo za nastavak rada sa druge masine"
+    },
+    "stack": "cist HTML/CSS/JS, bez framework-a. GSAP i Lenis lokalno u site/vendor/. Nema npm zavisnosti za sam sajt."
+  },
+
+  "klijent": {
+    "umetnici": [
+      { "id": "lemson", "ime_na_sajtu": "Lemson", "pravo_ime": "Mile", "stil": "realizam, black & grey, apstraktne boje", "radova_u_galeriji": 31, "konsultacije": "ponedeljak i cetvrtak 11-19" },
+      { "id": "anja", "ime_na_sajtu": "Anja", "stil": "fine line, linework", "radova_u_galeriji": 11, "konsultacije": "nedelja 11-19, sreda 11-15" },
+      { "id": "enco", "ime_na_sajtu": "Enco", "pravo_ime": "Petar", "stil": "grafiti, urbani stil, blackwork", "radova_u_galeriji": 34, "konsultacije": "utorak i petak 11-19" }
+    ],
+    "kontakt_osoba": "Mile (u Google nalogu se prikazuje kao Miles Proton)",
+    "adresa_studija": "Paje Jovanovica 33, Beograd",
+    "radno_vreme_studija": "sre-pet 12-21h, sub 12-18h"
+  },
+
+  "zivi_sistemi": {
+    "domen": {
+      "registrator_dns": "unlimited.rs, nameserveri dns1-4.unlimited.rs",
+      "a_zapis_apex": "216.198.79.1 (Vercel)",
+      "www": "CNAME na Vercel, 308 redirekcija na apex",
+      "zasto_apex_a_ne_www": "svi canonical tagovi i sitemap su pisani na apex bez www",
+      "mejl": "MX -> mail.randomtattoo.rs -> 185.119.89.156 (hosting). Mail NE sme da zavisi od apex A zapisa, to je vec jednom bila zamka."
+    },
+    "vercel": {
+      "tim": "ai-connect2",
+      "projekat": "random",
+      "kako_gradi": "vercel.json u korenu repoa: buildCommand 'node site/cms/build.mjs', outputDirectory 'site/dist'",
+      "env_varijable": "SANITY_PROJECT_ID, SANITY_DATASET",
+      "deploy_hook": "postoji, stoji u Settings -> Git; koristi ga Sanity webhook. URL namerno nije zapisan ovde jer je repo javan.",
+      "napomena": "Vercel MCP konektor trazi posebnu autorizaciju tima (403 na ai-connect2) i nije bio dostupan"
+    },
+    "sanity_cms": {
+      "project_id": "dmndew9n",
+      "dataset": "production (javan, build cita bez tokena)",
+      "organizacija": "otn6neu6u",
+      "studio_url": "https://randomtattoo.sanity.studio",
+      "studio_app_id": "e0cfglre50gmer2uos2zslk9",
+      "hostname_napomena": "'random' je globalno zauzet u Sanityju, zato 'randomtattoo'",
+      "sta_klijent_menja": "tekstovi po sekcijama (220 kljuceva, sr+en), umetnici sa radovima i linkom za zakazivanje, recenzije, blog, hero slika"
+    },
+    "cal_zakazivanje": {
+      "nalog": "randomtattoo na app.cal.eu",
+      "tipovi_termina": {
+        "lemson": "randomtattoo/konsultacije",
+        "anja": "randomtattoo/konsultacije-anja",
+        "enco": "randomtattoo/konsultacije-enco"
+      },
+      "gde_stoje_linkovi": "polje calLink kod svakog umetnika u Sanityju; klijent ih menja bez koda",
+      "provereno": "25.10.2026 sa javnih strana: dani i sati tacni, sreda kod Anje zaista kraca"
+    },
+    "forma": {
+      "backend": "Google Apps Script, upisuje u Google tabelu i salje mejl",
+      "endpoint": "FORM_ENDPOINT u site/script.js (javan je svakako, radi se o klijentskom kodu)",
+      "nacin_slanja": "GET sa parametrima, NE POST, jer Apps Script preusmerava POST i gubi telo zahteva",
+      "ogranicenje": "no-cors znaci da browser ne moze da procita odgovor, pa se poruka o uspehu prikazuje i ako slanje padne"
+    }
+  },
+
+  "kljucne_odluke": [
+    {
+      "odluka": "CMS se dodaje SA STRANE statickog sajta, ne prepisivanjem u framework",
+      "zasto": "sajt je rucno pisan HTML sa dosta animacija; prepisivanje bi bilo rizik bez dobitka",
+      "kako": "build kopira izvor u dist/ pa u kopiju upise sadrzaj iz Sanityja; markeri CMS:DICT, CMS:DATA, CMS:IMAGES u izvoru"
+    },
+    {
+      "odluka": "Build NE SME da obori produkciju",
+      "kako": "ako Sanity ne odgovara ili nije podesen, dist ostaje verna kopija repozitorijuma; provereno diff-om"
+    },
+    {
+      "odluka": "Build cita sa api.sanity.io, ne sa apicdn",
+      "zasto": "deploy krece par sekundi posle klijentovog Publish, a kesirani CDN je u tom prozoru vracao stari tekst"
+    },
+    {
+      "odluka": "Svaki umetnik ima svoj kalendar; globalno dugme otvara izbor umetnika",
+      "zasto": "rade razlicitim danima, jedan zajednicki kalendar nema smisla"
+    },
+    {
+      "odluka": "Forma je wizard od pet koraka, dizajn ostaje identican",
+      "detalji": "cetiri pitanja sa ponudjenim odgovorima pa polja za podatke; odgovori idu u skrivena polja i stizu uz upit; posle slanja ista kartica menja sadrzaj u zahvalnicu sa dugmetom za zakazivanje"
+    },
+    {
+      "odluka": "Obavestenja sa forme idu Pavlu dok se ne potvrdi da sve radi",
+      "zasto": "da probe ne stizu klijentu; isto pravilo je vec jednom prekrseno na B-Steel projektu"
+    },
+    {
+      "odluka": "Hero pozadina je kolaz crveno-crnih radova, ne fotka tima",
+      "istorija": "crveni veo preko fotke je probaran i odbacen; klijent je trazio bas taj kolaz"
+    }
+  ],
+
+  "nauceno_na_tesak_nacin": [
+    {
+      "greska": "Element je dobijao atribut hidden, ali ga CSS display:flex nije sklanjao sa ekrana",
+      "posledica": "izbor umetnika je ostajao preko strane i hvatao klikove; korisnik je tri puta prijavio da X ne radi, a moji testovi su prolazili",
+      "pravilo": "testiraj STA SE VIDI (computed display, elementFromPoint), ne da li je atribut postavljen. Svaki element koji se krije preko .hidden mora da ima [hidden]{display:none!important} ako mu CSS daje display."
+    },
+    {
+      "greska": "Korisnik prijavi bag, moj test kaze da radi",
+      "pravilo": "greska je verovatnije u tome STA merim nego u tome sta korisnik vidi. Promeni nacin merenja, ne ponavljaj isti test."
+    },
+    {
+      "alat": "Pravi klik misem preko Chrome DevTools protokola (Input.dispatchMouseEvent) prolazi kroz pravo pogadjanje elementa, za razliku od element.click()",
+      "kako": "pokreni chrome sa --remote-debugging-port, povezi se preko WebSocket-a (Node 24 ima ugradjen WebSocket klijent), vidi primere u scratchpadu prethodne sesije"
+    },
+    {
+      "greska": "Izmena u CSS-u bez podizanja ?v= verzije",
+      "posledica": "browser servira stari CSS iz kesa, popravka 'ne radi'. Verzije su na svih 13 strana, format v=YYYYMMDDx."
+    },
+    {
+      "zamka": "Headless Chrome na sirinama preko 711px renderuje crnu sliku, jer WebGL slojevi (artisti smoke, proces shader, darkveil) ne rade",
+      "resenje": "snimaj na 700px sirine, tamo su efekti iskljuceni"
+    },
+    {
+      "zamka": "Poredjenje fajlova sa produkcijom pokazuje razliku i kad je sadrzaj isti",
+      "uzrok": "Windows cuva CRLF, Vercel gradi na Linuxu sa LF; poredi sa tr -d '\\r'"
+    },
+    {
+      "zamka": "Sanity secondary email oznacen kao Primary NIJE mejl za prijavu",
+      "posledica": "klijent nije mogao da udje; prijava ide na nalog kojim je napravljen (Google)"
+    },
+    {
+      "zamka": "cal.eu i cal.com su odvojeni sistemi sa odvojenim bazama korisnika",
+      "posledica": "nalog napravljen na jednom ne postoji na drugom; i mobilna aplikacija iz prodavnice gadja cal.com"
+    }
+  ],
+
+  "kako_korisnik_radi": {
+    "stil_komunikacije": "kratko, direktno, bez uvoda. Ne voli da se pita za ocigledno.",
+    "pravila": [
+      "Ne pitaj yes/no kad je stvar proverena, samo uradi pa javi sta je uradjeno",
+      "Commit i push bez pitanja kad je provereno (vazi od 22.10.2026)",
+      "Opisi su za komp; mobilnu adaptaciju radi sam, u istom potezu, bez javljanja",
+      "Pregled sajta ide na http://localhost:8770",
+      "Ne pitaj za podatke koje mozes sam da procitas iz koda ili baze",
+      "Kad prijavi bag, veruj mu i promeni nacin provere"
+    ],
+    "slike": "salje snimke ekrana sa dva monitora (3840px), koje API cesto odbija. Resenje: PIL smanjivanje ispod ~900px, ili ga zamoli da iseca samo prozor."
+  },
+
+  "otvoreno_po_prioritetu": [
+    {
+      "prioritet": 1,
+      "stavka": "Cal.eu se gasi 1. novembra 2026",
+      "rok": "manje od nedelju dana od 25.10.2026",
+      "sta_pada_ako_se_propusti": "sva tri linka za zakazivanje na sajtu i dugme 'Otvori kalendar' u svakom mejlu sa upitom",
+      "sta_treba_promeniti_posle_seobe": [
+        "site/cal.js: origin i adresa embed skripte sa app.cal.eu na cal.com",
+        "Sanity: polje calLink kod sva tri umetnika",
+        "site/apps-script/Code.gs: CAL mapa"
+      ],
+      "savet": "seobu odraditi tako da nalog na cal.com bude na studijskom mejlu, cime se resava i problem prijave"
+    },
+    {
+      "prioritet": 2,
+      "stavka": "Sajt je zatvoren za Google",
+      "detalji": "noindex na svih 13 strana i Disallow: / u site/robots.txt; u robots.txt stoji pripremljen produkcijski blok koji treba otkomentarisati",
+      "blokira": "cetiri recenzije na pocetnoj su jos uvek izmisljene; cekaju se prave Google recenzije od klijenta pre otvaranja"
+    },
+    {
+      "prioritet": 3,
+      "stavka": "NOTIFY_TO u Apps Script-u jos uvek pokazuje na Pavlov mejl",
+      "sta_uraditi": "kad se potvrdi da mejlovi stizu i izgledaju dobro, promeniti na studijski mejl i pustiti NOVU VERZIJU deploya (izmena koda sama po sebi ne menja ono sto je zivo)"
+    },
+    {
+      "prioritet": 4,
+      "stavka": "Klijent u Sanityju ima ulogu administratora",
+      "sta_uraditi": "prebaciti na Editor; kao administrator moze da obrise bazu, pravi tokene i ukloni Pavla sa projekta"
+    },
+    {
+      "prioritet": 5,
+      "stavka": "Umetnici ne mogu da se prijave na Cal sa telefona",
+      "stanje": "nalog je vezan za Pavlov Google nalog; studijski mejl je na nalogu ali kao sekundarni sa oznakom Primary, sto nije isto sto i mejl za prijavu",
+      "opcije": "postaviti sifru u Settings -> Security pa je dati njima, ili prebaciti mejl naloga na studijski (tada Pavle gubi pristup), ili tri odvojena besplatna naloga sa zajednickim Google kalendarom za pregled"
+    }
+  ],
+
+  "sta_je_uradjeno": {
+    "sajt": [
+      "Na telefonu: cist tap na kartu u spilu radova otvara galeriju, swipe ostaje swipe",
+      "Hero: kolaz radova + crni scrim pod navigacijom da se nav linkovi citaju",
+      "Primarno dugme: mirnija crvena #C8201F u mirovanju, puna brend crvena na hover",
+      "Status tackica 'Primamo nove klijente' zelena",
+      "Telefonski meni: linkovi smanjeni sa 68px na 38px",
+      "iPad: iskljucen SVG displacement filter na recenzijama i kontakt kartici (WebKit ga seckao na plocice)",
+      "SEO prolaz: naslovi ispod 60 znakova, opisi 140-155, jedan H1, hijerarhija bez preskoka",
+      "Wizard forma na sve tri strane sa formom",
+      "Izbor umetnika pri zakazivanju, sa tri nacina zatvaranja"
+    ],
+    "infrastruktura": [
+      "Domen povezan sa Vercelom, SSL radi, www redirektuje na apex",
+      "Mejl zasticen: MX prebacen na mail.randomtattoo.rs pre promene apex zapisa",
+      "Sanity CMS sa 220 tekstualnih kljuceva, 3 umetnika, 76 radova, 4 recenzije, 6 blog clanaka",
+      "Sanity webhook okida Vercel deploy na klijentov Publish, sa filterom koji ignorise nedovrsene verzije",
+      "Apps Script backend sa brendiranim mejlom, proveren kroz 8 rubnih slucajeva",
+      "Repo restruktuiran: koren je ceo projekat, Vercel gradi iz podfoldera bez promene podesavanja"
+    ]
+  },
+
+  "korisne_komande": {
+    "lokalni_pregled": "cd site && python -m http.server 8770",
+    "build_sa_cms_om": "SANITY_PROJECT_ID=dmndew9n node site/cms/build.mjs",
+    "build_bez_sanityja": "node site/cms/seed-to-fixture.mjs && CMS_FIXTURE=site/studio/fixture.json node site/cms/build.mjs",
+    "osvezi_seed_iz_sajta": "node site/cms/extract.mjs",
+    "uvoz_u_sanity": "cd site/studio && npx sanity dataset import seed.ndjson production --replace",
+    "upozorenje_za_uvoz": "--replace gazi ono sto je klijent u medjuvremenu promenio; ako je vec poceo da radi, dodaj polje rucno u Studiju"
+  }
+}
