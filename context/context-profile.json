@@ -1,0 +1,256 @@
+{
+  "$schema": "informal — briefing profile for an LLM picking up the Random Tattoo Studio build",
+  "generated": "2026-07-17",
+  "how_to_use": "Paste this whole file as the first message of a new chat, then state the next request. It encodes the project, the hard constraints, the conventions, and the traps already discovered. Treat 'hard_constraints' and 'standing_instructions' as non-negotiable unless the client overrides them explicitly.",
+
+  "project": {
+    "name": "Random Tattoo Studio",
+    "what": "Marketing website for a custom tattoo studio in Belgrade, Serbia. Three artists, appointment/consultation driven.",
+    "language_of_site": "Serbian (Latin script, with full diacritics: š đ č ć ž)",
+    "language_of_client": "Serbian. The client writes informally, often without diacritics, in rapid-fire short messages. Reply in Serbian.",
+    "root": "c:/Users/pavle/Downloads/Claude Code/Random/",
+    "site_dir": "c:/Users/pavle/Downloads/Claude Code/Random/site/",
+    "framework_context": "Lives inside the WAT framework (Workflows / Agents / Tools) — see c:/Users/pavle/Downloads/CLAUDE.md. Workflows in workflows/, Python tools in tools/, secrets ONLY in .env, .tmp/ is disposable."
+  },
+
+  "git": {
+    "IMPORTANT_repo_root_is_site_not_Random": "The git repository root is Random/site/ — NOT Random/. Running git from Random/ fails with 'not a git repository'. cd into Random/site first.",
+    "remote": "https://github.com/pavlegosicsales-cell/RANDOM.git",
+    "branch": "main",
+    "last_commit_at_handoff": "490af87 — Footer slogan: stvarno centriran (gazi p max-width 62ch) + mobilni prelom",
+    "commit_message_language": "Serbian, WITHOUT diacritics (ASCII only) — matches existing history",
+    "commit_trailer_required": "Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>",
+    "line_endings_note": "Git warns 'LF will be replaced by CRLF' on every commit. This is expected on Windows, not an error."
+  },
+
+  "standing_instructions": [
+    {
+      "rule": "DESKTOP-FIRST — every request the client makes is for the desktop version unless they explicitly say 'za telefon'.",
+      "why": "The client does not want to repeat each request for both breakpoints.",
+      "how": "Apply the request literally on desktop. Then adapt the mobile version YOURSELF so it stays aesthetic, legible and nice. Do not ask 'should I wrap it on mobile?' — decide, do it, and mention it in one sentence. Example precedent: the footer slogan is one nowrap line on desktop but wraps to 4 balanced lines at 24px on phones, because one line would have required a ~7px font at 390px.",
+      "stored_as_memory": "desktop-first-mobile-my-job.md"
+    },
+    {
+      "rule": "PUSH AFTER EVERY CHANGE.",
+      "why": "The client has asked for a push after essentially every single edit all session.",
+      "how": "cd Random/site && git add -A && git commit && git push origin main. Report the short SHA."
+    },
+    {
+      "rule": "VERIFY, DON'T ASSUME. Measure before claiming something is fixed.",
+      "why": "The client has caught wrong 'fixed it' claims and reacted harshly ('sta si tacno sredio majmuncino', 'NISI RESIO, POGLEDAAAAAAAJ'). Twice I misdiagnosed the torn-divider bug.",
+      "how": "See verification_methodology below."
+    },
+    {
+      "rule": "Never create or overwrite workflow .md files without asking.",
+      "source": "project CLAUDE.md"
+    },
+    {
+      "rule": "Secrets live ONLY in .env. credentials.json / token.json are gitignored Google OAuth files.",
+      "source": "project CLAUDE.md"
+    }
+  ],
+
+  "hard_constraints": {
+    "stack": "VANILLA ONLY — HTML + CSS + JS. NO framework, NO build step, NO npm, NO JSX. This is absolute.",
+    "consequence": "The client frequently pastes React/Next component code (from 21st.dev, Framer, Aceternity-style libraries) and says 'I want this'. You must RECREATE it natively in vanilla JS/CSS/WebGL. Never install it, never introduce React.",
+    "vendored_libs_only": [
+      "site/vendor/lenis.min.js (smooth scroll)",
+      "site/vendor/gsap.min.js (used by the StaggeredMenu)"
+    ],
+    "how_libs_were_added": "curl from jsdelivr into site/vendor/. No package manager.",
+    "corners": "SHARP — border-radius: 0 across the brand. Do not round things.",
+    "colors_never": "NEVER purple. Every ported shader/background must be recolored into brand tokens and must stay SUBTLE — the client repeatedly says 'ne mnogo upadljivo' and 'nase boje i nas stil'."
+  },
+
+  "brand": {
+    "tokens": {
+      "--soot": "#0E0B0A (warm near-black, page background)",
+      "--bone": "#F4EEE7 (off-white text)",
+      "--ash": "#96877E (muted secondary text)",
+      "--ember": "#C0392B (accent red)",
+      "--clay": "#211915 (warm dark surface)",
+      "--hair": "hairline border color"
+    },
+    "fonts": {
+      "display": "Inter, weight 900, uppercase for headings/wordmarks",
+      "mono": "Space Mono — used for labels, pills, footer bottom bar"
+    },
+    "note_on_black": "#000 vs --soot #0E0B0A is nearly imperceptible. When the client says a section 'isn't black', pure black won't help — use `isolation: isolate` plus hairline top/bottom borders to make the boundary legible. This exact confusion already happened on the Proces section."
+  },
+
+  "site_structure": {
+    "pages": [
+      "site/index.html — the main one-pager (hero, galerija, artisti, proces, o-studiju, ethereal zone [assemble + recenzije + stats], pitanja/FAQ, kontakt, footer)",
+      "site/artist.html — per-artist page, populated from JS data",
+      "site/galerija.html — full gallery with filters + lightbox"
+    ],
+    "css": "site/styles.css — single stylesheet, ~950+ lines",
+    "js": "site/script.js — single file. Key inits: initStaggeredMenu (gsap), initProcShader, initArtistiShader, initReviewsShadow, initScrollSaturation, initLocationMap, initAssemble (generalized), initBottomBlur",
+    "assets": "site/assets/ — random-hero.jpg, logo.png, footer-fill.png … footer-fill5.png (5 tattoo images shown through the RANDOM wordmark), ethereal-mask.png, ethereal-noise.png",
+    "local_server": "python -m http.server 8770 served from site/ → http://localhost:8770/index.html"
+  },
+
+  "custom_components_built": {
+    "StaggeredMenu": "Ported from a React component to vanilla + gsap. Replaced the old .nav-overlay. Present on index.html, artist.html, galerija.html. Markup: .sm > .sm-prelayers (clay + ember layers) + .sm-panel with .sm-list[data-numbering] and .sm-socials.",
+    "ethereal_zone": "One shared background spanning the 'Ovo ostaje zauvek' assemble section + '#recenzije' + the stats row. .ethereal-zone holds .reviews-bg which uses an SVG feTurbulence + feDisplacementMap + feColorMatrix(hueRotate) filter (#ethereal-shadow) driven by JS setAttribute. The shape is a solid brand color MASKED by assets/ethereal-mask.png — this is the faithful recreation; radial-gradient blobs were rejected by the client as 'ni ne lici'.",
+    "torn_dividers": "The jagged top/bottom edges of .ethereal-zone. Implemented as a clip-path: polygon() ON THE ZONE ITSELF (mixed %, px and calc(100% - Npx) units for the mirrored bottom edge). Reference: the 20/44 project's TornDivider.tsx, seed 4423. A separate soot SVG band was the WRONG approach and caused a black-gap bug — do not reintroduce it.",
+    "plasma_threads": "WebGL shader background pinned in the Proces section (initProcShader). Recolored to brand, threads made thin/sparse/subtle at the client's insistence.",
+    "spooky_smoke": "WebGL shader in the Artisti section (initArtistiShader).",
+    "footer_wordmark": "Giant RANDOM using background-clip: text with 5 layered tattoo images positioned into specific letters (R, A, middle, O, M) + a linear-gradient(bone,bone) base so the rest of the letters read as near-white. Behind it sits .footer__ghost — a huge near-invisible RANDOM in #1b1512. Positions were tuned letter-by-letter at the client's direction; do not casually reflow them.",
+    "LocationMap": "The .lmap component in the contact aside — custom stylized map card, expands on click. 'Pogledaj mapu →' link.",
+    "button_corner_markers": ".btn__corner elements that change color and move INSIDE the button on hover; arrow turns black on hover.",
+    "bottom_blur": ".bottom-blur — progressive blur strip at the bottom of the viewport, appears only while scrolling and disappears at the footer. z-index 90.",
+    "circular_cta": ".circular-cta / .circular-progress — reparented to document.body as fixed elements so they can sit above .bottom-blur."
+  },
+
+  "known_gotchas": [
+    {
+      "trap": "GLOBAL `p { max-width: 62ch }` at styles.css line ~99.",
+      "symptom": "text-align: center on a <p> appears to do nothing — the paragraph box shrinks to the text width and sits left.",
+      "fix": "Set max-width: none (and margin-inline: auto) on that paragraph. This exact bug hit .footer__slogan."
+    },
+    {
+      "trap": "#glavni has z-index: 2, creating a stacking context.",
+      "symptom": "No descendant of #glavni can ever rise above the sibling .bottom-blur (z-index 90), no matter its z-index.",
+      "fix": "Reparent the element to document.body as position: fixed. Done for .circular-cta / .circular-progress."
+    },
+    {
+      "trap": "html, body { overflow-x: clip } — must be `clip`, NOT `hidden`.",
+      "why": "overflow: hidden breaks position: sticky throughout the page."
+    },
+    {
+      "trap": "Per-character inline-block spans in animated headings wrap mid-word.",
+      "symptom": "A stray letter (famously an 'A') orphaned on its own line.",
+      "fix": "white-space: nowrap on .assemble-line. On mobile also AMT = soft ? (isMobile ? 0 : 14) : 50 in initAssemble so headings don't spread past the screen."
+    },
+    {
+      "trap": "Nav CTA corner markers.",
+      "detail": "`.nav__cta > * { position: relative }` overrides `.btn__corner { position: absolute }`, and overflow: hidden clips them. The client reacted strongly when this broke. The ethereal background experiment on the nav CTA was reverted entirely — the nav button is back to its original state."
+    },
+    {
+      "trap": "Long nav CTA text breaks the tablet nav around 760px (logo overlaps links, button wraps).",
+      "fix": "white-space: nowrap plus a @media (min-width: 712px) and (max-width: 1040px) compaction block."
+    }
+  ],
+
+  "verification_methodology": {
+    "why_this_exists": "Headless Chrome screenshots repeatedly produced FALSE conclusions and wasted long stretches of the session, including a phantom overflow chase.",
+    "headless_traps": [
+      "Headless Chrome CANNOT render below ~500px CSS viewport width. A 360px or 390px screenshot is really a CROP of a 500px layout — it will lie to you about mobile.",
+      "--virtual-time-budget does NOT advance CSS transitions or gsap timelines.",
+      "Hash-anchor scrolling (#section) does not work in headless.",
+      "--force-prefers-reduced-motion is unsupported.",
+      "Below-the-fold .reveal content is opacity: 0, so it photographs as blank."
+    ],
+    "the_reliable_method": "Build an isolated _test.html / _f.html page in site/ that pulls in styles.css and only the markup fragment under test (extract it from index.html with a small python heredoc). Then EITHER screenshot it, OR — better for layout facts — run a DOM probe that writes measurements into document.title and read them back with --dump-dom | grep '<title>'. Delete the temp page afterwards.",
+    "worked_example": "To prove the footer slogan was centered: probe wrote `levo=` and `desno=` gaps between the paragraph box and the parent's content edges, plus fontSize, line count, and an overflow boolean; then loop the same probe across window sizes 1600/1400/900/712/560.",
+    "charset_gotcha": "If you build a temp page and forget <meta charset=\"utf-8\">, Serbian diacritics render as mojibake (koÅ¾i). That is an artifact of YOUR test page, not a site bug — the real index.html has the meta tag. Don't chase it."
+  },
+
+  "mobile": {
+    "breakpoint": "@media (max-width: 711px) in styles.css (block starts ~line 911), and in JS: var isMobile = window.matchMedia('(max-width: 711px)').matches",
+    "techniques_in_use": [
+      "display: contents + flex `order` to reorder elements across containers",
+      "IntersectionObserver pausing for WebGL shaders",
+      "rAF throttling",
+      "scroll-driven saturation (initScrollSaturation) on images",
+      "isolation: isolate for local negative-z-index children"
+    ],
+    "mobile_layout_decisions": [
+      "Hero: each phrase on its own line (.hero__title > span { white-space: nowrap })",
+      "Artisti: image first, then name and text",
+      "Proces: no image on mobile",
+      "Recenzije: reviews first, then image, then the buttons; smaller pill card; tighter heading-to-text gap",
+      "Text animations (except hero) trigger earlier on mobile",
+      "Footer slogan: wraps to ~4 balanced lines at clamp(17px, 5.4vw, 24px), max-width 18ch, still uppercase + centered"
+    ],
+    "open_concern": "The client said the site felt slow on mobile. A performance Q&A was delivered; further trimming may still be wanted."
+  },
+
+  "copy_current_state": {
+    "note": "The client rewrote most copy late in the session. These are the CURRENT strings — do not revert to older ones.",
+    "hero_title": "Umetnost koja / ostaje uz tebe (two spans)",
+    "hero_lead": "Prilagođene tetovaže rađene ručno, napravljene da traju ceo život.",
+    "hero_and_nav_cta": "Zakaži Konsultaciju",
+    "o_studiju_heading": "Ne radimo generičko (must stay on ONE line)",
+    "o_studiju_body": "Random Tattoo Studio je mali, umetnički studio u srcu Beograda… + Bez gotovih dizajna sa zida. Bez kopija…",
+    "artisti_section_heading": "UMETNICI (was 'Biraš čoveka, ne samo motiv')",
+    "artists": [
+      "Lemson — Realizam i Apstraktne Boje — @mr_lemson",
+      "Enco — Grafiti i Urbani Stil — @enco_enco.tattoo",
+      "Anja — Fina Linija i Linework — @alex.anja.tattoo"
+    ],
+    "artist_naming_rule": "Display names are Lemson / Enco / Anja — NOT 'Mr Lemson', 'Enco Enco', 'Alex Anja'. The Instagram handles keep their original spellings.",
+    "stats": "Urađenih Tetovaža — 500+",
+    "kontakt_heading": "Pronađi Nas",
+    "kontakt_form_title": "Piši Nam (rendered Title Case; client typed 'PISI NAM' — confirm if they want full caps)",
+    "kontakt_form_sub": "Piši nam ideju — javljamo se u roku od 24h.",
+    "kontakt_submit": "Pošalji Svoju Ideju",
+    "kontakt_note_below_form": "Nisi siguran odakle da počneš? To je sasvim u redu. Svrati na konsultaciju — besplatna je, bez obaveza, i možda ćeš otići sa idejom na koju nisi ni pomislio.  [class .contact__note — centered, full form width]",
+    "address": "Paje Jovanovića 33, Beograd",
+    "phone": "+381 64 9864575",
+    "hours": "Pon – Uto / Samo po dogovoru · Sre – Pet / 12:00 – 21:00 · Sub / 12:00 – 18:00 · Ned / Zatvoreno",
+    "studio_instagram": "https://instagram.com/random_tatto_studio (icon in footer Social column)",
+    "footer_slogan": "Random Tattoo Studio. Beograd. Umetnost na koži. Napravljena za tebe. — TOP of footer, above everything, display font (Inter 900), UPPERCASE, CENTERED, one line on desktop",
+    "map_link": "Pogledaj mapu →",
+    "em_dash_note": "Em dashes ARE used in this project's copy. The 'no em dashes' rule in memory belongs to the MOJSILOV project, not Random. Do not apply it here."
+  },
+
+  "work_completed_this_session_tail": [
+    "82e9a2d — O studiju: top and bottom spacing raised from clamp(28px,4vh,60px) to clamp(56px,8vh,104px), kept equal per an earlier request. #o-studiju margin-top and .ethereal-zone margin-top/padding-block. Verified by render.",
+    "82e9a2d — Footer slogan added; contact form title → 'Piši Nam'; .contact__note added below the form.",
+    "faf27ea — .contact__note centered, max-width dropped so it spans the full form width (both share .auth-wrap).",
+    "4cc4268 — Slogan moved to the TOP of the footer, restyled to display font. .footer got padding-top: var(--sp-7).",
+    "545d5de — Slogan: one line, uppercase, centered, fluid font clamp(6px,1.9vw,30px) + white-space: nowrap.",
+    "490af87 — Fixed the centering for real (max-width: none beat the global p { max-width: 62ch }); min font raised back to 14px; mobile wrap rule added inside @media (max-width: 711px)."
+  ],
+
+  "measured_facts_footer_slogan": {
+    "desktop_one_line_fits": {
+      "1600px": "font 30px, text 1322px of 1569px available",
+      "1400px": "font 26.3px, 1159 of 1369",
+      "900px": "font 16.8px, one line, gaps левo=0 desno=0",
+      "712px_and_below": "wraps to 4 lines at 24px, centered, no overflow"
+    },
+    "text_width_ratio": "~44em at Inter 900 uppercase — use this to predict fit."
+  },
+
+  "open_items": [
+    {
+      "item": "Instagram handle typo",
+      "detail": "The client gave the studio IG as 'random_tatto_studio' (one 't'). Asked twice whether it should be 'random_tattoo_studio'. NO ANSWER YET. Currently live in the footer as given.",
+      "priority": "ask once more, low effort"
+    },
+    {
+      "item": "Vercel deploy",
+      "detail": "RANDOM originally didn't appear in Vercel's import list because it was a branch of AICONNECT, not its own repo. A dedicated repo was created and pushed. The client still needs to import it in Vercel on their side; instructions were provided. May need follow-up."
+    },
+    {
+      "item": "Leftover HTML comment",
+      "detail": "<!-- POPUNITI: telefon --> still sits in the contact aside (index.html ~line 463) even though the phone is filled in. Harmless, remove when nearby."
+    },
+    {
+      "item": "Mobile performance",
+      "detail": "Client reported slowness on phone. Q&A delivered, some trimming done. Watch for follow-up."
+    },
+    {
+      "item": "Full-caps question",
+      "detail": "Contact form title rendered as 'Piši Nam'; client typed 'PISI NAM'. Confirm if they meant literal uppercase."
+    }
+  ],
+
+  "client_working_style": {
+    "cadence": "Very rapid, short, section-by-section messages. Often sends a new instruction mid-turn while you're still working — address it in the same turn.",
+    "tone": "Blunt. Will call you out hard if you claim a fix that isn't real. They value being shown the actual cause, not a hand-wave.",
+    "what_they_reward": "Diagnosing the real root cause and stating it plainly (e.g. 'the global p { max-width: 62ch } was shrinking the box'), and measuring instead of guessing.",
+    "what_irritates_them": "Repeating a wrong fix, asking questions they've already implicitly answered, and asking about mobile when they've said mobile is your job.",
+    "reply_style_that_works": "Serbian, lead with what changed, one short paragraph of why if something was subtle, then the commit SHA. Tables only for real enumerable data like the measurement grid."
+  },
+
+  "related_memories": [
+    "desktop-first-mobile-my-job.md — all requests are desktop; mobile is my job, no asking",
+    "random-tattoo-studio-project.md — project stack, 3 artists, brand, open dependencies",
+    "no-em-dashes-mojsilov.md — MOJSILOV ONLY, does not apply to Random",
+    "2044-background-texture-feedback.md — 20/44 project; client hates foggy overlays; relevant as taste signal"
+  ]
+}

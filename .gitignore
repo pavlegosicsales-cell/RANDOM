@@ -1,15 +1,20 @@
-.DS_Store
-Thumbs.db
-*.log
-_test.html
-
-# CMS
-dist/
+# Zavisnosti i build izlaz
 node_modules/
+site/dist/
+site/node_modules/
 studio/node_modules/
-studio/dist/
+
+# Tajne, nikad u git
 .env
 .env.local
-studio/.env
-studio/fixture.json
-studio/.sanity/
+site/studio/.env
+site/studio/fixture.json
+
+# Privremeno
+.tmp/
+__pycache__/
+*.pyc
+*.log
+.DS_Store
+Thumbs.db
+_test.html

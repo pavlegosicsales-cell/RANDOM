@@ -1,0 +1,196 @@
+{
+  "context_profile": {
+    "version": "1.0",
+    "generated": "2026-07-11",
+    "purpose": "Full briefing profile so a future session can resume the Random Tattoo Studio website with the same expertise and context.",
+
+    "project": {
+      "name": "Random Tattoo Studio — website",
+      "type": "Marketing/portfolio site for a Belgrade (Beograd) tattoo studio with 3 artists",
+      "language_of_communication": "Serbian (Latin script). Reply in Serbian. Site copy is Serbian with diacritics č ć š ž đ.",
+      "root_folder": "c:/Users/pavle/Downloads/Claude Code/Random/",
+      "site_folder": "Random/site/",
+      "stack": "Vanilla HTML + CSS + JS. NO framework, NO build step, NO npm. Never scaffold React/Next/shadcn/Tailwind — recreate any pasted React component natively in vanilla JS/CSS.",
+      "local_server": "Python http.server (was on port 8770). Serve from Random/site/. URL: http://localhost:8770/index.html",
+      "github": {
+        "repo": "https://github.com/pavlegosicsales-cell/AICONNECT.git",
+        "branch": "random-tattoo",
+        "status": "First push done. Many changes since (badge, FAQ redesign, frame buttons, goo cursor, blur-text, circular gallery, ScrollReveal) are NOT yet pushed — awaiting user go-ahead to push."
+      }
+    },
+
+    "wat_framework": {
+      "description": "Project lives inside the WAT framework (Workflows/Agents/Tools). Separation: AI reasons/orchestrates, deterministic Python tools execute.",
+      "layers": {
+        "workflows": "Markdown SOPs in workflows/ — objective, inputs, tools, outputs, edge cases.",
+        "agents": "You. Read the workflow, run tools in order, recover from errors, ask when blocked.",
+        "tools": "Python scripts in tools/. Credentials/keys in .env only."
+      },
+      "directory_layout": {
+        ".tmp/": "Disposable temp files (scraped data, intermediates).",
+        "tools/": "Python execution scripts.",
+        "workflows/": "Markdown SOPs.",
+        ".env": "API keys / secrets — NEVER store secrets elsewhere.",
+        "credentials.json / token.json": "Google OAuth (gitignored)."
+      },
+      "rules": [
+        "Check tools/ for an existing tool before building anything new.",
+        "On failure: read full error, fix the tool, retest (ask before re-running paid/credit APIs), then document the learning in the workflow.",
+        "Keep workflows current, but DO NOT create/overwrite workflows without asking unless explicitly told.",
+        "Deliverables go to cloud services; local files are just processing scratch."
+      ]
+    },
+
+    "random_project_structure": {
+      "context/": "User-supplied context (brand guidelines, artist info). User fills this.",
+      "assets/": "Site runtime assets: logo.png, artist photos, work images. inspo1/code/ holds the downloaded Taylor Tharp source (taylor.html + js/ 26 modules).",
+      "brand_assets/": "Source logo + photos of the 3 artists and their work.",
+      "research/": "Teardowns, e.g. research/2026-07-11-taylortharptattoo-teardown.md (code-accurate).",
+      "skill/": "ui-ux-pro-max skill installed from https://github.com/nextlevelbuilder/ui-ux-pro-max-skill. Plus a site-teardown skill.",
+      "site/": "The actual website: index.html, artist.html, galerija.html, styles.css, script.js, vendor/lenis.min.js"
+    },
+
+    "artists": {
+      "count": 3,
+      "note": "Client mapped stage-names to real people: 'Lemson' = Mile ('Mr Lemson'), 'Enzo' = Petar. Third artist = Anja.",
+      "roster": ["Mile (Mr Lemson)", "Anja", "Petar (Enzo)"],
+      "styles_covered": ["Realizam", "Fine line", "Blackwork"],
+      "image_note": "Mr Lemson portrait uses inline style object-position:50% 12% so his head shows."
+    },
+
+    "design_direction": {
+      "primary_reference": "https://www.taylortharptattoo.com/ — clone its cinematic monochrome, centered, large-type aesthetic.",
+      "must_keep_brand": [
+        "Ember accent #C0392B (used for accents, hovers, FAQ numbers).",
+        "SHARP corners — border-radius: 0 everywhere, including buttons. Client explicitly: 'nek bude sharp ovaj brend nas.'"
+      ],
+      "explicit_intent": "'klon ali zadrzi Ember' — mimic Taylor closely but keep the Ember red and sharp edges.",
+      "tone_of_voice": "Raw, unpolished, honest. Copy example (O studiju, DO NOT edit — user called the effect on it perfect): starts 'Random je studio, ali radovi nisu \"studijski\"...'"
+    },
+
+    "design_tokens": {
+      "--soot": "#0E0B0A (near-black bg)",
+      "--bone": "#F4EEE7 (off-white text)",
+      "--ash": "#96877E (muted text)",
+      "--ember": "#C0392B (accent)",
+      "--clay": "#211915 (dark surface)",
+      "--font-display": "'Inter' (400/500/700/900)",
+      "--font-mono": "'Space Mono' (400/700)",
+      "--margin": "20px base; 32px @>=712px; 40px @>=1200px",
+      "fonts_loaded": "Google Fonts: Inter wght 400;500;700;900 + Space Mono 400;700. Inter covers Serbian diacritics.",
+      "wrap_widths": ".wrap max 1480px, .wrap-wide max 1600px"
+    },
+
+    "critical_css_facts": [
+      "html,body { overflow-x: clip } — MUST be clip, NOT hidden. overflow-x:hidden breaks position:sticky and killed the circular-gallery pinning. This is a load-bearing fix.",
+      ".btn { border-radius: 0 } with .btn__corner frame corners.",
+      ".btn-secondary: transparent-but-blurred bg (rgba(244,238,231,0.03) + backdrop-filter blur(10px)); on hover becomes --ember with an arrow that appears.",
+      ".btn-primary hover: letter-scramble/typewriter effect (ported from the 20/44 project code).",
+      "Nav: .nav__logo img height 48px, span 24px, .nav__inner height 88px. Logo was deliberately enlarged.",
+      "Hero title one line per phrase (user rejected 2-line wrapping): .step__title font-size clamp(28px,4vw,60px) with white-space:nowrap.",
+      "O studiju paragraphs: display font, weight 700, clamp(18px,?,28px) — enlarged. Other texts get the reveal effect but were NOT enlarged (user reverted over-enlargement twice).",
+      "FAQ: full width (.faq max-width:none), counter-reset:faq; questions use display font weight 900; .acc__trigger grid auto/1fr/auto; ::before shows counter(faq,decimal-leading-zero) in --ember (01, 02...).",
+      "Bottom-blur: progressive blur via stacked backdrop-filter layers with MONOTONIC masks (each layer fades in and stays to the bottom). Band masks caused a visible seam line — fixed.",
+      "Hero is full-bleed: .hero is full-width, content in .wrap.hero__inner; nav uses .wrap (not wrap-wide) on all 3 pages. This fixed the 'empty space top-right' hero bug where .hero had .wrap so bg didn't reach edges."
+    ],
+
+    "hero_circular_badge": {
+      "status": "DONE and verified 2026-07-11.",
+      "html": "<div class=\"hero__badge\"><div class=\"circular-text\" data-circular-text=\"RANDOM * TATTOO * STUDIO * \"></div><img class=\"hero__badge-mark\" src=\"assets/logo.png\" ...></div>",
+      "css": ".hero__badge position:absolute; bottom:44px; right:var(--margin); 152x152; display:none on mobile, grid @>=768px. .circular-text animation circ-spin 22s linear infinite (rotate 0->360), hover speeds to 6s; respects prefers-reduced-motion. Center logo mark 34px.",
+      "js": "initCircularText() splits data-circular-text into letters, builds a <span> per char, each transformed rotateZ((360/N)*i deg) translate3d(off,off,0). 27 spans generated.",
+      "rotation": "JS-DRIVEN via requestAnimationFrame (NOT CSS animation). angle += speed*dt each frame; on hover the speed LERPS toward hoverSpeed (speed += (target-speed)*min(1,dt*6)). baseSpeed=360/22 deg/s, hoverSpeed=360/6 deg/s. Hover zone = whole .hero__badge parent. Respects prefers-reduced-motion (no rotation).",
+      "why_js_not_css": "FIXED 2026-07-11: CSS animation with animation-duration swapped on :hover glitches — the browser recomputes progress against the new duration and the rotation JUMPS instead of continuing. rAF + eased speed removes the jump. Removed @keyframes circ-spin and the :hover duration rule from CSS.",
+      "known_limitation": "Hero content is ~989px tall so the hero overflows viewport slightly; badge sits at hero bottom-right and is fully visible on 1080p+, a bit below the fold on ~768px laptops. Acceptable, matches Taylor's corner-badge pattern."
+    },
+
+    "sections_index_html": [
+      "nav (logo + live clock + links + CTA)",
+      "hero (full-bleed bg, blur-reveal title, status pill, buttons, rotating badge bottom-right)",
+      "gallery — circular 3D pinned ring (scroll-scrubbed; scroll pins and rotates images instead of scrolling page)",
+      "artist rows — 3 artists; layout: name-left/photo-right, then reversed, then name-left again (Taylor 'MEET' section, 3x longer)",
+      "recent-works horizontal scroller (must scroll through all before page continues)",
+      "process ('Proces') — Taylor-style icons + scroll animation",
+      "o-studiju (About) — enlarged display-font paragraphs with ScrollReveal (DO NOT touch this text/effect)",
+      "reviews — marquee scrolling left (sped up per user)",
+      "stats — count-up from 0 (Framer-style)",
+      "FAQ — wide, numbered 01/02..., questions in display font",
+      "instagram grid",
+      "contact — wide glass card form (ported from sign-in-card-2 React component, in brand colors/fields)",
+      "footer + lightbox"
+    ],
+
+    "javascript_modules": {
+      "pattern": "Single IIFE; init functions run on DOMContentLoaded; $ helper = querySelector.",
+      "WORKS_array": "29 items built via a fixed interleave(). BUG HISTORY: interleave checked arrs[i] instead of arrs[j][i] and produced only 9 items — fixed to `if (arrs[j][i]) out.push(arrs[j][i])`.",
+      "key_inits": [
+        "initHScroll / initCircular — pin-scroll rotating ring gallery. Depends on overflow-x:clip. Verified STICKYTOP=0. CTA moved inside the pinned view to remove big empty space.",
+        "initScrollReveal — word-by-word reveal. Selector: '.about__body p, .artist-row__desc, .step__desc, .step__list li, .section-head .lead, .reviews__intro .lead'. Progress p=(vh - r.top)/(vh*0.62 + r.height) — size-aware so short and long texts both finish before leaving screen. baseOpacity 0.1, blur 8. .reveal-word{display:inline-block}.",
+        "initBlurReveal — hero title blur-in appear animation (data-blur).",
+        "initInkCursor — goo/ink cursor: 20 trailing dots under SVG goo filter (feGaussianBlur stdDeviation 6 + feColorMatrix ... 35 -15 + feComposite atop). #ink-cursor placed right after skip-link.",
+        "initButtons — draws frame corners + runs letter-scramble on primary.",
+        "initReviewsMarquee — makeMarquee($('.review-row'), 36); moves left, sped up.",
+        "initCircularText — rotating hero badge (see hero_circular_badge)."
+      ],
+      "vendored": "vendor/lenis.min.js — Lenis smooth-scroll."
+    },
+
+    "key_decisions": [
+      "Vanilla stack, no build — recreate all pasted React components natively.",
+      "Taylor Tharp is the visual north star; keep Ember + sharp corners.",
+      "Buttons: radius 0, frame corners, secondary=blurred-transparent->ember-on-hover+arrow, primary=scramble-on-hover.",
+      "O studiju block is locked — perfect per client, do not edit text or its ScrollReveal.",
+      "Only O studiju paragraphs are ENLARGED; all other reveal-affected texts keep normal size (user reverted enlargement twice).",
+      "Hero phrase titles must fit on one line (nowrap).",
+      "VIP section removed per client.",
+      "Gallery must PIN on scroll (page stops, images cycle) — not a normal scroll section.",
+      "Recent works: horizontal scroll-lock until all seen.",
+      "Reveal effects should finish slightly BEFORE text leaves the screen."
+    ],
+
+    "constraints_and_gotchas": [
+      "Environment: Windows 10, PowerShell primary shell + Bash tool available. Working dir has spaces ('Downloads/Claude Code') — quote paths.",
+      "Chat paste limit ~50k chars — large site source was downloaded via curl (internet works from Bash) instead of pasting.",
+      "Headless Chrome verification: --virtual-time-budget does NOT advance CSS transitions; incognito+virtual-time can yield a wrong ~485px/805px viewport. For screenshots, drop --virtual-time-budget and use a unique --user-data-dir per run; measure via DOM probes (set document.title) rather than trusting timed screenshots.",
+      "RECURRING ISSUE: user repeatedly reports features 'don't exist' — nearly always browser CACHE. Always remind: hard-refresh Ctrl+Shift+R.",
+      "No em dashes are a client rule on the OTHER (Mojsilov) project, not enforced here, but the user dislikes AI-looking output generally.",
+      "Never store secrets outside .env."
+    ],
+
+    "verification_method": "Headless Chrome (C:/Program Files/Google/Chrome/Application/chrome.exe) --headless=new --disable-gpu, unique --user-data-dir, --window-size=WxH, --screenshot or --dump-dom. For measurements inject a <script> that writes results into document.title, then grep the <title> from --dump-dom output. Crop screenshots with System.Drawing in PowerShell.",
+
+    "work_completed": [
+      "WAT project scaffolded inside Random/; ui-ux-pro-max + site-teardown skills installed; context/assets/brand_assets/research folders created.",
+      "Taylor Tharp full source downloaded (assets/inspo1/code/) and teardown written to research/.",
+      "Production site built then redesigned to the Taylor Tharp aesthetic (Ember + sharp kept).",
+      "Circular pinned gallery (fixed sticky via overflow-x:clip; removed empty space; CTA inside pin).",
+      "3-artist MEET section with alternating name/photo layout.",
+      "Process section (icons + scroll animation), stats count-up, reviews marquee (sped up left).",
+      "Bottom progressive-blur seam fixed (monotonic masks).",
+      "Full-bleed hero fix (removed top-right empty-space bug) across all 3 pages.",
+      "Blur-text hero title reveal + goo ink cursor.",
+      "ScrollReveal word reveal with size-aware timing across specified texts.",
+      "Frame buttons: secondary blurred->ember+arrow, primary letter-scramble; radius 0.",
+      "Contact form as wide vanilla glass card in brand colors.",
+      "FAQ: wide, display-font questions, 01/02 leading-zero numbers in Ember.",
+      "Mr Lemson portrait head-crop (object-position).",
+      "Hero rotating circular badge 'RANDOM * TATTOO * STUDIO' — DONE + verified. Hover glitch fixed by moving rotation from CSS animation to JS requestAnimationFrame with eased speed.",
+      "GitHub connected; first push to branch random-tattoo."
+    ],
+
+    "next_priorities": [
+      "PUSH all changes since first push to GitHub branch random-tattoo (badge, FAQ, frame buttons, goo cursor, blur-text, circular gallery, ScrollReveal). Awaiting user confirmation.",
+      "Optional: reduce hero content height so the rotating badge is fully above the fold on ~768px laptops (currently fine on 1080p+).",
+      "Continue matching remaining Taylor Tharp details as the user points them out (user drives section-by-section)."
+    ],
+
+    "how_to_work_with_this_user": [
+      "User sends full source code of reference sites and names which elements to copy; use the site-teardown skill, then reproduce natively.",
+      "User reviews visually and reports bugs in Serbian, often bluntly; iterate quickly and precisely.",
+      "First give the localhost link, then continue where left off (user asks for the link often).",
+      "Always end feature work with a hard-refresh (Ctrl+Shift+R) reminder due to the caching pattern.",
+      "Do not touch things marked perfect (O studiju). Do not over-enlarge texts not asked for.",
+      "Do not create/overwrite workflows without asking."
+    ]
+  }
+}

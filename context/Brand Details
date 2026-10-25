@@ -1,0 +1,140 @@
+{
+  "_meta": {
+    "napomena": "Polja u uglastim zagradama [POPUNI: ...] popunjava vlasnik/tim studija jer se ta informacija ne moze pouzdano izvuci sa Instagram profila (koji sadrzi samo slike). Sve ostalo je zasnovano na potvrdjenim informacijama ili zadatim smernicama. Ne tretirati prazna polja kao cinjenice dok se ne popune.",
+    "brend": "Random Tattoo Studio",
+    "lokacija": "Beograd, Srbija",
+    "izvor_podataka": "Instagram profili sadrze samo slike radova; tekstualni brand voice je definisan, ne rekonstruisan",
+    "verzija": "1.0-draft"
+  },
+
+  "brand_overview": {
+    "naziv": "Random Tattoo Studio",
+    "tip": "Tattoo studio / kolektiv umetnika",
+    "grad": "Beograd",
+    "model_rada": "Walk-in i zakazivanje termina",
+    "pozicioniranje": "Studio-platforma gde svaki umetnik gradi sopstveni prepoznatljiv stil pod zajednickim brendom",
+    "one_liner": "[POPUNI: jedna recenica kako biste vi opisali studio klijentu — svojim recima]",
+    "misija": "[POPUNI: zasto studio postoji, cemu tezite]"
+  },
+
+  "artists": [
+    {
+      "ime": "Mile",
+      "artist_handle": "Mr Lemson",
+      "instagram": "@mr_lemson",
+      "stil": "[POPUNI: npr. crno-beli realizam, portreti, zivotinje]",
+      "specijalnost": "[POPUNI: veliki projekti / sleeve / chest / itd.]",
+      "cenovni_rang": "[POPUNI: red velicine, npr. srednji-visok]",
+      "za_koga": "[POPUNI: tipican klijent za ovog umetnika]"
+    },
+    {
+      "ime": "Anja",
+      "artist_handle": "Alex Anja",
+      "instagram": "@alex.anja.tattoo",
+      "stil": "[POPUNI: npr. fine line, floral, ornamental, blackwork]",
+      "specijalnost": "[POPUNI]",
+      "cenovni_rang": "[POPUNI]",
+      "za_koga": "[POPUNI]"
+    },
+    {
+      "ime": "Petar",
+      "artist_handle": "Enco Enco",
+      "instagram": "@enco_enco.tattoo",
+      "stil": "[POPUNI: npr. ilustrativni, blackwork, graficki]",
+      "specijalnost": "[POPUNI]",
+      "cenovni_rang": "[POPUNI]",
+      "za_koga": "[POPUNI]"
+    }
+  ],
+
+  "features_and_benefits": [
+    {
+      "feature": "Kolektiv umetnika sa razlicitim stilovima pod jednim krovom",
+      "benefit": "Klijent na jednom mestu nalazi umetnika ciji stil tacno odgovara njegovoj ideji",
+      "rezultat": "Tetovaza koja stvarno pripada tvom telu, a ne genericki radjena"
+    },
+    {
+      "feature": "Walk-in i zakazivanje",
+      "benefit": "Fleksibilnost — mozes doci spontano ili planirati veci projekat unapred",
+      "rezultat": "Nizak prag za prvi kontakt, bez pritiska"
+    },
+    {
+      "feature": "Cena zavisi od umetnika i projekta",
+      "benefit": "Placas prema kompleksnosti i umetniku kog biras, ne fiksnu tarifu",
+      "rezultat": "[POPUNI: kako vi ovo objasnjavate klijentu]"
+    },
+    {
+      "feature": "[POPUNI: npr. konsultacija pre tetoviranja, custom dizajn, aftercare podrska]",
+      "benefit": "[POPUNI]",
+      "rezultat": "[POPUNI]"
+    }
+  ],
+
+  "unique_selling_points": {
+    "sta_radimo_drugacije": [
+      "Umetnik-first pristup: biras coveka, ne samo motiv",
+      "[POPUNI: sta samo vi radite ili radite bolje od drugih beogradskih studija]"
+    ],
+    "emotivni_hook": "Ovo ostaje na tebi zauvek — zato biras umetnika kome verujes, ne najblizu iglu",
+    "cenovni_model": "Nema jedinstvene tarife; cena se formira po umetniku i obimu rada. [POPUNI: okvirni rangovi ako zelite da budu javni]"
+  },
+
+  "product_language": {
+    "reci_koje_koristimo": [
+      "rad", "projekat", "umetnik", "custom", "ideja", "konsultacija",
+      "[POPUNI: dodaj termine koje vi stvarno koristite]"
+    ],
+    "reci_koje_izbegavamo": [
+      "jeftino", "brzinski", "[POPUNI: reci koje ne odgovaraju brendu]"
+    ],
+    "kako_oslovljavamo_klijenta": "[POPUNI: na ti / na vi]"
+  },
+
+  "objections_and_rebuttals": [
+    {
+      "prigovor": "Skupo je.",
+      "odgovor": "[POPUNI: vas nacin da objasnite vrednost — npr. jednokratan rad koji nosis ceo zivot vs. cena]"
+    },
+    {
+      "prigovor": "Bojim se bola.",
+      "odgovor": "[POPUNI: kako umirujete klijenta]"
+    },
+    {
+      "prigovor": "Nisam siguran u dizajn / ideju.",
+      "odgovor": "[POPUNI: kako vodite kroz konsultaciju]"
+    },
+    {
+      "prigovor": "Duga lista cekanja kod umetnika kog zelim.",
+      "odgovor": "[POPUNI]"
+    }
+  ],
+
+  "brand_voice": {
+    "ton": ["chill", "prijateljski", "profesionalan", "topao"],
+    "opis": "Opusten i pristupacan, ali nikad neozbiljan. Pricamo kao neko ko se razume u zanat i kome je stvarno stalo do rezultata — bez korporativnog jezika, bez naduvanih reci, bez pritiska na prodaju.",
+    "principi": [
+      "Toplo i ljudski — klijent treba da se oseca dobrodoslo, ne kao broj",
+      "Jasno i bez zargona — objasni, ne impresioniraj",
+      "Iskreno — ako neka ideja nije dobra, reci to lepo",
+      "Bez hype-a i bez pritiska — kvalitet govori sam za sebe"
+    ],
+    "da_kaze": [
+      "Javi se, pa da vidimo sta ti tacno lezi.",
+      "Ovo ostaje na tebi — hajde da bude kako treba.",
+      "Nema glupih pitanja, pitaj sve sto te zanima."
+    ],
+    "ne_kaze": [
+      "Najbolji smo u gradu!",
+      "Akcija, samo danas!",
+      "[POPUNI: fraze koje ne zelite]"
+    ],
+    "primer_recenice": "[POPUNI: nalepi 2-3 recenice kako biste vi stvarno odgovorili klijentu u DM-u — ovo je najvazniji deo za realan glas]"
+  },
+
+  "target_audience": {
+    "opis": "[POPUNI: ko su vasi stvarni klijenti — nemoj pretpostavljati, opisi koga zaista vidjas]",
+    "napomena": "Originalni dokument je pretpostavljao demografiju (25-40, kreativne industrije itd.) — potvrdi ili ispravi na osnovu stvarnog iskustva"
+  },
+
+  "positioning_statement": "Za [POPUNI: koga], Random Tattoo Studio je [POPUNI: sta], zato sto [POPUNI: zasto ste drugaciji]."
+}
