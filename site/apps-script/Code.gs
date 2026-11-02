@@ -10,8 +10,8 @@
 
 /* ================= PODESAVANJA ================= */
 
-// Tvoj mejl dok se testira. Klijentov ide tek posle provere, uz nov deploy.
-var NOTIFY_TO   = 'pavlegosic9@gmail.com';
+// Studijski mejl, od 02.11.2026. Svaka proba forme od sada stize KLIJENTU.
+var NOTIFY_TO   = 'randomtattoostudio@gmail.com';
 var SENDER_NAME = 'Random Tattoo Studio, sajt';
 var BRAND       = 'Random Tattoo Studio';
 // Tabela sa upitima, vezuje se na dnu mejla. Prazno = link se ne prikazuje.

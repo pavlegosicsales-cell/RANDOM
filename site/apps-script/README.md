@@ -15,8 +15,8 @@ sa obavestenjem.
 6. Kopiraj `/exec` adresu i upisi je u `FORM_ENDPOINT` u `script.js`
    (blok "FORMA (wizard)").
 
-**Stanje:** deployovano i ukljuceno na sajtu 22.09.2026. `NOTIFY_TO` je jos
-uvek Pavlov mejl, sto je namerno dok se ne potvrdi da sve radi.
+**Stanje:** deployovano i ukljuceno na sajtu 22.09.2026. Od 02.11.2026.
+`NOTIFY_TO` pokazuje na studijski mejl, pa svaka proba forme stize klijentu.
 
 ## Kad se nesto menja u skripti
 
